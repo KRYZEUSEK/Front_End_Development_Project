@@ -1,43 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="pageTitle">Moja Strona</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chara Generator — Strona główna</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="light">
-    <header>
-        <div class="top-bar">
-            <div class="lang-switch">
-                <button data-lang="pl">PL</button>
-                <button data-lang="en">EN</button>
-            </div>
+<body>
+  <header class="site-header">
+    <div class="brand">Chara<span class="accent">Generator</span></div>
+    <div class="controls">
+      <label class="small">Język / Language:
+        <select id="site-lang">
+          <option value="pl">Polski</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+      <label class="small">Motyw:
+        <select id="site-theme">
+          <option value="system">System</option>
+          <option value="light">Jasny</option>
+          <option value="dark">Ciemny</option>
+          <option value="colorblind">Colorblind</option>
+        </select>
+      </label>
+    </div>
+  </header>
 
-            <div class="theme-switch">
-                <button data-theme="light" title="Tryb jasny">🌞</button>
-                <button data-theme="dark" title="Tryb ciemny">🌙</button>
-                <button data-theme="colorblind" title="Tryb dla daltonistów">👁️</button>
-            </div>
-        </div>
+  <main class="container">
+    <h1 id="title">Kreator Postaci</h1>
+    <p id="subtitle">Stwórz swoją postać (D&D lub inny system). Zapis i eksport/import wbudowany.</p>
 
-        <h1 data-i18n="mainTitle">Witamy na stronie!</h1>
+    <section class="features card">
+      <h2>Co potrafi kreator</h2>
+      <ul>
+        <li>Imię, nazwisko (opcjonalne), rasa (wybór lub wpisz własną)</li>
+        <li>Wiek, wzrost, waga (opcjonalnie)</li>
+        <li>Typowe statystyki (STR/DEX/CON/INT/WIS/CHA) z suwakami</li>
+        <li>Zapisane w ciasteczku dopóki nie zmienisz</li>
+        <li>Eksport do pliku <code>Imię_Nazwisko_Rasa.txt</code> oraz import</li>
+        <li>Tryby: jasny / ciemny / colorblind + wybór języka (PL/EN)</li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="chara-generator.html" id="open-generator">Otwórz kreator / Open generator</a>
+      </div>
+    </section>
 
-        <nav>
-            <ul>
-                <li data-i18n="menuHome">Strona główna</li>
-                <li data-i18n="menuAbout">O nas</li>
-                <li data-i18n="menuContact">Kontakt</li>
-            </ul>
-        </nav>
-    </header>
+    <footer class="card small muted">
+      <p>Fantasy vibes ✦ Przyjazne kolory, przystępna obsługa.</p>
+    </footer>
+  </main>
 
-    <main>
-        <p data-i18n="welcomeText">
-            To jest przykładowa treść strony z obsługą wielu języków i trybów kolorystycznych.
-        </p>
-    </main>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // Apply saved global language and theme to this page too
+    document.addEventListener('DOMContentLoaded', () => {
+      initGlobalControls();
+      applyTranslations(document.documentElement.lang || 'pl');
+    });
+  </script>
 </body>
 </html>

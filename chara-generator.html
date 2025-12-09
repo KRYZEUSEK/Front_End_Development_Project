@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chara Generator — Kreator postaci</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">Chara<span class="accent">Generator</span></div>
+    <div class="controls">
+      <label class="small">Język:
+        <select id="lang-select">
+          <option value="pl">Polski</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+      <label class="small">Motyw:
+        <select id="theme-select">
+          <option value="system">System</option>
+          <option value="light">Jasny</option>
+          <option value="dark">Ciemny</option>
+          <option value="colorblind">Colorblind</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 id="page-title">Kreator postaci</h1>
+
+    <form id="chara-form" class="card">
+      <fieldset>
+        <legend id="legend-basic">Podstawowe</legend>
+        <label>Imię*:
+          <input type="text" id="firstName" required />
+        </label>
+        <label>Nazwisko:
+          <input type="text" id="lastName" />
+        </label>
+        <label>Rasa:
+          <select id="raceSelect">
+            <option value="Human">Human / Człowiek</option>
+            <option value="Elf">Elf</option>
+            <option value="Dwarf">Dwarf / Krasnolud</option>
+            <option value="Orc">Orc</option>
+            <option value="Custom">Custom / Własna</option>
+          </select>
+        </label>
+        <label id="custom-race-label" style="display:none">Własna rasa:
+          <input type="text" id="customRace" />
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend id="legend-stats">Statystyki</legend>
+        <label>Wiek:
+          <input type="number" id="age" min="0" />
+        </label>
+        <label>Wzrost (cm):
+          <input type="number" id="height" min="0" />
+        </label>
+        <label>Waga (kg):
+          <input type="number" id="weight" min="0" />
+        </label>
+
+        <div class="stats-grid">
+          <div class="stat">
+            <label>STR <span id="strVal">10</span></label>
+            <input type="range" id="str" min="1" max="20" value="10" />
+          </div>
+          <div class="stat">
+            <label>DEX <span id="dexVal">10</span></label>
+            <input type="range" id="dex" min="1" max="20" value="10" />
+          </div>
+          <div class="stat">
+            <label>CON <span id="conVal">10</span></label>
+            <input type="range" id="con" min="1" max="20" value="10" />
+          </div>
+          <div class="stat">
+            <label>INT <span id="intVal">10</span></label>
+            <input type="range" id="int" min="1" max="20" value="10" />
+          </div>
+          <div class="stat">
+            <label>WIS <span id="wisVal">10</span></label>
+            <input type="range" id="wis" min="1" max="20" value="10" />
+          </div>
+          <div class="stat">
+            <label>CHA <span id="chaVal">10</span></label>
+            <input type="range" id="cha" min="1" max="20" value="10" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend id="legend-extra">Dodatkowe</legend>
+        <label>Alignment / Charakter:
+          <input type="text" id="alignment" placeholder="np. Chaotic Good / Chaotyczny Dobry" />
+        </label>
+        <label>Notatki:
+          <textarea id="notes" rows="4" placeholder="Notatki o postaci, historia, wyposażenie..."></textarea>
+        </label>
+      </fieldset>
+
+      <div class="form-actions">
+        <button type="button" id="saveLocal" class="btn">Zapisz (cookie)</button>
+        <button type="button" id="exportBtn" class="btn">Eksportuj (Pobierz)</button>
+        <label class="btn file">
+          Importuj
+          <input type="file" id="importFile" accept=".txt" />
+        </label>
+        <button type="button" id="resetBtn" class="btn ghost">Resetuj</button>
+      </div>
+    </form>
+
+    <section class="card small" id="previewCard">
+      <h3 id="previewTitle">Podgląd postaci</h3>
+      <pre id="preview"></pre>
+    </section>
+
+    <footer class="small muted card">
+      <a href="index.html">← Powrót</a>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initGeneratorPage();
+    });
+  </script>
+</body>
+</html>

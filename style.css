@@ -119,7 +119,7 @@
   border: none;
   padding: 8px 12px;
   border-radius: 6px;
-  cursor: pointer;
+	cursor: url('cursors/Cherry-Wood-_filter-select_.png'), pointer;
   color: var(--text-color);
 }
 
@@ -140,7 +140,7 @@
   padding: 8px;
   border-radius: 6px;
   color: white;
-  cursor: pointer;
+	cursor: url('cursors/Cherry-Wood-_filter-select_.png'), pointer;
   width: 42px;
   height: 42px;
 }
@@ -153,12 +153,17 @@
    MAIN
 ----------------------------------- */
   
+html {
+	cursor: url('cursors/Cherry Wood (normal select).cur'), auto;
+}
+  
 body {
     margin: 0;
     font-family: "Georgia", serif;
     background: radial-gradient(circle at top, var(--bg-main), var(--bg-darker));
     color: var(--text-vlight);
     overflow-x: hidden;
+	cursor: url('cursors/Cherry Wood (normal select).cur'), auto;
 }
 
 /* Ambient fog */
@@ -198,6 +203,7 @@ nav a {
 nav a:hover {
     color: var(--text-glow);
     text-shadow: 0 0 8px var(--text-glow);
+	cursor: url('cursors/Cherry-Wood-_filter-select_.png'), pointer;
 }
 
 .container {
@@ -237,7 +243,7 @@ input, select, textarea, button {
 button {
     background: var(--button);
     color: white;
-    cursor: pointer;
+	cursor: url('cursors/Cherry-Wood-_filter-select_.png'), pointer;
 }
 
 button:hover {

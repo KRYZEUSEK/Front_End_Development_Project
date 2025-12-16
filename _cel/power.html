@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Power Scaling</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+</head>
+<body>
+
+<header>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="character.html">Character Creator</a>
+  <a href="name.html">Name Generator</a>
+  <a href="power.html">Power Scaling</a>
+</nav>
+</header>
+
+<div class="container">
+<h1>Power Scaling</h1>
+
+<p>
+This page uses your saved character to calculate overall strength.
+</p>
+
+<button onclick="
+const c = JSON.parse(localStorage.getItem('cg_chara')||'null');
+if(!c){alert('No saved character');return;}
+let total=0;
+Object.values(c.stats).forEach(v=>total+=v);
+alert('Total Ability Score: '+total);
+">
+Calculate Power
+</button>
+
+</div>
+</body>
+</html>

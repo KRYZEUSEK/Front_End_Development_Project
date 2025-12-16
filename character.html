@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Character Creator</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+<script src="lan.js"></script>
+</head>
+
+<body class="light-mode">
+
+  <!-- LANG + MODE SWITCHER -->
+  <div class="top-controls">
+    <div class="language-switcher">
+      <button onclick="setLanguage('en')">EN</button>
+      <button onclick="setLanguage('pl')">PL</button>
+    </div>
+
+    <div class="mode-switcher">
+      <button onclick="setMode('light')">🌞</button>
+      <button onclick="setMode('dark')">🌑</button>
+      <button onclick="setMode('colorblind')">👁️</button>
+    </div>
+  </div>
+
+<header>
+<nav>
+  <a href="index.html" data-i18n="home">Home</a>
+  <a href="character.html" data-i18n="Chara">Character Creator</a>
+  <a href="name.html" data-i18n="NameGen">Name Generator</a>
+  <a href="power.html" data-i18n="PowerScaling">Power Scaling</a>
+</nav>
+</header>
+
+<div class="container">
+<h1 id="page-title" data-i18n="Chara">Character Creator</h1>
+<p id="subtitle"></p>
+
+<form id="chara-form">
+
+<fieldset>
+  <legend id="legend-basic">Basic</legend>
+
+  <label>First Name</label>
+  <input id="firstName" type="text">
+
+  <label>Last Name</label>
+  <input id="lastName" type="text">
+
+  <label>Race</label>
+  <select id="raceSelect">
+    <option>Human</option>
+    <option>Elf</option>
+    <option>Dwarf</option>
+    <option>Halfling</option>
+    <option>Tiefling</option>
+    <option>Custom</option>
+  </select>
+
+  <label id="custom-race-label">
+    Custom Race
+    <input id="customRace" type="text">
+  </label>
+
+  <label>Alignment</label>
+  <select id="alignment">
+    <option>Lawful Good</option>
+    <option>Neutral Good</option>
+    <option>Chaotic Good</option>
+    <option>Lawful Neutral</option>
+    <option>True Neutral</option>
+    <option>Chaotic Neutral</option>
+    <option>Lawful Evil</option>
+    <option>Neutral Evil</option>
+    <option>Chaotic Evil</option>
+  </select>
+</fieldset>
+
+<fieldset>
+  <legend id="legend-stats">Statistics</legend>
+
+  <div class="stats-grid">
+    <div><label>STR</label><input id="str" type="number" value="10" min="8" max="15"></div>
+    <div><label>DEX</label><input id="dex" type="number" value="10" min="8" max="15"></div>
+    <div><label>CON</label><input id="con" type="number" value="10" min="8" max="15"></div>
+    <div><label>INT</label><input id="int" type="number" value="10" min="8" max="15"></div>
+    <div><label>WIS</label><input id="wis" type="number" value="10" min="8" max="15"></div>
+    <div><label>CHA</label><input id="cha" type="number" value="10" min="8" max="15"></div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend id="legend-extra">Extra</legend>
+
+  <label>Age</label>
+  <input id="age" type="text">
+
+  <label>Height</label>
+  <input id="height" type="text">
+
+  <label>Weight</label>
+  <input id="weight" type="text">
+
+  <label>Notes / Backstory</label>
+  <textarea id="notes" rows="4"></textarea>
+</fieldset>
+
+<button type="button" id="saveLocal">Save</button>
+<button type="button" id="exportBtn">Export</button>
+<button type="button" id="resetBtn">Reset</button>
+
+</form>
+
+<h2 id="previewTitle">Character Preview</h2>
+<pre id="preview"></pre>
+
+</div>
+</body>
+</html>

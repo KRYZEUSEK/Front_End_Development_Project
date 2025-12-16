@@ -1,0 +1,7 @@
+Aktualnym celem jest dostosowanie aktualnej strony do tego designu i sprawienie, że te strony będą w ogóle działały. Kod został wygenerowany przez chat GPT jak i całe strony, ale generalnie zgadza się z wizją artystyczną. Poprzednia wersja strony nie jest dostatecznie mythical czy coś w tym rodzaju.
+
+Celem nr.2 jest stworzenie animacji spadających liści aby te mogły być położone w tle/półprzezroczysto z przodu.
+
+Innym pomysłem (może dobrym) byłoby zmienienie kursora na coś mniej nowoczesnego, ale to też kwestie wyglądowe. 
+
+Celem jest aby strona wyglądała jak jakiś magiczny forest, czy coś w tym rodzaju.

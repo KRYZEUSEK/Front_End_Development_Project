@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <title>Character Creator</title>
 <link rel="stylesheet" href="style.css">
+<script src="lan.js" defer></script>
 <script src="script.js" defer></script>
-<script src="lan.js"></script>
 </head>
 
-<body class="light-mode">
+<body>
 
   <!-- LANG + MODE SWITCHER -->
   <div class="top-controls">
@@ -35,84 +35,84 @@
 
 <div class="container">
 <h1 id="page-title" data-i18n="Chara">Character Creator</h1>
-<p id="subtitle"></p>
+<p data-i18n="subtitle"></p>
 
 <form id="chara-form">
 
 <fieldset>
-  <legend id="legend-basic">Basic</legend>
+  <legend data-i18n="legendBasic">Basic</legend>
 
-  <label>First Name</label>
+  <label data-i18n="firstNameLabel">First Name</label>
   <input id="firstName" type="text">
 
-  <label>Last Name</label>
+  <label data-i18n="lastNameLabel">Last Name</label>
   <input id="lastName" type="text">
 
-  <label>Race</label>
+  <label data-i18n="raceLabel">Race</label>
   <select id="raceSelect">
-    <option>Human</option>
-    <option>Elf</option>
-    <option>Dwarf</option>
-    <option>Halfling</option>
-    <option>Tiefling</option>
-    <option>Custom</option>
+    <option data-i18n="raceHuman">Human</option>
+    <option data-i18n="raceElf">Elf</option>
+    <option data-i18n="raceDwarf">Dwarf</option>
+    <option data-i18n="raceHalfling">Halfling</option>
+    <option data-i18n="raceTiefling">Tiefling</option>
+    <option data-i18n="raceCustom">Custom</option>
   </select>
 
-  <label id="custom-race-label">
+  <label data-i18n="customRaceLabel">
     Custom Race
     <input id="customRace" type="text">
   </label>
 
-  <label>Alignment</label>
+  <label data-i18n="alignmentLabel">Alignment</label>
   <select id="alignment">
-    <option>Lawful Good</option>
-    <option>Neutral Good</option>
-    <option>Chaotic Good</option>
-    <option>Lawful Neutral</option>
-    <option>True Neutral</option>
-    <option>Chaotic Neutral</option>
-    <option>Lawful Evil</option>
-    <option>Neutral Evil</option>
-    <option>Chaotic Evil</option>
+    <option data-i18n="alignmentLG">Lawful Good</option>
+    <option data-i18n="alignmentNG">Neutral Good</option>
+    <option data-i18n="alignmentCG">Chaotic Good</option>
+    <option data-i18n="alignmentLN">Lawful Neutral</option>
+    <option data-i18n="alignmentTN">True Neutral</option>
+    <option data-i18n="alignmentCN">Chaotic Neutral</option>
+    <option data-i18n="alignmentLE">Lawful Evil</option>
+    <option data-i18n="alignmentNE">Neutral Evil</option>
+    <option data-i18n="alignmentCE">Chaotic Evil</option>
   </select>
 </fieldset>
 
 <fieldset>
-  <legend id="legend-stats">Statistics</legend>
+  <legend data-i18n="legendStats">Statistics</legend>
 
   <div class="stats-grid">
-    <div><label>STR</label><input id="str" type="number" value="10" min="8" max="15"></div>
-    <div><label>DEX</label><input id="dex" type="number" value="10" min="8" max="15"></div>
-    <div><label>CON</label><input id="con" type="number" value="10" min="8" max="15"></div>
-    <div><label>INT</label><input id="int" type="number" value="10" min="8" max="15"></div>
-    <div><label>WIS</label><input id="wis" type="number" value="10" min="8" max="15"></div>
-    <div><label>CHA</label><input id="cha" type="number" value="10" min="8" max="15"></div>
+    <div><label data-i18n="STR">STR</label><input id="str" type="number" value="10" min="8" max="15"></div>
+    <div><label data-i18n="DEX">DEX</label><input id="dex" type="number" value="10" min="8" max="15"></div>
+    <div><label data-i18n="CON">CON</label><input id="con" type="number" value="10" min="8" max="15"></div>
+    <div><label data-i18n="INT">INT</label><input id="int" type="number" value="10" min="8" max="15"></div>
+    <div><label data-i18n="WIS">WIS</label><input id="wis" type="number" value="10" min="8" max="15"></div>
+    <div><label data-i18n="CHA">CHA</label><input id="cha" type="number" value="10" min="8" max="15"></div>
   </div>
 </fieldset>
 
 <fieldset>
-  <legend id="legend-extra">Extra</legend>
+  <legend data-i18n="legendExtra">Extra</legend>
 
-  <label>Age</label>
+  <label data-i18n="ageLabel">Age</label>
   <input id="age" type="text">
 
-  <label>Height</label>
+  <label data-i18n="heightLabel">Height</label>
   <input id="height" type="text">
 
-  <label>Weight</label>
+  <label data-i18n="weightLabel">Weight</label>
   <input id="weight" type="text">
 
-  <label>Notes / Backstory</label>
+  <label data-i18n="notesLabel">Notes / Backstory</label>
   <textarea id="notes" rows="4"></textarea>
 </fieldset>
 
-<button type="button" id="saveLocal">Save</button>
-<button type="button" id="exportBtn">Export</button>
-<button type="button" id="resetBtn">Reset</button>
+<button type="button" id="saveLocal" data-i18n="saveBtn">Save</button>
+<button type="button" id="exportBtn" data-i18n="exportBtn">Export</button>
+<button type="button" id="resetBtn" data-i18n="resetBtn">Reset</button>
 
 </form>
 
-<h2 id="previewTitle">Character Preview</h2>
+<h2 data-i18n="previewTitle">Character Preview</h2>
 <pre id="preview"></pre>
 
 </div>

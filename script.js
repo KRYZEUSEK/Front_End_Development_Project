@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setMode(savedMode);
 });
 
+// Mode switcher
 function setMode(mode) {
   const root = document.documentElement;
 
@@ -28,19 +29,26 @@ function setMode(mode) {
 /* ------------------------------
    GLOBAL LANGUAGE SWITCHER
 ------------------------------ */
+
+// This function is called by buttons
 function setLanguage(lang) {
+  // Save selection
   localStorage.setItem("lang", lang);
 
-  // Your pages handle their own translation
-  if (typeof updateLanguage === "function") {
-    updateLanguage(lang);  
+  // Call translation function from lan.js
+  if (typeof setLang === "function") {
+    setLang(lang);
   }
 }
-
-// Load language if needed
+/* ------------------------------
+   GLOBAL MODE & LANGUAGE APPLY
+------------------------------ */
 document.addEventListener("DOMContentLoaded", () => {
-  const saved = localStorage.getItem("lang");
-  if (saved && typeof updateLanguage === "function") {
-    updateLanguage(saved);
-  }
+  // Apply saved mode
+  const savedMode = localStorage.getItem("uiMode") || "light";
+  setMode(savedMode);
+
+  // Apply saved language
+  const savedLang = localStorage.getItem("lang") || "en";
+  setLang(savedLang);
 });

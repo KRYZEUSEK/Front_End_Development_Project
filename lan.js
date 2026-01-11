@@ -120,6 +120,7 @@ const translations = {
     notesLabel: "Notatki / Historia",
     saveBtn: "Zapisz",
     exportBtn: "Eksportuj",
+    loadBtn: "Eksportuj",
     resetBtn: "Resetuj",
     previewTitle: "Podgląd Postaci"
   }

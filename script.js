@@ -27,93 +27,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ------------------------------
    Video + Sound
+------------------------------ *//* ------------------------------
+   Audio (Local Files)
 ------------------------------ */
-let player;
-let currentVideoId = "";
-let playerReady = false;
 
-// Create hidden YouTube container if it doesn't exist
-if (!document.getElementById("yt-player")) {
-  const div = document.createElement("div");
-  div.id = "yt-player";
-  div.style.display = "none";
-  document.body.appendChild(div);
-}
+const audioPlayer = new Audio();
+audioPlayer.loop = true;
+audioPlayer.volume = 0.7; // default
 
-// Load YouTube IFrame API
-let tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-document.head.appendChild(tag);
-
-// This function **must be global** for YouTube API
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('yt-player', {
-    height: '0',
-    width: '0',
-    videoId: '', // start empty
-    playerVars: {
-      autoplay: 0,
-      controls: 0,
-      loop: 1,
-      playlist: '', // will set dynamically
-      mute: 0
-    },
-    events: {
-      'onReady': () => {
-        playerReady = true;
-      }
-    }
-  });
-}
-
-// Play a video once the player is ready
-function playVideo(videoId, volume) {
-  if (!playerReady) {
-    // Wait until player is ready
-    setTimeout(() => playVideo(videoId, volume), 100);
-    return;
-  }
-
-  if (currentVideoId !== videoId) {
-    player.loadVideoById({
-      videoId: videoId,
-      startSeconds: 0
-    });
-    player.setLoop(true);
-    currentVideoId = videoId;
-  }
-
-  player.setVolume(volume);
-  player.playVideo();
-}
-
-// Call this inside your existing setMode
 function handleModeAudio(mode) {
-  let videoId = "";
-  let volume = 70;
+  let src = "";
+  let volume = 0.7;
 
   switch (mode) {
     case "dark":
-      videoId = "xJsE3YUkHq8";
-      volume = 70;
+      src = "audio/dark.ogg";
+      volume = 0.4;
       break;
+
     case "colorblind":
-      videoId = "xNN7iTA57jM";
-      volume = 40;
+      src = "audio/light.ogg";
+      volume = 0.15;
       break;
+
     case "rain":
-      videoId = "SnUBb-FAlCY";
-      volume = 50;
+      src = "audio/rain.ogg";
+      volume = 0.2;
       break;
+
+    case "winter":
+      src = "audio/snow.ogg";
+      volume = 0.3;
+      break;
+
     default: // light
-      videoId = "xNN7iTA57jM";
-      volume = 70;
+      src = "audio/light.ogg";
+      volume = 0.2;
       break;
   }
 
-  playVideo(videoId, volume);
-}
+  if (audioPlayer.src !== location.origin + "/" + src) {
+    audioPlayer.src = src;
+  }
 
+  audioPlayer.volume = volume;
+  audioPlayer.play().catch(() => {
+    // Autoplay blocked until user interacts
+    console.warn("Audio playback blocked until user interaction");
+  });
+}
 
 
 /* ------------------------------

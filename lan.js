@@ -106,6 +106,8 @@ const translations = {
     resetBtn: "Reset",
     noChoices: "No choices required at this level.",
     subclass: "Subclass",
+    classLabel: "Class",
+    levelLabel: "Level",
     choose: "choose",
     asiFeat: "ASI / Feat",
     ASI: "ASI",
@@ -126,6 +128,7 @@ const translations = {
     sorcerer: "Sorcerer",
     warlock: "Warlock",
     wizard: "Wizard",
+    artificer: "Artificer",
 
     // Subclasses
     berserker: "Berserker",
@@ -299,6 +302,8 @@ const translations = {
     resetBtn: "Resetuj",
     noChoices: "Ten poziom nie wymaga wyborów.",
     subclass: "Podklasa",
+    classLabel: "Klasa",
+    levelLabel: "Poziom",
     choose: "wybierz",
     asiFeat: "B/O (Wzrost cech / Feat)",
     ASI: "B/O",
@@ -318,6 +323,7 @@ const translations = {
     sorcerer: "Czarodziej",
     warlock: "Czarownik",
     wizard: "Mag",
+    artificer: "Artyfiser",
 
     // Subclasses
     berserker: "Berserker",

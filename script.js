@@ -584,3 +584,25 @@ function handlePointBuy(e) {
   // Initialize manual mode
   switchMode('manual');
 });
+
+/* Lanuage */
+
+
+// Randomize First Name
+document.getElementById("randomFirstBtn").addEventListener("click", () => {
+  const race = document.getElementById("raceSelect").value;
+  const gender = document.getElementById("gender").value;
+  const firstName = generateFirstName(race, gender);
+  document.getElementById("firstName").value = firstName;
+  updatePreview(); // optional: update preview if you have it
+});
+
+// Randomize Last Name
+document.getElementById("randomLastBtn").addEventListener("click", () => {
+  const race = document.getElementById("raceSelect").value;
+  const gender = document.getElementById("gender").value;
+  const lastName = generateSurname(race, gender);
+  document.getElementById("lastName").value = lastName;
+  updatePreview(); // optional
+});
+

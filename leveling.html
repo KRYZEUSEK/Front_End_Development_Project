@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title data-i18n="Leveling">Leveling</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="data/classes.js" defer></script>
+<script src="data/classProgression.js" defer></script>
+<script src="data/spells.js" defer></script>
+<script src="data/feats.js" defer></script>
+<script src="leveling.js" defer></script>
+<script src="lan.js" defer></script>
+<script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <!-- LANG + MODE SWITCHER -->
+  <div class="top-controls">
+    <div class="language-switcher">
+      <button onclick="setLanguage('en')">EN</button>
+      <button onclick="setLanguage('pl')">PL</button>
+    </div>
+
+    <div class="mode-switcher">
+      <button onclick="setMode('light')">🌞</button>
+      <button onclick="setMode('rain')">🌧️</button>
+      <button onclick="setMode('dark')">🌑</button>
+      <button onclick="setMode('colorblind')">👁️</button>
+      <button id="winter-btn" onclick="setMode('winter')" style="display:none;">❄️</button>
+    </div>
+  </div>
+
+<header>
+<nav>
+  <a href="index.html" data-i18n="home">Home</a>
+  <a href="character.html" data-i18n="Chara">Character Creator</a>
+  <a href="leveling.html" data-i18n="Leveling">Leveling</a>
+  <a href="name.html" data-i18n="NameGen">Name Generator</a>
+  <a href="power.html" data-i18n="PowerScaling">Power Scaling</a>
+</nav>
+</header>
+
+<div class="container">
+
+<h1 data-i18n="levelingHeader">Character Leveling</h1>
+<p id="char-summary"></p>
+
+<!-- LEVEL UP -->
+<fieldset>
+  <legend data-i18n="levelUp">Level Up</legend>
+
+  <label data-i18n="chooseClass">Choose Class</label>
+  <select id="levelClassSelect"></select>
+
+  <button type="button" id="startLevelBtn" data-i18n="startLevelBtn">Start Level-Up</button>
+</fieldset>
+
+<!-- CHOICES -->
+<fieldset id="levelChoicesFieldset" style="display:none;">
+  <legend data-i18n="levelChoices">Level Choices</legend>
+  <div id="level-choices"></div>
+</fieldset>
+
+<!-- CONFIRM -->
+<button type="button" id="confirmLevelBtn" disabled data-i18n="confirmLevelBtn">
+  Confirm Level
+</button>
+
+<hr>
+
+<!-- HISTORY -->
+<h2 data-i18n="levelHistory">Level History</h2>
+<pre id="levelPreview"></pre>
+
+<!-- SAVE / LOAD -->
+<button id="exportLeveling" data-i18n="loadBtn">Export</button>
+<input type="file" id="importLevelingFile" hidden>
+<button id="importLeveling" data-i18n="importBtn">Import</button>
+<button id="resetLeveling" data-i18n="resetBtn">Reset</button>
+
+</div>
+</body>
+</html>

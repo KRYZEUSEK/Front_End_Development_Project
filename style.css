@@ -182,11 +182,7 @@
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(
-    circle at top,
-    rgba(255,255,255,0.35),
-    transparent 60%
-  );
+  background: url("https://www.transparenttextures.com/patterns/fresh-snow.png");
   z-index: 0;
 }
 
@@ -395,6 +391,27 @@ html.ambient::before {
   }
 }
 
+.name-item,
+.saved-item {
+    background: var(--ambient-grad-1);
+    border: 2px solid var(--bg-main);
+
+    padding: 10px;
+    margin: 6px 0;
+
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 17px;
+}
+
+/* style.css */
+fieldset:nth-of-type(2) input:disabled {
+    color: var(--text-vlight);
+}
+
+
 .snowflake {
   position: fixed;
   top: -2rem;
@@ -428,22 +445,10 @@ html.ambient::before {
   }
 }
 
-.name-item,
-.saved-item {
-    background: var(--ambient-grad-1);
-    border: 2px solid var(--bg-main);
-
-    padding: 10px;
-    margin: 6px 0;
-
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 17px;
-}
-
-/* style.css */
-fieldset:nth-of-type(2) input:disabled {
-    color: var(--text-vlight);
+.name-random-container button {
+  padding: 2px 6px;        /* very small */
+  font-size: 0.8em;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
 }

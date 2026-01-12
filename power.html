@@ -6,24 +6,25 @@
 <link rel="stylesheet" href="style.css">
 <script src="lan.js" defer></script>
 <script src="script.js" defer></script>
+<script src="powerscaling_script.js" defer></script>
 </head>
 <body>
 
-  <!-- LANG + MODE SWITCHER -->
-  <div class="top-controls">
-    <div class="language-switcher">
-      <button onclick="setLanguage('en')">EN</button>
-      <button onclick="setLanguage('pl')">PL</button>
-    </div>
-
-    <div class="mode-switcher">
-      <button onclick="setMode('light')">🌞</button>
-	  <button onclick="setMode('rain')">🌧️</button>
-      <button onclick="setMode('dark')">🌑</button>
-      <button onclick="setMode('colorblind')">👁️</button>
-      <button id="winter-btn" onclick="setMode('winter')" style="display:none;">❄️</button>
-    </div>
+<!-- LANG + MODE SWITCHER -->
+<div class="top-controls">
+  <div class="language-switcher">
+    <button onclick="setLanguage('en')">EN</button>
+    <button onclick="setLanguage('pl')">PL</button>
   </div>
+
+  <div class="mode-switcher">
+    <button onclick="setMode('light')">🌞</button>
+    <button onclick="setMode('rain')">🌧️</button>
+    <button onclick="setMode('dark')">🌑</button>
+    <button onclick="setMode('colorblind')">👁️</button>
+    <button id="winter-btn" onclick="setMode('winter')" style="display:none;">❄️</button>
+  </div>
+</div>
 
 <header>
 <nav>
@@ -35,22 +36,141 @@
 </header>
 
 <div class="container">
-<h1 data-i18n="PowerScaling">Power Scaling</h1>
+  <h1 data-i18n="PowerScaling">Power Scaling</h1>
+  <p data-i18n="PowerScalingDescriptionLong">
+    Compare two characters and estimate which one would most likely win.
+  </p>
 
-<p id="page-title" data-i18n="PowerScalingDescriptionLong">
-This page uses your saved character to calculate overall strength.
-</p>
+  <!-- MAIN COMPARISON LAYOUT -->
+  <div style="display:flex; justify-content:space-between; gap:30px; margin-top:40px; align-items:flex-start;">
 
-<button data-i18n="PowerScalingButton" onclick="
-const c = JSON.parse(localStorage.getItem('cg_chara')||'null');
-if(!c){alert('No saved character');return;}
-let total=0;
-Object.values(c.stats).forEach(v=>total+=v);
-alert('Total Ability Score: '+total);
-">
-Calculate Power
-</button>
+    <!-- LEFT CHARACTER -->
+    <div style="flex:1; text-align:center;">
+      <h2>Character A</h2>
+      <button onclick="loadCharacter('A')">Load saved → Character A</button>
+      <br><br>
+      <input type="file" accept=".json" onchange="loadFromFile(event, 'A')">
+      <pre id="charA-preview" style="margin-top:15px; text-align:left;"></pre>
+    </div>
 
+    <!-- CENTER ACTION -->
+    <div style="flex:0.6; text-align:center;">
+      <button id="compare-btn" style="font-size:1.2em; padding:15px 30px; margin-top:20px;">
+        ⚔️ Compare
+      </button>
+
+      <div id="comparison-result" style="margin-top:20px;">
+        <div>
+          <strong id="winner">Winner:</strong>
+        </div>
+        <div>
+          <strong>Character A:</strong>
+          <div style="background:#ccc; height:16px; border-radius:8px; margin-bottom:8px;">
+            <div id="chanceA" style="width:0%; height:100%; background:#4caf50; border-radius:8px; text-align:right; color:#fff; font-size:0.8em;"></div>
+          </div>
+        </div>
+        <div>
+          <strong>Character B:</strong>
+          <div style="background:#ccc; height:16px; border-radius:8px; margin-bottom:8px;">
+            <div id="chanceB" style="width:0%; height:100%; background:#4caf50; border-radius:8px; text-align:right; color:#fff; font-size:0.8em;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT CHARACTER -->
+    <div style="flex:1; text-align:center;">
+      <h2>Character B</h2>
+      <button onclick="loadCharacter('B')">Load saved → Character B</button>
+      <br><br>
+      <input type="file" accept=".json" onchange="loadFromFile(event, 'B')">
+      <pre id="charB-preview" style="margin-top:15px; text-align:left;"></pre>
+    </div>
+
+  </div>
 </div>
+
+<!-- PAGE SCRIPT -->
+<script>
+let characterA = null;
+let characterB = null;
+
+function adaptCharacter(raw, fallbackName) {
+  return {
+    name: raw.firstName || fallbackName,
+    className: raw.className || raw.class || "Fighter",
+    level: Number(raw.level) || 1,
+    stats: {
+      STR: raw.stats?.str ?? 10,
+      DEX: raw.stats?.dex ?? 10,
+      CON: raw.stats?.con ?? 10,
+      INT: raw.stats?.int ?? 10,
+      WIS: raw.stats?.wis ?? 10,
+      CHA: raw.stats?.cha ?? 10
+    }
+  };
+}
+
+function loadCharacter(side) {
+  const c = JSON.parse(localStorage.getItem('cg_chara') || 'null');
+  if (!c) { alert('No saved character'); return; }
+  assignCharacter(side, c);
+}
+
+function loadFromFile(event, side) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const data = JSON.parse(reader.result);
+    assignCharacter(side, data);
+  };
+  reader.readAsText(file);
+}
+
+function assignCharacter(side, rawData) {
+  const adapted = adaptCharacter(rawData, side === 'A' ? 'Character A' : 'Character B');
+  if (side === 'A') {
+    characterA = adapted;
+    document.getElementById('charA-preview').textContent = JSON.stringify(adapted, null, 2);
+    localStorage.setItem('characterA', JSON.stringify(adapted));
+  } else {
+    characterB = adapted;
+    document.getElementById('charB-preview').textContent = JSON.stringify(adapted, null, 2);
+    localStorage.setItem('characterB', JSON.stringify(adapted));
+  }
+}
+
+/* -----------------------------
+   COMPARE BUTTON – DOPIERO PO ZAŁADOWANIU STRONY
+------------------------------ */
+document.addEventListener("DOMContentLoaded", function() {
+  const compareBtn = document.getElementById("compare-btn");
+  if (!compareBtn) return;
+
+  compareBtn.addEventListener("click", function() {
+    if (!window.compareCharacters) {
+      console.error("compareCharacters not loaded");
+      alert("PowerScaling script not loaded yet!");
+      return;
+    }
+
+    if (!characterA || !characterB) {
+      alert("Load both characters first!");
+      return;
+    }
+
+    const result = window.compareCharacters(characterA, characterB);
+
+    // render result
+    document.getElementById("winner").innerText = "Winner: " + result.winner;
+    document.getElementById("chanceA").style.width = result.probabilities[characterA.name] + "%";
+    document.getElementById("chanceA").innerText = result.probabilities[characterA.name] + "%";
+    document.getElementById("chanceB").style.width = result.probabilities[characterB.name] + "%";
+    document.getElementById("chanceB").innerText = result.probabilities[characterB.name] + "%";
+  });
+});
+</script>
+
 </body>
 </html>

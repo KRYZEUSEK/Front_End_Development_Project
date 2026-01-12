@@ -300,82 +300,7 @@ document.querySelectorAll("input[type=number]").forEach(input => {
 /* ------------------------------
    Winter and Rain Theme
 ------------------------------ */
-
-function randomIceHex() {
-  const t = Math.random();
-  const r = Math.round(255 + t * (93 - 255));
-  const g = Math.round(255 + t * (209 - 255));
-  const b = Math.round(255 + t * (228 - 255));
-  return `rgb(${r}, ${g}, ${b})`;
-}
-
-function startSnow() {
-  const emojis = ['❄', '❅', '❆', '❃', '❈', '❉', '❊', '❋'];
-
-  if (snowInterval !== null) return; // 🛑 already running
-
-  snowInterval = setInterval(() => {
-    const snowflake = document.createElement("div");
-    snowflake.className = "snowflake";
-    snowflake.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-    snowflake.style.left = Math.random() * 100 + "vw";
-    snowflake.style.animationDuration = 3 + Math.random() * 5 + "s";
-    snowflake.style.fontSize = 0.8 + Math.random() * 1.2 + "rem";
-    snowflake.style.color = randomIceHex();
-
-    document.body.appendChild(snowflake);
-    setTimeout(() => snowflake.remove(), 8000);
-  }, 300);
-}
-
-function startRain() {
-  const emojis = ['|', '│', '|', '╵', '〡', '╹', '╻', '╷', '︲'];
-
-  if (rainInterval !== null) return; // already running
-
-  rainInterval = setInterval(() => {
-    const raindrop = document.createElement("div");
-    raindrop.className = "raindrop";
-    raindrop.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-
-    raindrop.style.left = Math.random() * 100 + "vw";
-    raindrop.style.fontSize = 0.8 + Math.random() * 1.2 + "rem";
-    raindrop.style.color = randomIceHex();
-    raindrop.style.opacity = 0.4; // 50% transparent
-
-    // Randomize animation duration for variation
-    const duration = 3 + Math.random() * 5;
-    raindrop.style.animationDuration = duration + "s";
-
-    document.body.appendChild(raindrop);
-
-    // Remove after animation ends
-    setTimeout(() => raindrop.remove(), duration * 1000);
-  }, 100);
-}
-
-function stopSnow() {
-  if (snowInterval === null) return;
-
-  clearInterval(snowInterval);
-  snowInterval = null;
-
-  document.querySelectorAll(".snowflake").forEach(e => e.remove());
-}
-
-
-function stopRain() {
-  if (rainInterval === null) return;
-
-  clearInterval(rainInterval);
-  rainInterval = null;
-
-  document.querySelectorAll(".raindrop").forEach(e => e.remove());
-}
-
-/* ------------------------------
-   Character Points
------------------------------- */
+// script.js
 
 document.addEventListener('DOMContentLoaded', () => {
   const stats = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
@@ -383,30 +308,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const statsFieldset = document.querySelector('fieldset:nth-of-type(2)'); // Statistics fieldset
 
+  // Mode definitions with translation keys for tooltips
+  const modes = [
+    { id: 'manual', textKey: 'manualMode', tooltipKey: 'manualTooltip' },
+    { id: 'randomDrop', textKey: 'randomDropMode', tooltipKey: 'randomDropTooltip' },
+    { id: 'randomAll', textKey: 'randomAllMode', tooltipKey: 'randomAllTooltip' },
+    { id: 'pointBuy', textKey: 'pointBuyMode', tooltipKey: 'pointBuyTooltip' }
+  ];
+
   // Create mode buttons container
   const modeContainer = document.createElement('div');
   modeContainer.style.display = 'flex';
   modeContainer.style.gap = '10px';
   modeContainer.style.marginBottom = '10px';
 
-  // Create buttons with tooltips
-  const manualBtn = createModeButton('Manual', 'manual', 'Type any number for stats');
-  const randomDropBtn = createModeButton('Random (drop lowest)', 'randomDrop', 'Roll 4d6 and drop the lowest die');
-  const randomAllBtn = createModeButton('Random (all dice)', 'randomAll', 'Roll 4d6 sum all dice (harsher stats)');
-  const pointsBtn = createModeButton('Point Buy', 'pointBuy', 'Distribute 27 points using DnD point-buy rules');
+  const modeButtons = {};
 
-  // Append buttons to container
-  [manualBtn, randomDropBtn, randomAllBtn, pointsBtn].forEach(btn => modeContainer.appendChild(btn));
+  // Create buttons
+  modes.forEach(mode => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = mode.id + 'Btn';
+    btn.style.padding = '5px 10px';
+    btn.style.cursor = 'pointer';
+    btn.style.whiteSpace = 'nowrap';
+    btn.addEventListener('click', () => switchMode(mode.id));
+    modeContainer.appendChild(btn);
+    modeButtons[mode.id] = btn;
+  });
+
   statsFieldset.insertBefore(modeContainer, statsFieldset.firstChild);
 
   let currentMode = 'manual';
   let pointBuyPoints = 27;
 
-  manualBtn.addEventListener('click', () => switchMode('manual'));
-  randomDropBtn.addEventListener('click', () => switchMode('randomDrop'));
-  randomAllBtn.addEventListener('click', () => switchMode('randomAll'));
-  pointsBtn.addEventListener('click', () => switchMode('pointBuy'));
-
+  // --- MODE SWITCHING ---
   function switchMode(mode) {
     currentMode = mode;
     clearStatInputs();
@@ -424,9 +360,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const input = document.getElementById(stat);
       input.value = '';
       input.disabled = false;
+      input.style.backgroundColor = '';
+      input.style.color = '';
       input.min = '';
       input.max = '';
-      input.removeEventListener('input', handlePointBuy); // remove point-buy listener
+      input.removeEventListener('input', handlePointBuy);
     });
   }
 
@@ -435,6 +373,8 @@ document.addEventListener('DOMContentLoaded', () => {
     stats.forEach(stat => {
       const input = document.getElementById(stat);
       input.disabled = false;
+      input.style.backgroundColor = '';
+      input.style.color = '';
     });
   }
 
@@ -451,13 +391,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let rolls = [];
     for (let i = 0; i < 4; i++) rolls.push(Math.floor(Math.random() * 6) + 1);
     rolls.sort((a, b) => a - b);
-    rolls.shift(); // drop lowest
+    rolls.shift();
     return rolls.reduce((a, b) => a + b, 0);
   }
 
   function rollStatAll() {
     let rolls = [];
-    for (let i = 0; i < 4; i++) rolls.push(Math.floor(Math.random() * 6) + 1);
+    for (let i = 0; i < 3; i++) rolls.push(Math.floor(Math.random() * 6) + 1);
     return rolls.reduce((a, b) => a + b, 0);
   }
 
@@ -469,6 +409,8 @@ document.addEventListener('DOMContentLoaded', () => {
       input.min = 8;
       input.max = 15;
       input.disabled = false;
+      input.style.backgroundColor = '';
+      input.style.color = '';
       input.addEventListener('input', handlePointBuy);
     });
   }
@@ -480,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 0);
 
     if (total > pointBuyPoints) {
-      document.getElementById('preview').textContent = `Exceeded point-buy! (${total}/${pointBuyPoints})`;
+      preview.textContent = `Exceeded point-buy! (${total}/${pointBuyPoints})`;
     } else {
       updatePreview();
     }
@@ -494,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return 0;
   }
 
-  // --- UPDATE PREVIEW ---
+  // --- PREVIEW ---
   function updatePreview() {
     const statValues = stats.map(stat => `${stat.toUpperCase()}: ${document.getElementById(stat).value}`);
     preview.textContent = statValues.join('\n');
@@ -504,18 +446,47 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById(stat).addEventListener('input', updatePreview);
   });
 
-  // --- HELPER BUTTON CREATION ---
-  function createModeButton(text, id, tooltip) {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.textContent = text;
-    btn.id = id + 'Btn';
-    btn.style.padding = '5px 10px';
-    btn.style.cursor = 'pointer';
-    btn.title = tooltip; // tooltip on hover
-    return btn;
+  // --- LANGUAGE COMPATIBILITY ---
+  function updateModeButtonTexts() {
+    const t = translations[localStorage.getItem('lang') || 'en'] || {};
+    const tooltips = {
+      manualTooltip: 'Type any number for stats',
+      randomDropTooltip: 'Roll 4d6 and drop the lowest die',
+      randomAllTooltip: 'Roll 4d6 sum all dice (harsher stats)',
+      pointBuyTooltip: 'Distribute 27 points using DnD point-buy rules'
+    };
+
+    // Set text and tooltips
+    modeButtons.manual.textContent = t.manualMode || 'Manual';
+    modeButtons.manual.title = t.manualTooltip || tooltips.manualTooltip;
+
+    modeButtons.randomDrop.textContent = t.randomDropMode || 'Random (drop lowest)';
+    modeButtons.randomDrop.title = t.randomDropTooltip || tooltips.randomDropTooltip;
+
+    modeButtons.randomAll.textContent = t.randomAllMode || 'Random (all dice)';
+    modeButtons.randomAll.title = t.randomAllTooltip || tooltips.randomAllTooltip;
+
+    modeButtons.pointBuy.textContent = t.pointBuyMode || 'Point Buy';
+    modeButtons.pointBuy.title = t.pointBuyTooltip || tooltips.pointBuyTooltip;
   }
 
-  // Initialize manual mode by default
+  // Update on page load
+  updateModeButtonTexts();
+
+  // Also update whenever language changes
+  window.setLang = function(lang) {
+    localStorage.setItem("lang", lang);
+    const t = translations[lang] || {};
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (key && t[key] !== undefined) el.textContent = t[key];
+    });
+
+    // Update tooltips
+    updateModeButtonTexts();
+  }
+
+  // Initialize manual mode
   switchMode('manual');
 });

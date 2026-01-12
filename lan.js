@@ -65,7 +65,16 @@ const translations = {
     child: "Child",
     adult: "Adult",
     elder: "Elder",
-    lifespan: "Average lifespan: {years} years"
+    lifespan: "Average lifespan: {years} years",
+    manualMode: "Manual",
+    manualTooltip: "Type any number for stats",
+    randomDropMode: "Random (drop lowest)",
+    randomDropTooltip: "Roll 4d6 and drop the lowest die",
+    randomAllMode: "Random (all dice)",
+    randomAllTooltip: "Roll 4d6 sum all dice (harsher stats)",
+    pointBuyMode: "Point Buy",
+    pointBuyTooltip: "Distribute 27 points using DnD point-buy rules"
+	
   },
   pl: {
     // Navbar / general
@@ -134,7 +143,16 @@ const translations = {
     child: "Dziecko",
     adult: "Dorosły",
     elder: "Starszy",
-    lifespan: "Średnia długość życia: {years} lat"
+    lifespan: "Średnia długość życia: {years} lat",
+    manualMode: "Ręcznie",
+    manualTooltip: "Wpisz dowolną liczbę dla statystyk",
+    randomDropMode: "Losowe (opuść najniższe)",
+    randomDropTooltip: "Rzuc 4k6 i odrzuć najniższy",
+    randomAllMode: "Losowe (wszystkie)",
+    randomAllTooltip: "Rzuć 3k6 i sumuj wszystkie (trudniejsze)",
+    pointBuyMode: "Punkty",
+    pointBuyTooltip: "Rozdziel 27 punktów według zasad DnD"
+	
   }
 };
 

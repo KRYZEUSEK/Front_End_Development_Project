@@ -443,3 +443,7 @@ html.ambient::before {
     font-size: 17px;
 }
 
+/* style.css */
+fieldset:nth-of-type(2) input:disabled {
+    color: var(--text-vlight);
+}

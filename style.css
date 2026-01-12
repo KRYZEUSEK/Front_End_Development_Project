@@ -223,7 +223,7 @@
   gap: 6px;
 }
 .mode-switcher button {
-  background: var(--primary);
+  background: var(--bg-accent);
   border: none;
   padding: 8px;
   border-radius: 6px;
@@ -233,7 +233,7 @@
   height: 42px;
 }
 .mode-switcher button:hover {
-  background: var(--primary-dark);
+  background: var(--button-hover);
 }
 
 
@@ -329,6 +329,8 @@ button:not(.btn-small) {
     border-radius: 6px;
     border: none;
     font-size: 15px;
+    box-sizing: border-box;
+    resize: vertical;
 }
 
 .btn-small {
@@ -425,3 +427,19 @@ html.ambient::before {
     transform: translate(20vw, 110vh) rotate(-20deg); /* diagonal fall */
   }
 }
+
+.name-item,
+.saved-item {
+    background: var(--ambient-grad-1);
+    border: 2px solid var(--bg-main);
+
+    padding: 10px;
+    margin: 6px 0;
+
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 17px;
+}
+

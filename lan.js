@@ -68,10 +68,10 @@ const translations = {
     lifespan: "Average lifespan: {years} years",
     manualMode: "Manual",
     manualTooltip: "Type any number for stats",
-    randomDropMode: "Random (drop lowest)",
+    randomDropMode: "Random (4d6)",
     randomDropTooltip: "Roll 4d6 and drop the lowest die",
-    randomAllMode: "Random (all dice)",
-    randomAllTooltip: "Roll 4d6 sum all dice (harsher stats)",
+    randomAllMode: "Random (3d6)",
+    randomAllTooltip: "Roll 3d6 sum all dice'",
     pointBuyMode: "Point Buy",
     pointBuyTooltip: "Distribute 27 points using DnD point-buy rules"
 	
@@ -146,10 +146,10 @@ const translations = {
     lifespan: "Średnia długość życia: {years} lat",
     manualMode: "Ręcznie",
     manualTooltip: "Wpisz dowolną liczbę dla statystyk",
-    randomDropMode: "Losowe (opuść najniższe)",
+    randomDropMode: "Losowe (4d6)",
     randomDropTooltip: "Rzuc 4k6 i odrzuć najniższy",
-    randomAllMode: "Losowe (wszystkie)",
-    randomAllTooltip: "Rzuć 3k6 i sumuj wszystkie (trudniejsze)",
+    randomAllMode: "Losowe (3d6)",
+    randomAllTooltip: "Rzuć 3k6 i sumuj wszystkie",
     pointBuyMode: "Punkty",
     pointBuyTooltip: "Rozdziel 27 punktów według zasad DnD"
 	

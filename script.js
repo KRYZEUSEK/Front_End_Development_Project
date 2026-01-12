@@ -414,19 +414,37 @@ document.addEventListener('DOMContentLoaded', () => {
       input.addEventListener('input', handlePointBuy);
     });
   }
+  
+function handlePointBuy(e) {
+  const input = e.target; // the input that changed
+  let val = parseInt(input.value) || 8;
 
-  function handlePointBuy() {
-    let total = stats.reduce((sum, stat) => {
-      const val = parseInt(document.getElementById(stat).value) || 0;
-      return sum + pointBuyCost(val);
-    }, 0);
+  // Clamp to 8–15 for safety
+  if (val < 8) val = 8;
+  if (val > 15) val = 15;
+  input.value = val;
 
-    if (total > pointBuyPoints) {
-      preview.textContent = `Exceeded point-buy! (${total}/${pointBuyPoints})`;
-    } else {
-      updatePreview();
+  // Calculate total points spent
+  let total = stats.reduce((sum, stat) => {
+    const statVal = parseInt(document.getElementById(stat).value) || 8;
+    return sum + pointBuyCost(statVal);
+  }, 0);
+
+  if (total > pointBuyPoints) {
+    alert("No more points!"); // popup
+    // Reset this input to a safe value (subtract one point)
+    while (total > pointBuyPoints && val > 8) {
+      val--;
+      input.value = val;
+      total = stats.reduce((sum, stat) => {
+        const statVal = parseInt(document.getElementById(stat).value) || 8;
+        return sum + pointBuyCost(statVal);
+      }, 0);
     }
   }
+
+  updatePreview();
+}
 
   function pointBuyCost(value) {
     if (value < 8) return 0;
@@ -452,7 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tooltips = {
       manualTooltip: 'Type any number for stats',
       randomDropTooltip: 'Roll 4d6 and drop the lowest die',
-      randomAllTooltip: 'Roll 4d6 sum all dice (harsher stats)',
+      randomAllTooltip: 'Roll 3d6 sum all dice',
       pointBuyTooltip: 'Distribute 27 points using DnD point-buy rules'
     };
 
@@ -460,10 +478,10 @@ document.addEventListener('DOMContentLoaded', () => {
     modeButtons.manual.textContent = t.manualMode || 'Manual';
     modeButtons.manual.title = t.manualTooltip || tooltips.manualTooltip;
 
-    modeButtons.randomDrop.textContent = t.randomDropMode || 'Random (drop lowest)';
+    modeButtons.randomDrop.textContent = t.randomDropMode || 'Random (4d6 drop the lowest)';
     modeButtons.randomDrop.title = t.randomDropTooltip || tooltips.randomDropTooltip;
 
-    modeButtons.randomAll.textContent = t.randomAllMode || 'Random (all dice)';
+    modeButtons.randomAll.textContent = t.randomAllMode || 'Random (3d6)';
     modeButtons.randomAll.title = t.randomAllTooltip || tooltips.randomAllTooltip;
 
     modeButtons.pointBuy.textContent = t.pointBuyMode || 'Point Buy';

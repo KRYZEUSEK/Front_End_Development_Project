@@ -408,3 +408,20 @@ html.ambient::before {
     transform: translateY(110vh);
   }
 }
+
+.raindrop {
+  position: fixed;
+  top: -2rem;
+  pointer-events: none;
+  user-select: none;
+  z-index: 9999;
+  transform: rotate(-20deg); /* tilt raindrop */
+  animation-name: rain-fall;
+  animation-timing-function: linear;
+}
+
+@keyframes rain-fall {
+  to {
+    transform: translate(20vw, 110vh) rotate(-20deg); /* diagonal fall */
+  }
+}

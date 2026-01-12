@@ -3,6 +3,7 @@
 ------------------------------ */
 
 let snowInterval = null; 
+let rainInterval = null; 
 
 // Load mode on startup
 document.addEventListener("DOMContentLoaded", () => {
@@ -143,8 +144,10 @@ function setMode(mode) {
 
   if (mode === "dark") root.classList.add("dark-mode");
   else if (mode === "colorblind") root.classList.add("colorblind-mode");
-  else if (mode === "rain") root.classList.add("rain-mode");
-  else if (mode === "winter") {
+  else if (mode === "rain") {
+    root.classList.add("rain-mode");
+    startRain();
+  } else if (mode === "winter") {
     root.classList.add("winter-mode");
     startSnow();
   } else {
@@ -152,6 +155,7 @@ function setMode(mode) {
   }
 
   if (mode !== "winter") stopSnow();
+  if (mode !== "rain") stopRain();
 
   localStorage.setItem("uiMode", mode);
   handleModeAudio(mode);
@@ -324,6 +328,32 @@ function startSnow() {
   }, 300);
 }
 
+function startRain() {
+  const emojis = ['|', '│', '|', '╵', '〡', '╹', '╻', '╷', '︲'];
+
+  if (rainInterval !== null) return; // already running
+
+  rainInterval = setInterval(() => {
+    const raindrop = document.createElement("div");
+    raindrop.className = "raindrop";
+    raindrop.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+    raindrop.style.left = Math.random() * 100 + "vw";
+    raindrop.style.fontSize = 0.8 + Math.random() * 1.2 + "rem";
+    raindrop.style.color = randomIceHex();
+    raindrop.style.opacity = 0.4; // 50% transparent
+
+    // Randomize animation duration for variation
+    const duration = 3 + Math.random() * 5;
+    raindrop.style.animationDuration = duration + "s";
+
+    document.body.appendChild(raindrop);
+
+    // Remove after animation ends
+    setTimeout(() => raindrop.remove(), duration * 1000);
+  }, 100);
+}
+
 function stopSnow() {
   if (snowInterval === null) return;
 
@@ -331,4 +361,14 @@ function stopSnow() {
   snowInterval = null;
 
   document.querySelectorAll(".snowflake").forEach(e => e.remove());
+}
+
+
+function stopRain() {
+  if (rainInterval === null) return;
+
+  clearInterval(rainInterval);
+  rainInterval = null;
+
+  document.querySelectorAll(".raindrop").forEach(e => e.remove());
 }

@@ -298,7 +298,7 @@ document.querySelectorAll("input[type=number]").forEach(input => {
 });
 
 /* ------------------------------
-   Winter Theme
+   Winter and Rain Theme
 ------------------------------ */
 
 function randomIceHex() {
@@ -372,3 +372,150 @@ function stopRain() {
 
   document.querySelectorAll(".raindrop").forEach(e => e.remove());
 }
+
+/* ------------------------------
+   Character Points
+------------------------------ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  const stats = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
+  const preview = document.getElementById('preview');
+
+  const statsFieldset = document.querySelector('fieldset:nth-of-type(2)'); // Statistics fieldset
+
+  // Create mode buttons container
+  const modeContainer = document.createElement('div');
+  modeContainer.style.display = 'flex';
+  modeContainer.style.gap = '10px';
+  modeContainer.style.marginBottom = '10px';
+
+  // Create buttons with tooltips
+  const manualBtn = createModeButton('Manual', 'manual', 'Type any number for stats');
+  const randomDropBtn = createModeButton('Random (drop lowest)', 'randomDrop', 'Roll 4d6 and drop the lowest die');
+  const randomAllBtn = createModeButton('Random (all dice)', 'randomAll', 'Roll 4d6 sum all dice (harsher stats)');
+  const pointsBtn = createModeButton('Point Buy', 'pointBuy', 'Distribute 27 points using DnD point-buy rules');
+
+  // Append buttons to container
+  [manualBtn, randomDropBtn, randomAllBtn, pointsBtn].forEach(btn => modeContainer.appendChild(btn));
+  statsFieldset.insertBefore(modeContainer, statsFieldset.firstChild);
+
+  let currentMode = 'manual';
+  let pointBuyPoints = 27;
+
+  manualBtn.addEventListener('click', () => switchMode('manual'));
+  randomDropBtn.addEventListener('click', () => switchMode('randomDrop'));
+  randomAllBtn.addEventListener('click', () => switchMode('randomAll'));
+  pointsBtn.addEventListener('click', () => switchMode('pointBuy'));
+
+  function switchMode(mode) {
+    currentMode = mode;
+    clearStatInputs();
+
+    if (mode === 'manual') enableManual();
+    else if (mode === 'randomDrop') randomizeStats(true);
+    else if (mode === 'randomAll') randomizeStats(false);
+    else if (mode === 'pointBuy') setupPointBuy();
+
+    updatePreview();
+  }
+
+  function clearStatInputs() {
+    stats.forEach(stat => {
+      const input = document.getElementById(stat);
+      input.value = '';
+      input.disabled = false;
+      input.min = '';
+      input.max = '';
+      input.removeEventListener('input', handlePointBuy); // remove point-buy listener
+    });
+  }
+
+  // --- MANUAL ---
+  function enableManual() {
+    stats.forEach(stat => {
+      const input = document.getElementById(stat);
+      input.disabled = false;
+    });
+  }
+
+  // --- RANDOM ---
+  function randomizeStats(dropLowest) {
+    stats.forEach(stat => {
+      const input = document.getElementById(stat);
+      input.disabled = true;
+      input.value = dropLowest ? rollStatDropLowest() : rollStatAll();
+    });
+  }
+
+  function rollStatDropLowest() {
+    let rolls = [];
+    for (let i = 0; i < 4; i++) rolls.push(Math.floor(Math.random() * 6) + 1);
+    rolls.sort((a, b) => a - b);
+    rolls.shift(); // drop lowest
+    return rolls.reduce((a, b) => a + b, 0);
+  }
+
+  function rollStatAll() {
+    let rolls = [];
+    for (let i = 0; i < 4; i++) rolls.push(Math.floor(Math.random() * 6) + 1);
+    return rolls.reduce((a, b) => a + b, 0);
+  }
+
+  // --- POINT BUY ---
+  function setupPointBuy() {
+    stats.forEach(stat => {
+      const input = document.getElementById(stat);
+      input.value = 8;
+      input.min = 8;
+      input.max = 15;
+      input.disabled = false;
+      input.addEventListener('input', handlePointBuy);
+    });
+  }
+
+  function handlePointBuy() {
+    let total = stats.reduce((sum, stat) => {
+      const val = parseInt(document.getElementById(stat).value) || 0;
+      return sum + pointBuyCost(val);
+    }, 0);
+
+    if (total > pointBuyPoints) {
+      document.getElementById('preview').textContent = `Exceeded point-buy! (${total}/${pointBuyPoints})`;
+    } else {
+      updatePreview();
+    }
+  }
+
+  function pointBuyCost(value) {
+    if (value < 8) return 0;
+    if (value <= 13) return value - 8;
+    if (value === 14) return 7;
+    if (value === 15) return 9;
+    return 0;
+  }
+
+  // --- UPDATE PREVIEW ---
+  function updatePreview() {
+    const statValues = stats.map(stat => `${stat.toUpperCase()}: ${document.getElementById(stat).value}`);
+    preview.textContent = statValues.join('\n');
+  }
+
+  stats.forEach(stat => {
+    document.getElementById(stat).addEventListener('input', updatePreview);
+  });
+
+  // --- HELPER BUTTON CREATION ---
+  function createModeButton(text, id, tooltip) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = text;
+    btn.id = id + 'Btn';
+    btn.style.padding = '5px 10px';
+    btn.style.cursor = 'pointer';
+    btn.title = tooltip; // tooltip on hover
+    return btn;
+  }
+
+  // Initialize manual mode by default
+  switchMode('manual');
+});

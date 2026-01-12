@@ -1,3 +1,10 @@
+const SPELL_LEVEL_BY_CLASS_LEVEL = {
+  full:  [0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,9,9],
+  half:  [0,0,0,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5],
+  third: [0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,4],
+  pact:  [0,1,1,2,2,3,3,4,4,5,5,5,5,5,5,5,5,5,5,5,5]
+};
+
 let levelingState = (() => {
   const raw = JSON.parse(localStorage.getItem("levelingData"));
 
@@ -8,6 +15,7 @@ let levelingState = (() => {
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
+  normalizeLevels();
   populateClassSelect();
   updateSummary();
   renderHistory();
@@ -24,6 +32,42 @@ function getClassLevel(cls) {
 function save() {
   localStorage.setItem("levelingData", JSON.stringify(levelingState));
 }
+function calculateHP(cls, level) {
+  const die = CLASSES[cls].hitDie;
+  return level === 1 ? die : Math.ceil(die / 2) + 1;
+}
+
+function getMaxSpellLevel(cls, classLevel) {
+  const casterType = CLASSES[cls].casterType;
+  if (!casterType) return 0;
+  return SPELL_LEVEL_BY_CLASS_LEVEL[casterType][classLevel] || 0;
+}
+function normalizeLevels() {
+  levelingState.levels = levelingState.levels
+    .map(l => {
+      if (!l.class) return null;
+
+      // Already valid
+      if (CLASSES[l.class]) return l;
+
+      // Try to map display name → key
+      const match = Object.entries(CLASSES).find(
+        ([_, c]) => c.name.toLowerCase() === String(l.class).toLowerCase()
+      );
+
+      if (!match) {
+        console.warn("Unknown class removed:", l);
+        return null;
+      }
+
+      return {
+        ...l,
+        class: match[0] // convert to key (e.g. "bard")
+      };
+    })
+    .filter(Boolean);
+}
+
 
 /* ------------------------------
    CLASS SELECT
@@ -65,6 +109,7 @@ document.getElementById("startLevelBtn").onclick = () => {
   document.getElementById("levelChoicesFieldset").style.display = "block";
   renderLevelChoices();
 };
+
 /* ------------------------------
    RENDER CHOICES
 ------------------------------ */
@@ -95,8 +140,9 @@ function renderLevelChoices() {
     hasChoices = true;
   }
 
+  /* ✅ NO CHOICES THIS LEVEL */
   if (!hasChoices) {
-    div.textContent = t("noChoices");
+    div.textContent = "No choices required at this level.";
     confirmBtn.disabled = false;
   }
 }
@@ -109,10 +155,11 @@ function renderSubclass(container) {
   const cls = levelingState.pendingLevel.class;
 
   const label = document.createElement("label");
-  label.textContent = t("subclass");
+  label.textContent = "Subclass";
 
   const select = document.createElement("select");
-  select.appendChild(new Option(`— ${t("choose")} —`, ""));
+
+  select.appendChild(new Option("— choose —", ""));
 
   CLASSES[cls].subclasses.forEach(s => {
     select.appendChild(new Option(s, s));
@@ -132,58 +179,93 @@ function renderSubclass(container) {
 
 function renderASI(container) {
   const wrap = document.createElement("div");
-  wrap.textContent = t("asiFeat") + ": ";
 
-  const asiBtn = document.createElement("button");
-  asiBtn.type = "button";
-  asiBtn.textContent = t("ASI");
-  asiBtn.onclick = () => {
-    levelingState.pendingLevel.choices.asi = true;
-    levelingState.pendingLevel.choices.feat = null;
-    validate();
-  };
+  const stats = ["STR","DEX","CON","INT","WIS","CHA"];
+  const selects = stats.map(stat => {
+    const s = document.createElement("select");
+    s.appendChild(new Option(stat, ""));
+    s.appendChild(new Option("+1", 1));
+    s.appendChild(new Option("+2", 2));
+    return { stat, select: s };
+  });
 
-  const featBtn = document.createElement("button");
-  featBtn.type = "button";
-  featBtn.textContent = t("Feat");
-  featBtn.onclick = () => {
-    levelingState.pendingLevel.choices.feat = t("selectedFeat");
+  selects.forEach(o => {
+    o.select.onchange = () => {
+      levelingState.pendingLevel.choices.asi = {
+        stat: o.stat,
+        value: Number(o.select.value)
+      };
+      levelingState.pendingLevel.choices.feat = null;
+      validate();
+    };
+    wrap.append(o.stat, o.select, " ");
+  });
+
+  const featSelect = document.createElement("select");
+  featSelect.appendChild(new Option("Choose Feat", ""));
+  FEATS.forEach(f => featSelect.appendChild(new Option(f, f)));
+
+  featSelect.onchange = () => {
+    levelingState.pendingLevel.choices.feat = featSelect.value;
     levelingState.pendingLevel.choices.asi = null;
     validate();
   };
 
-  wrap.append(asiBtn, featBtn);
-  container.append(wrap, document.createElement("br"));
+  container.append("ASI or Feat:", wrap, featSelect, document.createElement("br"));
 }
 
 /* ------------------------------
    SPELLS
 ------------------------------ */
+function getMaxSpellLevel(cls, classLevel) {
+  const casterType = CLASSES[cls].casterType;
+  if (!casterType) return 0;
+  return SPELL_LEVEL_BY_CLASS_LEVEL[casterType][classLevel];
+}
 
 function renderSpells(container) {
   const cls = levelingState.pendingLevel.class;
-  const lvl = levelingState.pendingLevel.classLevel;
-  const spells = SPELLS[cls]?.[lvl] || [];
+  const classLevel = levelingState.pendingLevel.classLevel;
+
+  const maxSpellLevel = getMaxSpellLevel(cls, classLevel);
+  const spellChoices = [];
+
+  for (let i = 1; i <= maxSpellLevel; i++) {
+    spellChoices.push(...(SPELLS[cls]?.[i] || []));
+  }
+
+  const maxKnown = CLASS_PROGRESSION[cls][classLevel].spells;
 
   const wrap = document.createElement("div");
-  wrap.textContent = t("spells") + ":";
+  const counter = document.createElement("div");
 
-  spells.forEach(spell => {
-    const label = document.createElement("label");
+  counter.textContent = `Choose ${maxKnown} spells`;
+  wrap.append(counter);
+
+  levelingState.pendingLevel.choices.spells = [];
+
+  spellChoices.forEach(spell => {
     const cb = document.createElement("input");
-
     cb.type = "checkbox";
-    cb.value = spell;
 
     cb.onchange = () => {
-      const arr = levelingState.pendingLevel.choices.spells ||= [];
-      if (cb.checked) arr.push(spell);
-      else arr.splice(arr.indexOf(spell), 1);
+      const arr = levelingState.pendingLevel.choices.spells;
+
+      if (cb.checked) {
+        if (arr.length >= maxKnown) {
+          cb.checked = false;
+          return;
+        }
+        arr.push(spell);
+      } else {
+        arr.splice(arr.indexOf(spell), 1);
+      }
+
+      counter.textContent = `Choose ${maxKnown - arr.length} spells`;
       validate();
     };
 
-    label.append(cb, spell);
-    wrap.append(label, document.createElement("br"));
+    wrap.append(cb, spell, document.createElement("br"));
   });
 
   container.append(wrap);
@@ -209,12 +291,19 @@ function validate() {
 ------------------------------ */
 
 document.getElementById("confirmLevelBtn").onclick = () => {
-  levelingState.levels.push(levelingState.pendingLevel);
-  levelingState.pendingLevel = null;
+  levelingState.levels.push({
+    ...levelingState.pendingLevel,
+    hp: calculateHP(
+      levelingState.pendingLevel.class,
+      levelingState.pendingLevel.classLevel
+    )
+  });
 
+  levelingState.pendingLevel = null;
   document.getElementById("levelChoicesFieldset").style.display = "none";
 
   save();
+  normalizeLevels();   // ← ensures consistency
   updateSummary();
   renderHistory();
 };
@@ -229,8 +318,21 @@ function updateSummary() {
 }
 
 function renderHistory() {
-  document.getElementById("levelPreview").textContent =
-    JSON.stringify(levelingState.levels, null, 2);
+  const out = document.getElementById("levelPreview");
+
+  if (!levelingState.levels.length) {
+    out.textContent = "No levels yet.";
+    return;
+  }
+
+  const counts = {};
+
+  const lines = levelingState.levels.map(l => {
+    counts[l.class] = (counts[l.class] || 0) + 1;
+    return `${CLASSES[l.class].name} ${counts[l.class]}`;
+  });
+
+  out.textContent = lines.join("\n");
 }
 
 /* ------------------------------
@@ -253,6 +355,7 @@ document.getElementById("importLevelingFile").onchange = e => {
   reader.onload = () => {
     levelingState = JSON.parse(reader.result);
     save();
+    normalizeLevels();
     updateSummary();
     renderHistory();
   };

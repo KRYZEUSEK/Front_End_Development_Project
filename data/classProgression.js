@@ -274,6 +274,29 @@ const CLASS_PROGRESSION = {
     18:{ features: ["Spell Mastery"] },
     19:{ asi: true },
     20:{ features: ["Signature Spells"] }
+  },
+
+  artificer: {
+    1: { spells: true, features: ["Arcane Recovery"] },
+    2: { choices: ["Subclass"] },
+    3: { spells: true },
+    4: { asi: true },
+    5: { spells: true },
+    6: { features: ["Subclass Feature"] },
+    7: { spells: true },
+    8: { asi: true },
+    9: { spells: true },
+    10:{ features: ["Subclass Feature"] },
+    11:{ spells: true },
+    12:{ asi: true },
+    13:{ spells: true },
+    14:{ features: ["Subclass Feature"] },
+    15:{ spells: true },
+    16:{ asi: true },
+    17:{ spells: true },
+    18:{ features: ["Spell Mastery"] },
+    19:{ asi: true },
+    20:{ features: ["Signature Spells"] }
   }
 
 };

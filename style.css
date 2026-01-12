@@ -35,6 +35,40 @@
   );
 }
 
+:root.rain-mode {
+  /* TEXT */
+  --text-vlight: #e0f2f1;
+  --text-light: #80cbc4;
+  --text-def: #b2dfdb;
+  --text-glow: #4db6ac;
+
+  /* SHADOW */
+  --shadow: #051f22;
+
+  /* BACKGROUNDS */
+  --bg-main: #1b3d3a;
+  --bg-darker: #031718;
+  --bg-header: rgba(5, 30, 30, 0.9);
+  --bg-container: rgba(10, 50, 50, 0.9);
+
+  /* BUTTONS */
+  --button: #00796b;
+  --button-bright: #26a69a;
+  --button-hover: #00897b;
+  
+  /* AMBIENT GRADIENTS */
+  --ambient-grad-1: radial-gradient(
+    circle at 20% 30%,
+    rgba(77,182,172,0.08),
+    transparent 40%
+  );
+  --ambient-grad-2: radial-gradient(
+    circle at 80% 70%,
+    rgba(128,203,196,0.06),
+    transparent 45%
+  );
+}
+
 :root.dark-mode {
   /* TEXT */
   --text-vlight: #e6e0ff;
@@ -102,6 +136,60 @@
     transparent 45%
   );
 }
+
+:root.winter-mode {
+  /* TEXT */
+  --text-vlight: #ffffff;        /* pure snow */
+  --text-light: #eef7f3;         /* snow haze */
+  --text-def: #e6f2ee;           /* cold daylight */
+  --text-glow: #d6c26a;          /* frosty gold */
+
+  /* SHADOW */
+  --shadow: #0a1a16;              /* softened winter shadow */
+
+  /* BACKGROUNDS */
+  --bg-main: #1b3d3a;
+  --bg-darker: #031718;
+  --bg-header: rgba(5, 30, 30, 0.9);
+  --bg-container: rgba(10, 50, 50, 0.9);
+
+  /* BUTTONS */
+  --button: #a8323a;             
+  --button-bright: #ff969d;       /* muted gold */
+  --button-hover: #d0101d;       /* festive red */
+
+  /* AMBIENT GRADIENTS */
+  --ambient-grad-1: radial-gradient(
+    circle at 30% 25%,
+    rgba(255,255,255,0.55),       /* strong snow glow */
+    transparent 55%
+  );
+
+  --ambient-grad-2: radial-gradient(
+    circle at 70% 75%,
+    rgba(47,111,85,0.15),         /* green beneath snow */
+    transparent 60%
+  );
+
+  --ambient-grad-3: radial-gradient(
+    circle at 85% 15%,
+    rgba(214,194,106,0.12),       /* golden sparkle */
+    transparent 50%
+  );
+}
+:root.winter-mode body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at top,
+    rgba(255,255,255,0.35),
+    transparent 60%
+  );
+  z-index: 0;
+}
+
 
 
 /* ---------------------------------
@@ -183,7 +271,7 @@ body::before {
 }
 
 header {
-    background: rgba(10, 30, 20, 0.9);
+    background: var(--bg-header);
     padding: 15px;
     border-bottom: 2px solid var(--button-bright);
 }
@@ -210,7 +298,7 @@ nav a:hover {
     max-width: 900px;
     margin: 40px auto;
     padding: 40px;
-    background: rgba(20, 50, 35, 0.9);
+    background: var(--bg-container);
     border-radius: 14px;
     box-shadow: 0 0 25px var(--shadow);
     animation: fadeIn 1.2s ease;
@@ -231,7 +319,10 @@ label {
     margin-top: 15px;
 }
 
-input, select, textarea, button {
+input:not(#surname),
+select,
+textarea,
+button:not(.btn-small) {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
@@ -239,6 +330,16 @@ input, select, textarea, button {
     border: none;
     font-size: 15px;
 }
+
+.btn-small {
+
+    border: 2px solid var(--bg-main);
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+
+}
+
 
 button {
     background: var(--button);
@@ -292,3 +393,18 @@ html.ambient::before {
   }
 }
 
+.snowflake {
+  position: fixed;
+  top: -2rem;
+  pointer-events: none;
+  user-select: none;
+  z-index: 9999;
+  animation-name: snow-fall;
+  animation-timing-function: linear;
+}
+
+@keyframes snow-fall {
+  to {
+    transform: translateY(110vh);
+  }
+}

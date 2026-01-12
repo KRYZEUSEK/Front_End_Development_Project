@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="style.css">
 <script src="lan.js" defer></script>
 <script src="script.js" defer></script>
+<script src="nameGen.js" defer></script>
 </head>
 <body>
 
@@ -18,8 +19,10 @@
 
     <div class="mode-switcher">
       <button onclick="setMode('light')">🌞</button>
+	  <button onclick="setMode('rain')">🌧️</button>
       <button onclick="setMode('dark')">🌑</button>
       <button onclick="setMode('colorblind')">👁️</button>
+      <button id="winter-btn" onclick="setMode('winter')" style="display:none;">❄️</button>
     </div>
   </div>
 
@@ -33,11 +36,61 @@
 </header>
 
 <div class="container">
-<h1 id="page-title" data-i18n="NameGenFantasy">Fantasy Name Generator</h1>
+  <h1 id="page-title" data-i18n="NameGenFantasy">Fantasy Name Generator</h1>
 
-<input id="firstName" placeholder="Generated name will appear here">
-<button data-i18n="NameGenFantasyButton" onclick="generateName?.()">Generate Name</button>
+  <!-- OPTIONS -->
+  <div class="options">
 
+    <label>
+      Gender:
+      <select id="gender">
+        <option value="any">Any</option>
+        <option value="neutral">Neutral</option>
+        <option value="female">Feminine</option>
+        <option value="male">Masculine</option>
+      </select>
+    </label>
+
+    <label>
+      Species:
+      <select id="race">
+        <option value="human">Human</option>
+        <option value="elf">Elf</option>
+        <option value="dwarf">Dwarf</option>
+        <option value="halfling">Halfling</option>
+        <option value="dragonborn">Dragonborn</option>
+        <option value="gnome">Gnome</option>
+        <option value="half-elf">Half-Elf</option>
+        <option value="half-orc">Half-Orc</option>
+        <option value="tiefling">Tiefling</option>
+        <option value="orc">Orc</option>
+        <option value="goblin">Goblin</option>
+        <option value="tabaxi">Tabaxi</option>
+        <option value="kenku">Kenku</option>
+        <option value="lizardfolk">Lizardfolk</option>
+      </select>
+    </label>
+
+    <label class="line-block">
+    <input type="checkbox" id="surname" checked=""> Include Surname
+    </label>
+
+    <label>
+      Amount:
+      <input type="number" id="count" min="1" max="20" step="1" value="1">
+    </label>
+
+  </div>
+
+  <button onclick="generateNames()">Generate Name</button>
+
+  <!-- OUTPUT -->
+  <h2>Generated Names</h2>
+  <div id="namesList"></div>
+  <h2>Saved Names</h2>
+  <div id="savedList"></div>
+  
 </div>
+
 </body>
 </html>

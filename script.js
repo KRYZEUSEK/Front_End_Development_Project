@@ -2,45 +2,121 @@
    GLOBAL MODE SWITCHER
 ------------------------------ */
 
+let snowInterval = null; 
+
 // Load mode on startup
 document.addEventListener("DOMContentLoaded", () => {
   const savedMode = localStorage.getItem("uiMode") || "light";
+  
+    const now = new Date();
+    const isWinter = now.getMonth() === 11 || now.getMonth() === 0 || now.getMonth() === 1;
+
+    const winterBtn = document.getElementById("winter-btn");
+
+    if (isWinter) {
+      // Show winter button
+      winterBtn.style.display = "inline-block";
+		const savedMode = localStorage.getItem("uiMode") || "winter";
+    }else{
+		const savedMode = localStorage.getItem("uiMode") || "light";
+	}
   setMode(savedMode);
+	
 });
 
-// Mode switcher
-function setMode(mode) {
-  const root = document.documentElement;
+/* ------------------------------
+   Video + Sound
+------------------------------ */
+let player;
+let currentVideoId = "";
+let playerReady = false;
 
-  // Remove all mode classes
-  root.classList.remove("light-mode", "dark-mode", "colorblind-mode");
-
-  if (mode === "dark") {
-    root.classList.add("dark-mode");
-  } else if (mode === "colorblind") {
-    root.classList.add("colorblind-mode");
-  } else {
-    root.classList.add("light-mode");
-  }
-
-  localStorage.setItem("uiMode", mode);
+// Create hidden YouTube container if it doesn't exist
+if (!document.getElementById("yt-player")) {
+  const div = document.createElement("div");
+  div.id = "yt-player";
+  div.style.display = "none";
+  document.body.appendChild(div);
 }
 
-/* ------------------------------
-   GLOBAL LANGUAGE SWITCHER
------------------------------- */
+// Load YouTube IFrame API
+let tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+document.head.appendChild(tag);
 
-// This function is called by buttons
-function setLanguage(lang) {
-  // Save selection
-  localStorage.setItem("lang", lang);
+// This function **must be global** for YouTube API
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('yt-player', {
+    height: '0',
+    width: '0',
+    videoId: '', // start empty
+    playerVars: {
+      autoplay: 0,
+      controls: 0,
+      loop: 1,
+      playlist: '', // will set dynamically
+      mute: 0
+    },
+    events: {
+      'onReady': () => {
+        playerReady = true;
+      }
+    }
+  });
+}
 
-  // Call translation function from lan.js
-  if (typeof setLang === "function") {
-    setLang(lang);
+// Play a video once the player is ready
+function playVideo(videoId, volume) {
+  if (!playerReady) {
+    // Wait until player is ready
+    setTimeout(() => playVideo(videoId, volume), 100);
+    return;
   }
-}/* ------------------------------
-   MODE + LANGUAGE (UNCHANGED)
+
+  if (currentVideoId !== videoId) {
+    player.loadVideoById({
+      videoId: videoId,
+      startSeconds: 0
+    });
+    player.setLoop(true);
+    currentVideoId = videoId;
+  }
+
+  player.setVolume(volume);
+  player.playVideo();
+}
+
+// Call this inside your existing setMode
+function handleModeAudio(mode) {
+  let videoId = "";
+  let volume = 70;
+
+  switch (mode) {
+    case "dark":
+      videoId = "xJsE3YUkHq8";
+      volume = 70;
+      break;
+    case "colorblind":
+      videoId = "xNN7iTA57jM";
+      volume = 40;
+      break;
+    case "rain":
+      videoId = "SnUBb-FAlCY";
+      volume = 50;
+      break;
+    default: // light
+      videoId = "xNN7iTA57jM";
+      volume = 70;
+      break;
+  }
+
+  playVideo(videoId, volume);
+}
+
+
+
+/* ------------------------------
+   MODE + LANGUAGE
 ------------------------------ */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -56,13 +132,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function setMode(mode) {
   const root = document.documentElement;
-  root.classList.remove("light-mode", "dark-mode", "colorblind-mode");
+
+  root.classList.remove(
+    "light-mode",
+    "dark-mode",
+    "rain-mode",
+    "colorblind-mode",
+    "winter-mode"
+  );
 
   if (mode === "dark") root.classList.add("dark-mode");
   else if (mode === "colorblind") root.classList.add("colorblind-mode");
-  else root.classList.add("light-mode");
+  else if (mode === "rain") root.classList.add("rain-mode");
+  else if (mode === "winter") {
+    root.classList.add("winter-mode");
+    startSnow();
+  } else {
+    root.classList.add("light-mode");
+  }
+
+  if (mode !== "winter") stopSnow();
 
   localStorage.setItem("uiMode", mode);
+  handleModeAudio(mode);
 }
 
 function setLanguage(lang) {
@@ -200,3 +292,43 @@ document.querySelectorAll("input[type=number]").forEach(input => {
     input.value = input.value.replace(/[^0-9]/g, "");
   });
 });
+
+/* ------------------------------
+   Winter Theme
+------------------------------ */
+
+function randomIceHex() {
+  const t = Math.random();
+  const r = Math.round(255 + t * (93 - 255));
+  const g = Math.round(255 + t * (209 - 255));
+  const b = Math.round(255 + t * (228 - 255));
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+function startSnow() {
+  const emojis = ['❄', '❅', '❆', '❃', '❈', '❉', '❊', '❋'];
+
+  if (snowInterval !== null) return; // 🛑 already running
+
+  snowInterval = setInterval(() => {
+    const snowflake = document.createElement("div");
+    snowflake.className = "snowflake";
+    snowflake.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    snowflake.style.left = Math.random() * 100 + "vw";
+    snowflake.style.animationDuration = 3 + Math.random() * 5 + "s";
+    snowflake.style.fontSize = 0.8 + Math.random() * 1.2 + "rem";
+    snowflake.style.color = randomIceHex();
+
+    document.body.appendChild(snowflake);
+    setTimeout(() => snowflake.remove(), 8000);
+  }, 300);
+}
+
+function stopSnow() {
+  if (snowInterval === null) return;
+
+  clearInterval(snowInterval);
+  snowInterval = null;
+
+  document.querySelectorAll(".snowflake").forEach(e => e.remove());
+}

@@ -59,7 +59,13 @@ const translations = {
     saveBtn: "Save",
     exportBtn: "Export",
     resetBtn: "Reset",
-    previewTitle: "Character Preview"
+    previewTitle: "Character Preview",
+	
+	// Character Creator specifics
+    child: "Child",
+    adult: "Adult",
+    elder: "Elder",
+    lifespan: "Average lifespan: {years} years"
   },
   pl: {
     // Navbar / general
@@ -122,7 +128,13 @@ const translations = {
     exportBtn: "Eksportuj",
     loadBtn: "Eksportuj",
     resetBtn: "Resetuj",
-    previewTitle: "Podgląd Postaci"
+    previewTitle: "Podgląd Postaci",
+	
+	// Character Creator specifics
+    child: "Dziecko",
+    adult: "Dorosły",
+    elder: "Starszy",
+    lifespan: "Średnia długość życia: {years} lat"
   }
 };
 

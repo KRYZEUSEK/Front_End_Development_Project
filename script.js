@@ -300,7 +300,83 @@ document.querySelectorAll("input[type=number]").forEach(input => {
 /* ------------------------------
    Winter and Rain Theme
 ------------------------------ */
-// script.js
+
+function randomIceHex() {
+  const t = Math.random();
+  const r = Math.round(255 + t * (93 - 255));
+  const g = Math.round(255 + t * (209 - 255));
+  const b = Math.round(255 + t * (228 - 255));
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+function startSnow() {
+  const emojis = ['❄', '❅', '❆', '❃', '❈', '❉', '❊', '❋'];
+
+  if (snowInterval !== null) return; // 🛑 already running
+
+  snowInterval = setInterval(() => {
+    const snowflake = document.createElement("div");
+    snowflake.className = "snowflake";
+    snowflake.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    snowflake.style.left = Math.random() * 100 + "vw";
+    snowflake.style.animationDuration = 3 + Math.random() * 5 + "s";
+    snowflake.style.fontSize = 0.8 + Math.random() * 1.2 + "rem";
+    snowflake.style.color = randomIceHex();
+
+    document.body.appendChild(snowflake);
+    setTimeout(() => snowflake.remove(), 8000);
+  }, 300);
+}
+
+function startRain() {
+  const emojis = ['|', '│', '|', '╵', '〡', '╹', '╻', '╷', '︲'];
+
+  if (rainInterval !== null) return; // already running
+
+  rainInterval = setInterval(() => {
+    const raindrop = document.createElement("div");
+    raindrop.className = "raindrop";
+    raindrop.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+    raindrop.style.left = Math.random() * 100 + "vw";
+    raindrop.style.fontSize = 0.8 + Math.random() * 1.2 + "rem";
+    raindrop.style.color = randomIceHex();
+    raindrop.style.opacity = 0.4; // 50% transparent
+
+    // Randomize animation duration for variation
+    const duration = 3 + Math.random() * 5;
+    raindrop.style.animationDuration = duration + "s";
+
+    document.body.appendChild(raindrop);
+
+    // Remove after animation ends
+    setTimeout(() => raindrop.remove(), duration * 1000);
+  }, 100);
+}
+
+function stopSnow() {
+  if (snowInterval === null) return;
+
+  clearInterval(snowInterval);
+  snowInterval = null;
+
+  document.querySelectorAll(".snowflake").forEach(e => e.remove());
+}
+
+
+function stopRain() {
+  if (rainInterval === null) return;
+
+  clearInterval(rainInterval);
+  rainInterval = null;
+
+  document.querySelectorAll(".raindrop").forEach(e => e.remove());
+}
+
+
+/* ------------------------------
+   Character Script
+------------------------------ */
 
 document.addEventListener('DOMContentLoaded', () => {
   const stats = ['str', 'dex', 'con', 'int', 'wis', 'cha'];

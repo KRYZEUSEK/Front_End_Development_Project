@@ -334,7 +334,7 @@ button:not(.btn-small) {
     border: 2px solid var(--bg-main);
     padding: 4px 8px;
     font-size: 12px;
-    cursor: pointer;
+	cursor: url('cursors/Cherry-Wood-_filter-select_.png'), pointer;
 
 }
 
@@ -449,6 +449,35 @@ fieldset:nth-of-type(2) input:disabled {
   padding: 2px 6px;        /* very small */
   font-size: 0.8em;
   line-height: 1;
-  cursor: pointer;
+	cursor: url('cursors/Cherry-Wood-_filter-select_.png'), pointer;
   white-space: nowrap;
+}
+
+/* hide native file input */
+.file-input {
+  display: none;
+}
+
+/* make label behave EXACTLY like a button */
+.file-button {
+  display: inline-block;
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+
+  background: var(--button);
+  color: white;
+  border-radius: 6px;
+  border: none;
+
+  font-size: 15px;
+  text-align: center;
+
+  cursor: url('cursors/Cherry-Wood-_filter-select_.png'), pointer;
+  box-sizing: border-box;
+}
+
+/* hover state = same as button */
+.file-button:hover {
+  background: var(--button-hover);
 }

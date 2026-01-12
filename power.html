@@ -50,7 +50,20 @@
       <h2>Character A</h2>
       <button onclick="loadCharacter('A')">Load saved → Character A</button>
       <br><br>
-      <input type="file" accept=".json" onchange="loadFromFile(event, 'A')">
+	  
+<input
+  type="file"
+  id="fileA"
+  accept=".json"
+  onchange="loadFromFile(event, 'A')"
+  class="file-input"
+/>
+
+<label for="fileA" class="file-button">
+  Import saved → Character A
+</label>
+
+
       <pre id="charA-preview" style="margin-top:15px; text-align:left;"></pre>
     </div>
 
@@ -84,7 +97,20 @@
       <h2>Character B</h2>
       <button onclick="loadCharacter('B')">Load saved → Character B</button>
       <br><br>
-      <input type="file" accept=".json" onchange="loadFromFile(event, 'B')">
+	  
+<input
+  type="file"
+  id="fileB"
+  accept=".json"
+  onchange="loadFromFile(event, 'B')"
+  class="file-input"
+/>
+
+<label for="fileB" class="file-button">
+  Import saved → Character B
+</label>
+
+
       <pre id="charB-preview" style="margin-top:15px; text-align:left;"></pre>
     </div>
 

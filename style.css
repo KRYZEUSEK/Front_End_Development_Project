@@ -329,6 +329,15 @@ button:not(.btn-small) {
     resize: vertical;
 }
 
+input,
+select,
+textarea,
+checkbox,
+option,
+button {
+	cursor: url('cursors/Cherry-Wood-_filter-select_.png'), pointer;
+}
+
 .btn-small {
 
     border: 2px solid var(--bg-main);

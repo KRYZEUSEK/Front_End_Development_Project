@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>D&D Character Forge</title>
+
+<!-- META FOR SEO & MOBILE -->
+<meta name="description" content="D&D Character Forge: Create, customize, and manage D&D 5e characters with features like a character creator, name generator, and power scaling.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet" href="style.css">
 <script src="lan.js" defer></script>
 <script src="script.js" defer></script>
@@ -18,7 +23,7 @@
 
     <div class="mode-switcher">
       <button onclick="setMode('light')">🌞</button>
-	  <button onclick="setMode('rain')">🌧️</button>
+      <button onclick="setMode('rain')">🌧️</button>
       <button onclick="setMode('dark')">🌑</button>
       <button onclick="setMode('colorblind')">👁️</button>
       <button id="winter-btn" onclick="setMode('winter')" style="display:none;">❄️</button>
@@ -35,7 +40,7 @@
 </nav>
 </header>
 
-<div class="container">
+<main class="container">
   <h1 id="page-title" data-i18n="indextitle">D&D Character Forge</h1>
   <p data-i18n="subtitle">
     Create heroes, legends, and wanderers of the wilds.
@@ -49,7 +54,7 @@
     <li data-i18n="powerscalingdesc">Power scaling & point-buy</li>
     <li data-i18n="ambientdesc">Ambient forest visuals</li>
   </ul>
-</div>
+</main>
 
 </body>
 </html>

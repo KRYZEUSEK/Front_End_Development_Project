@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <title data-i18n="Leveling">Leveling</title>
 
+<!-- META FOR SEO & MOBILE -->
+<meta name="description" content="Level up your D&D character, choose classes, and manage level progression.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet" href="style.css">
 
 <script src="data/classes.js" defer></script>
@@ -43,7 +47,7 @@
 </nav>
 </header>
 
-<div class="container">
+<main class="container">
 
 <h1 data-i18n="levelingHeader">Character Leveling</h1>
 <p id="char-summary"></p>
@@ -52,8 +56,10 @@
 <fieldset>
   <legend data-i18n="levelUp">Level Up</legend>
 
-  <label data-i18n="chooseClass">Choose Class</label>
-  <select id="levelClassSelect"></select>
+  <label id="classLabel" for="levelClassSelect" data-i18n="chooseClass">
+    Choose your class
+  </label>
+  <select id="levelClassSelect" aria-labelledby="classLabel"></select>
 
   <button type="button" id="startLevelBtn" data-i18n="startLevelBtn">Start Level-Up</button>
 </fieldset>
@@ -81,6 +87,7 @@
 <button id="importLeveling" data-i18n="importBtn">Import</button>
 <button id="resetLeveling" data-i18n="resetBtn">Reset</button>
 
-</div>
+</main>
+
 </body>
 </html>

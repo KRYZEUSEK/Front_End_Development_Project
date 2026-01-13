@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Duel</title>
+<title>Duel – D&D Character Forge</title>
+<meta name="description" content="Compare two D&D characters and estimate which one would most likely win in a duel.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 <script src="lan.js" defer></script>
 <script src="script.js" defer></script>
@@ -36,62 +38,57 @@
 </nav>
 </header>
 
-<div class="container">
+<main class="container">
   <h1 data-i18n="Duel">Duel</h1>
   <p data-i18n="PowerScalingDescriptionLong">
     Compare two characters and estimate which one would most likely win.
   </p>
 
-  <!-- MAIN COMPARISON LAYOUT -->
   <div style="display:flex; justify-content:space-between; gap:30px; margin-top:40px; align-items:flex-start;">
 
     <!-- LEFT CHARACTER -->
-    <div style="flex:1; text-align:center;">
-      <h2>Character A</h2>
+    <section style="flex:1; text-align:center;" aria-labelledby="charA-title">
+      <h2 id="charA-title">Character A</h2>
       <button onclick="loadCharacter('A')">Load saved → Character A</button>
       <br><br>
-      <input type="file" id="fileA" accept=".json" onchange="loadFromFile(event, 'A')" class="file-input">
+      <input type="file" id="fileA" accept=".json" onchange="loadFromFile(event, 'A')" class="file-input" hidden>
       <label for="fileA" class="file-button">Import saved → Character A</label>
       <pre id="charA-preview" style="margin-top:15px; text-align:left;"></pre>
-    </div>
+    </section>
 
     <!-- CENTER ACTION -->
-    <div style="flex:0.6; text-align:center;">
+    <section style="flex:0.6; text-align:center;" aria-label="Compare Characters">
       <button id="compare-btn" style="font-size:1.2em; padding:15px 30px; margin-top:20px;">
         ⚔️ Compare
       </button>
 
-      <!-- JEDEN PASEK Z PROCENTAMI PO OBU STRONACH -->
       <div id="comparison-result" style="margin-top:20px; display:block;">
         <div>
           <strong id="winner">Winner:</strong>
         </div>
         <div style="margin-top:10px;">
           <div style="background:#ccc; height:20px; border-radius:10px; position:relative; overflow:hidden;">
-            <div
-              id="chanceBar"
-              style="width:50%; height:100%; transition:width 0.4s;"
-            ></div>
+            <div id="chanceBar" style="width:50%; height:100%; transition:width 0.4s;"></div>
             <span id="chanceA-label" style="position:absolute; left:5px; top:0; height:100%; line-height:20px; color:#000; font-weight:bold;">50%</span>
             <span id="chanceB-label" style="position:absolute; right:5px; top:0; height:100%; line-height:20px; color:#000; font-weight:bold;">50%</span>
           </div>
           <div id="chanceText" style="margin-top:8px; white-space:pre-line;"></div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- RIGHT CHARACTER -->
-    <div style="flex:1; text-align:center;">
-      <h2>Character B</h2>
+    <section style="flex:1; text-align:center;" aria-labelledby="charB-title">
+      <h2 id="charB-title">Character B</h2>
       <button onclick="loadCharacter('B')">Load saved → Character B</button>
       <br><br>
-      <input type="file" id="fileB" accept=".json" onchange="loadFromFile(event, 'B')" class="file-input">
+      <input type="file" id="fileB" accept=".json" onchange="loadFromFile(event, 'B')" class="file-input" hidden>
       <label for="fileB" class="file-button">Import saved → Character B</label>
       <pre id="charB-preview" style="margin-top:15px; text-align:left;"></pre>
-    </div>
+    </section>
 
   </div>
-</div>
+</main>
 
 <script>
 let characterA = null;
@@ -108,7 +105,6 @@ window.adaptCharacter = function (raw, fallbackName) {
     name: basic.firstName || fallbackName || "Unknown",
     className: basic.class || "Fighter",
     level: Number(basic.level) || 1,
-
     stats: {
       STR: stats.str ?? 10,
       DEX: stats.dex ?? 10,
@@ -119,7 +115,6 @@ window.adaptCharacter = function (raw, fallbackName) {
     }
   };
 };
-
 
 /* -----------------------------
    LOAD CHARACTER FROM LOCAL STORAGE
@@ -136,7 +131,6 @@ window.loadCharacter = function(side) {
 
   assignCharacter(side, JSON.parse(raw));
 };
-
 
 /* -----------------------------
    LOAD CHARACTER FROM FILE
@@ -192,25 +186,20 @@ document.addEventListener("DOMContentLoaded", function() {
     const chanceA = result.probabilities[characterA.name];
     const chanceB = result.probabilities[characterB.name];
 
-    // Zwycięzca
     document.getElementById("winner").innerText = "Winner: " + result.winner;
 
-    // Pasek z kolorem zależnym od przewagi
     const bar = document.getElementById("chanceBar");
     bar.style.width = chanceA + "%";
     if (chanceA > 55) {
-      bar.style.background = "#4caf50"; // A prowadzi = zielony
+      bar.style.background = "#4caf50";
     } else if (chanceB > 55) {
-      bar.style.background = "#f44336"; // B prowadzi = czerwony
+      bar.style.background = "#f44336";
     } else {
-      bar.style.background = "#ffeb3b"; // remis ~50% = żółty
+      bar.style.background = "#ffeb3b";
     }
 
-    // Procenty po bokach
     document.getElementById("chanceA-label").innerText = chanceA + "%";
     document.getElementById("chanceB-label").innerText = chanceB + "%";
-
-    // Rozpiska pod paskiem
     document.getElementById("chanceText").innerText =
       `${characterA.name}: ${chanceA}%\n${characterB.name}: ${chanceB}%`;
   });

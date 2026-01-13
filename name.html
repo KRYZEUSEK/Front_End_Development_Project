@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Name Generator</title>
+
+<!-- META FOR SEO & MOBILE -->
+<meta name="description" content="Fantasy Name Generator for D&D: Generate character names by gender, race, or style, and save your favorites.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet" href="style.css">
 <script src="lan.js" defer></script>
 <script src="script.js" defer></script>
@@ -19,7 +24,7 @@
 
     <div class="mode-switcher">
       <button onclick="setMode('light')">🌞</button>
-	  <button onclick="setMode('rain')">🌧️</button>
+      <button onclick="setMode('rain')">🌧️</button>
       <button onclick="setMode('dark')">🌑</button>
       <button onclick="setMode('colorblind')">👁️</button>
       <button id="winter-btn" onclick="setMode('winter')" style="display:none;">❄️</button>
@@ -33,17 +38,15 @@
   <a href="leveling.html" data-i18n="Leveling">Leveling</a>
   <a href="name.html" data-i18n="NameGen">Name Generator</a>
   <a href="power.html" data-i18n="Duel">Duel</a>
-  
 </nav>
 </header>
 
-<div class="container">
+<main class="container">
   <h1 id="page-title" data-i18n="NameGenFantasy">Fantasy Name Generator</h1>
 
   <!-- OPTIONS -->
   <div class="options">
-
-    <label>
+    <label for="gender">
       Gender:
       <select id="gender">
         <option value="any">Any</option>
@@ -53,36 +56,35 @@
       </select>
     </label>
 
-    <label>
+    <label for="race">
       Species:
-	  <select id="race">
-		<option value="human" data-i18n="raceHuman">Human</option>
-		<option value="elf" data-i18n="raceElf">Elf</option>
-		<option value="dwarf" data-i18n="raceDwarf">Dwarf</option>
-		<option value="halfling" data-i18n="raceHalfling">Halfling</option>
-		<option value="dragonborn" data-i18n="raceDragonborn">Dragonborn</option>
-		<option value="gnome" data-i18n="raceGnome">Gnome</option>
-		<option value="half-elf" data-i18n="raceHalfElf">Half-Elf</option>
-		<option value="half-orc" data-i18n="raceHalfOrc">Half-Orc</option>
-		<option value="tiefling" data-i18n="raceTiefling">Tiefling</option>
-		<option value="orc" data-i18n="raceOrc">Orc</option>
-		<option value="goblin" data-i18n="raceGoblin">Goblin</option>
-		<option value="tabaxi" data-i18n="raceTabaxi">Tabaxi</option>
-		<option value="kenku" data-i18n="raceKenku">Kenku</option>
-		<option value="lizardfolk" data-i18n="raceLizardfolk">Lizardfolk</option>
-		<option value="custom" data-i18n="raceCustom">Random</option>
-	  </select>
+      <select id="race">
+        <option value="human" data-i18n="raceHuman">Human</option>
+        <option value="elf" data-i18n="raceElf">Elf</option>
+        <option value="dwarf" data-i18n="raceDwarf">Dwarf</option>
+        <option value="halfling" data-i18n="raceHalfling">Halfling</option>
+        <option value="dragonborn" data-i18n="raceDragonborn">Dragonborn</option>
+        <option value="gnome" data-i18n="raceGnome">Gnome</option>
+        <option value="half-elf" data-i18n="raceHalfElf">Half-Elf</option>
+        <option value="half-orc" data-i18n="raceHalfOrc">Half-Orc</option>
+        <option value="tiefling" data-i18n="raceTiefling">Tiefling</option>
+        <option value="orc" data-i18n="raceOrc">Orc</option>
+        <option value="goblin" data-i18n="raceGoblin">Goblin</option>
+        <option value="tabaxi" data-i18n="raceTabaxi">Tabaxi</option>
+        <option value="kenku" data-i18n="raceKenku">Kenku</option>
+        <option value="lizardfolk" data-i18n="raceLizardfolk">Lizardfolk</option>
+        <option value="custom" data-i18n="raceCustom">Random</option>
+      </select>
     </label>
 
     <label class="line-block">
-    <input type="checkbox" id="surname" checked=""> Include Surname
+      <input type="checkbox" id="surname" checked> Include Surname
     </label>
 
-    <label>
+    <label for="count">
       Amount:
       <input type="number" id="count" min="1" max="20" step="1" value="1">
     </label>
-
   </div>
 
   <button onclick="generateNames()">Generate Name</button>
@@ -90,10 +92,10 @@
   <!-- OUTPUT -->
   <h2>Generated Names</h2>
   <div id="namesList"></div>
+
   <h2>Saved Names</h2>
   <div id="savedList"></div>
-  
-</div>
+</main>
 
 </body>
 </html>

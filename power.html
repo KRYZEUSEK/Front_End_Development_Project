@@ -100,21 +100,26 @@ let characterB = null;
 /* -----------------------------
    ADAPT CHARACTER JSON
 ------------------------------ */
-window.adaptCharacter = function(raw, fallbackName) {
+window.adaptCharacter = function (raw, fallbackName) {
+  const basic = raw.basic || {};
+  const stats = raw.stats || {};
+
   return {
-    name: raw.firstName || fallbackName,
-    className: raw.className || raw.class || "Fighter",
-    level: Number(raw.level) || 1,
+    name: basic.firstName || fallbackName || "Unknown",
+    className: basic.class || "Fighter",
+    level: Number(basic.level) || 1,
+
     stats: {
-      STR: raw.stats?.str ?? 10,
-      DEX: raw.stats?.dex ?? 10,
-      CON: raw.stats?.con ?? 10,
-      INT: raw.stats?.int ?? 10,
-      WIS: raw.stats?.wis ?? 10,
-      CHA: raw.stats?.cha ?? 10
+      STR: stats.str ?? 10,
+      DEX: stats.dex ?? 10,
+      CON: stats.con ?? 10,
+      INT: stats.int ?? 10,
+      WIS: stats.wis ?? 10,
+      CHA: stats.cha ?? 10
     }
   };
-}
+};
+
 
 /* -----------------------------
    LOAD CHARACTER FROM LOCAL STORAGE

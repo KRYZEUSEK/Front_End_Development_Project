@@ -125,10 +125,18 @@ window.adaptCharacter = function (raw, fallbackName) {
    LOAD CHARACTER FROM LOCAL STORAGE
 ------------------------------ */
 window.loadCharacter = function(side) {
-  const c = JSON.parse(localStorage.getItem('cg_chara') || 'null');
-  if (!c) { alert('No saved character'); return; }
-  assignCharacter(side, c);
-}
+  const raw =
+    localStorage.getItem("characterData") ||
+    localStorage.getItem("cg_chara");
+
+  if (!raw) {
+    alert("No saved character");
+    return;
+  }
+
+  assignCharacter(side, JSON.parse(raw));
+};
+
 
 /* -----------------------------
    LOAD CHARACTER FROM FILE

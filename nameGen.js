@@ -706,8 +706,26 @@ const surnameRules = {
 /* -------- Name generation -------- */
 
 function getGender(g) {
-  if (g === "any") return pick(["male","female","neutral"]);
-  return g;
+  if (!g) return "neutral";
+
+  const input = g.toLowerCase();
+
+  const femaleTerms = ["woman", "kobieta", "f", "female", "żeńska", "ż", "feminine"];
+  const maleTerms = ["man", "mężczyzna", "m", "male", "męska", "masculine"];
+
+  if (input === "any") {
+    return pick(["male", "female", "neutral"]);
+  }
+
+  if (femaleTerms.includes(input)) {
+    return "female";
+  }
+
+  if (maleTerms.includes(input)) {
+    return "male";
+  }
+
+  return "neutral";
 }
 
 function generateFirstName(race, gender) {

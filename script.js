@@ -138,22 +138,35 @@ const preview = document.getElementById("preview");
 /* Collect all data */
 function getCharacterData() {
   return {
-    firstName: firstName.value,
-    lastName: lastName.value,
-    race: raceSelect.value === "Custom" ? customRace.value : raceSelect.value,
-    alignment: alignment.value,
-    stats: {
-      str: +str.value,
-      dex: +dex.value,
-      con: +con.value,
-      int: +int.value,
-      wis: +wis.value,
-      cha: +cha.value
+    basic: {
+      firstName: document.getElementById("firstName").value,
+      lastName: document.getElementById("lastName").value,
+      race:
+        document.getElementById("raceSelect").value === "custom"
+          ? document.getElementById("customRace")?.value || "Custom"
+          : document.getElementById("raceSelect").value,
+      alignment: document.getElementById("alignment").value,
+      class: document.getElementById("class").value,
+      level: Number(document.getElementById("level").value)
     },
-    age: age.value,
-    height: height.value,
-    weight: weight.value,
-    notes: notes.value
+
+    stats: {
+      str: Number(document.getElementById("str").value),
+      dex: Number(document.getElementById("dex").value),
+      con: Number(document.getElementById("con").value),
+      int: Number(document.getElementById("int").value),
+      wis: Number(document.getElementById("wis").value),
+      cha: Number(document.getElementById("cha").value)
+    },
+
+    extra: {
+      age: document.getElementById("age").value,
+      sex: document.getElementById("sex").value,
+      gender: document.getElementById("gender").value,
+      height: document.getElementById("height").value,
+      weight: document.getElementById("weight").value,
+      notes: document.getElementById("notes").value
+    }
   };
 }
 

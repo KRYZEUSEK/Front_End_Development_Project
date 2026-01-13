@@ -50,20 +50,8 @@
       <h2>Character A</h2>
       <button onclick="loadCharacter('A')">Load saved → Character A</button>
       <br><br>
-	  
-<input
-  type="file"
-  id="fileA"
-  accept=".json"
-  onchange="loadFromFile(event, 'A')"
-  class="file-input"
-/>
-
-<label for="fileA" class="file-button">
-  Import saved → Character A
-</label>
-
-
+      <input type="file" id="fileA" accept=".json" onchange="loadFromFile(event, 'A')" class="file-input">
+      <label for="fileA" class="file-button">Import saved → Character A</label>
       <pre id="charA-preview" style="margin-top:15px; text-align:left;"></pre>
     </div>
 
@@ -73,21 +61,21 @@
         ⚔️ Compare
       </button>
 
-      <div id="comparison-result" style="margin-top:20px;">
+      <!-- JEDEN PASEK Z PROCENTAMI PO OBU STRONACH -->
+      <div id="comparison-result" style="margin-top:20px; display:block;">
         <div>
           <strong id="winner">Winner:</strong>
         </div>
-        <div>
-          <strong>Character A:</strong>
-          <div style="background:#ccc; height:16px; border-radius:8px; margin-bottom:8px;">
-            <div id="chanceA" style="width:0%; height:100%; background:#4caf50; border-radius:8px; text-align:right; color:#fff; font-size:0.8em;"></div>
+        <div style="margin-top:10px;">
+          <div style="background:#ccc; height:20px; border-radius:10px; position:relative; overflow:hidden;">
+            <div
+              id="chanceBar"
+              style="width:50%; height:100%; transition:width 0.4s;"
+            ></div>
+            <span id="chanceA-label" style="position:absolute; left:5px; top:0; height:100%; line-height:20px; color:#000; font-weight:bold;">50%</span>
+            <span id="chanceB-label" style="position:absolute; right:5px; top:0; height:100%; line-height:20px; color:#000; font-weight:bold;">50%</span>
           </div>
-        </div>
-        <div>
-          <strong>Character B:</strong>
-          <div style="background:#ccc; height:16px; border-radius:8px; margin-bottom:8px;">
-            <div id="chanceB" style="width:0%; height:100%; background:#4caf50; border-radius:8px; text-align:right; color:#fff; font-size:0.8em;"></div>
-          </div>
+          <div id="chanceText" style="margin-top:8px; white-space:pre-line;"></div>
         </div>
       </div>
     </div>
@@ -97,32 +85,22 @@
       <h2>Character B</h2>
       <button onclick="loadCharacter('B')">Load saved → Character B</button>
       <br><br>
-	  
-<input
-  type="file"
-  id="fileB"
-  accept=".json"
-  onchange="loadFromFile(event, 'B')"
-  class="file-input"
-/>
-
-<label for="fileB" class="file-button">
-  Import saved → Character B
-</label>
-
-
+      <input type="file" id="fileB" accept=".json" onchange="loadFromFile(event, 'B')" class="file-input">
+      <label for="fileB" class="file-button">Import saved → Character B</label>
       <pre id="charB-preview" style="margin-top:15px; text-align:left;"></pre>
     </div>
 
   </div>
 </div>
 
-<!-- PAGE SCRIPT -->
 <script>
 let characterA = null;
 let characterB = null;
 
-function adaptCharacter(raw, fallbackName) {
+/* -----------------------------
+   ADAPT CHARACTER JSON
+------------------------------ */
+window.adaptCharacter = function(raw, fallbackName) {
   return {
     name: raw.firstName || fallbackName,
     className: raw.className || raw.class || "Fighter",
@@ -138,13 +116,19 @@ function adaptCharacter(raw, fallbackName) {
   };
 }
 
-function loadCharacter(side) {
+/* -----------------------------
+   LOAD CHARACTER FROM LOCAL STORAGE
+------------------------------ */
+window.loadCharacter = function(side) {
   const c = JSON.parse(localStorage.getItem('cg_chara') || 'null');
   if (!c) { alert('No saved character'); return; }
   assignCharacter(side, c);
 }
 
-function loadFromFile(event, side) {
+/* -----------------------------
+   LOAD CHARACTER FROM FILE
+------------------------------ */
+window.loadFromFile = function(event, side) {
   const file = event.target.files[0];
   if (!file) return;
   const reader = new FileReader();
@@ -155,6 +139,9 @@ function loadFromFile(event, side) {
   reader.readAsText(file);
 }
 
+/* -----------------------------
+   ASSIGN CHARACTER
+------------------------------ */
 function assignCharacter(side, rawData) {
   const adapted = adaptCharacter(rawData, side === 'A' ? 'Character A' : 'Character B');
   if (side === 'A') {
@@ -169,7 +156,7 @@ function assignCharacter(side, rawData) {
 }
 
 /* -----------------------------
-   COMPARE BUTTON – DOPIERO PO ZAŁADOWANIU STRONY
+   COMPARE BUTTON
 ------------------------------ */
 document.addEventListener("DOMContentLoaded", function() {
   const compareBtn = document.getElementById("compare-btn");
@@ -189,15 +176,34 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const result = window.compareCharacters(characterA, characterB);
 
-    // render result
+    const chanceA = result.probabilities[characterA.name];
+    const chanceB = result.probabilities[characterB.name];
+
+    // Zwycięzca
     document.getElementById("winner").innerText = "Winner: " + result.winner;
-    document.getElementById("chanceA").style.width = result.probabilities[characterA.name] + "%";
-    document.getElementById("chanceA").innerText = result.probabilities[characterA.name] + "%";
-    document.getElementById("chanceB").style.width = result.probabilities[characterB.name] + "%";
-    document.getElementById("chanceB").innerText = result.probabilities[characterB.name] + "%";
+
+    // Pasek z kolorem zależnym od przewagi
+    const bar = document.getElementById("chanceBar");
+    bar.style.width = chanceA + "%";
+    if (chanceA > 55) {
+      bar.style.background = "#4caf50"; // A prowadzi = zielony
+    } else if (chanceB > 55) {
+      bar.style.background = "#f44336"; // B prowadzi = czerwony
+    } else {
+      bar.style.background = "#ffeb3b"; // remis ~50% = żółty
+    }
+
+    // Procenty po bokach
+    document.getElementById("chanceA-label").innerText = chanceA + "%";
+    document.getElementById("chanceB-label").innerText = chanceB + "%";
+
+    // Rozpiska pod paskiem
+    document.getElementById("chanceText").innerText =
+      `${characterA.name}: ${chanceA}%\n${characterB.name}: ${chanceB}%`;
   });
 });
 </script>
 
 </body>
 </html>
+

@@ -6,6 +6,7 @@ const translations = {
     NameGen: "Name Generator",
     NameGenFantasy: "Fantasy Name Generator",
     PowerScaling: "Power Scaling",
+    Duel: "Duel",
     Leveling: "Leveling",
 
     // Index page
@@ -200,6 +201,7 @@ const translations = {
     NameGen: "Generator Imion",
     NameGenFantasy: "Generator Imion Fantasy",
     PowerScaling: "Skalowanie Mocy",
+    Duel: "Walka",
     Leveling: "Levelowanie",
 
     // Index page

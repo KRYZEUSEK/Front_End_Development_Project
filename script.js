@@ -4,26 +4,67 @@
 
 let snowInterval = null; 
 let rainInterval = null; 
+let pollenInterval = null; 
+let summerInterval = null; 
+let autumnInterval = null; 
+let valentineInterval = null; 
 
-// Load mode on startup
+// Load mode on startup// 🎯 Determine season / holiday mode
+function getSeasonMode() {
+  const now = new Date();
+  const month = now.getMonth();
+  const day = now.getDate();
+
+  // 🎃 Halloween (Oct 31)
+  if (month === 9 && day === 31) return "halloween";
+
+  // ❤️ Valentine’s Day (Feb 14)
+  if (month === 1 && day === 14) return "valentine";
+
+  // ❄️ Winter (Dec–Feb)
+  if (month === 11 || month === 0 || month === 1) return "winter";
+
+  // 🌸 Spring (Mar–May)
+  if (month >= 2 && month <= 4) return "spring";
+
+  // ☀️ Summer (Jun–Aug)
+  if (month >= 5 && month <= 7) return "summer";
+
+  // 🍂 Autumn (Sep–Nov)
+  return "autumn";
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  const savedMode = localStorage.getItem("uiMode") || "light";
-  
-    const now = new Date();
-    const isWinter = now.getMonth() === 11 || now.getMonth() === 0 || now.getMonth() === 1;
 
-    const winterBtn = document.getElementById("winter-btn");
+  const seasonalMode = getSeasonMode();
 
-    if (isWinter) {
-      // Show winter button
-      winterBtn.style.display = "inline-block";
-		const savedMode = localStorage.getItem("uiMode") || "winter";
-    }else{
-		const savedMode = localStorage.getItem("uiMode") || "light";
-	}
+  // 🎛 Season button emoji
+  const seasonEmojis = {
+    winter: "❄️",
+    spring: "🌸",
+    summer: "☀️",
+    autumn: "🍂",
+    valentine: "❤️",
+    halloween: "🎃"
+  };
+
+  const seasonBtn = document.getElementById("season-btn");
+  if (seasonBtn) {
+    seasonBtn.textContent = seasonEmojis[seasonalMode];
+  }
+
+  // 💾 Respect saved mode first, otherwise use seasonal
+  let savedMode = localStorage.getItem("uiMode");
+
+  if (!savedMode) {
+    savedMode = seasonalMode;
+    localStorage.setItem("uiMode", savedMode);
+  }
+
   setMode(savedMode);
-	
 });
+
+
 
 /* ------------------------------
    Video + Sound
@@ -48,6 +89,11 @@ function handleModeAudio(mode) {
     case "colorblind":
       src = "audio/light.ogg";
       volume = 0.15;
+      break;
+
+    case "halloween":
+      src = "audio/dark.ogg";
+      volume = 0.7;
       break;
 
     case "rain":
@@ -83,15 +129,13 @@ function handleModeAudio(mode) {
 ------------------------------ */
 
 document.addEventListener("DOMContentLoaded", () => {
-  const savedMode = localStorage.getItem("uiMode") || "light";
-  setMode(savedMode);
-
   const savedLang = localStorage.getItem("lang") || "en";
   setLang(savedLang);
 
   loadFromLocal();
   updatePreview();
 });
+
 
 function setMode(mode) {
   const root = document.documentElement;
@@ -100,24 +144,46 @@ function setMode(mode) {
     "light-mode",
     "dark-mode",
     "rain-mode",
+    "spring-mode",
+    "summer-mode",
+    "autumn-mode",
+    "valentine-mode",
+    "halloween-mode",
     "colorblind-mode",
     "winter-mode"
   );
 
   if (mode === "dark") root.classList.add("dark-mode");
   else if (mode === "colorblind") root.classList.add("colorblind-mode");
+  else if (mode === "halloween") root.classList.add("halloween-mode");
   else if (mode === "rain") {
     root.classList.add("rain-mode");
     startRain();
   } else if (mode === "winter") {
     root.classList.add("winter-mode");
     startSnow();
+  } else if (mode === "spring") {
+    root.classList.add("spring-mode");
+    startSpring();
+  } else if (mode === "summer") {
+    root.classList.add("summer-mode");
+    startSummer();
+  } else if (mode === "autumn") {
+    root.classList.add("autumn-mode");
+    startAutumn();
+  } else if (mode === "valentine") {
+    root.classList.add("valentine-mode");
+    startValentine();
   } else {
     root.classList.add("light-mode");
   }
 
   if (mode !== "winter") stopSnow();
   if (mode !== "rain") stopRain();
+  if (mode !== "spring") stopSpring();
+  if (mode !== "autumn") stopAutumn();
+  if (mode !== "valentine") stopValentine();
+  if (mode !== "summer") stopSummer();
 
   localStorage.setItem("uiMode", mode);
   handleModeAudio(mode);
@@ -273,7 +339,7 @@ document.querySelectorAll("input[type=number]").forEach(input => {
 });
 
 /* ------------------------------
-   Winter and Rain Theme
+   Season and weather Theme
 ------------------------------ */
 
 function randomIceHex() {
@@ -329,6 +395,96 @@ function startRain() {
   }, 100);
 }
 
+function randomPollenColor() {
+  const colors = [
+    "#f7e36a", // yellow pollen
+    "#e8f5a2", // soft green
+    "#ffd966", // warm spring gold
+  ];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function startSpring() {
+  const particles = ["•", "·", "°", "✿", "❊", "🌸", "✾", "✽", "✿", "❀", "❁", "❃", "❊", "❋", "💮", "🏵️", "🌺", "☘"];
+
+  if (pollenInterval !== null) return;
+
+  pollenInterval = setInterval(() => {
+    const pollen = document.createElement("div");
+    pollen.className = "pollen";
+    pollen.innerText = particles[Math.floor(Math.random() * particles.length)];
+    pollen.style.left = Math.random() * 100 + "vw";
+    pollen.style.animationDuration = 8 + Math.random() * 6 + "s";
+    pollen.style.fontSize = 0.5 + Math.random() * 0.8 + "rem";
+    pollen.style.color = randomPollenColor();
+
+    document.body.appendChild(pollen);
+    setTimeout(() => pollen.remove(), 14000);
+  }, 450);
+}
+function startSummer() {
+  if (summerInterval !== null) return;
+
+  summerInterval = setInterval(() => {
+    const firefly = document.createElement("div");
+    firefly.className = "firefly";
+    firefly.innerText = "•";
+    firefly.style.left = Math.random() * 100 + "vw";
+    firefly.style.top = 60 + Math.random() * 30 + "vh";
+    firefly.style.fontSize = 0.4 + Math.random() * 0.6 + "rem";
+    firefly.style.color = "rgba(255, 230, 150, 0.9)";
+    firefly.style.animationDuration = 4 + Math.random() * 4 + "s";
+
+    document.body.appendChild(firefly);
+    setTimeout(() => firefly.remove(), 7000);
+  }, 600);
+}
+
+function startAutumn() {
+  const leaves = ["🍂", "🍁", "🍃"];
+
+  if (autumnInterval !== null) return;
+
+  autumnInterval = setInterval(() => {
+    const leaf = document.createElement("div");
+    leaf.className = "leaf-fall";
+    leaf.innerText = leaves[Math.floor(Math.random() * leaves.length)];
+    leaf.style.left = Math.random() * 100 + "vw";
+    leaf.style.animationDuration = 6 + Math.random() * 6 + "s";
+    leaf.style.fontSize = 0.8 + Math.random() * 1.2 + "rem";
+
+    document.body.appendChild(leaf);
+    setTimeout(() => leaf.remove(), 12000);
+  }, 500);
+}
+
+function startValentine() {
+  const emojis = ['❤️','♥️', '❤️', '🩷', '💜', '🤍', '💖', '♥️', '💓', '💗', '🩷', '❤️', '💝', '💘', '❤️‍🔥', '♥️', '❤️‍🩹', '💕', '💕', '❣️', '💞', '🩷', '🩷', '❤️', '❤️'];
+
+  if (valentineInterval !== null) return; // already running
+
+  valentineInterval = setInterval(() => {
+    const hearts = document.createElement("div");
+    hearts.className = "hearts";
+    hearts.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+    hearts.style.left = Math.random() * 100 + "vw";
+    hearts.style.fontSize = 0.8 + Math.random() * 1.2 + "rem";
+    hearts.style.color = randomIceHex();
+    hearts.style.opacity = 0.2; // 20% transparent
+
+    // Randomize animation duration for variation
+    const duration = 3 + Math.random() * 10;
+    hearts.style.animationDuration = duration + "s";
+
+    document.body.appendChild(hearts);
+
+    // Remove after animation ends
+    setTimeout(() => hearts.remove(), duration * 1000);
+  }, 100);
+}
+
+
 function stopSnow() {
   if (snowInterval === null) return;
 
@@ -346,6 +502,55 @@ function stopRain() {
   rainInterval = null;
 
   document.querySelectorAll(".raindrop").forEach(e => e.remove());
+}
+
+
+function stopSpring() {
+  if (pollenInterval === null) return;
+
+  clearInterval(pollenInterval);
+  pollenInterval = null;
+
+  document.querySelectorAll(".pollen").forEach(e => e.remove());
+}
+
+function stopAutumn() {
+  if (autumnInterval === null) return;
+
+  clearInterval(autumnInterval);
+  autumnInterval = null;
+
+  document.querySelectorAll(".leaf").forEach(e => e.remove());
+}
+
+function stopSummer() {
+  if (summerInterval === null) return;
+
+  clearInterval(summerInterval);
+  summerInterval = null;
+
+  document.querySelectorAll(".firefly").forEach(e => e.remove());
+}
+
+function stopValentine() {
+  if (valentineInterval === null) return;
+
+  clearInterval(valentineInterval);
+  valentineInterval = null;
+
+  document.querySelectorAll(".hearts").forEach(e => e.remove());
+}
+
+function stopAllWeather() {
+  clearInterval(snowInterval); snowInterval = null;
+  clearInterval(pollenInterval); pollenInterval = null;
+  clearInterval(summerInterval); summerInterval = null;
+  clearInterval(autumnInterval); autumnInterval = null;
+  clearInterval(valentineInterval); autumnInterval = null;
+
+  document.querySelectorAll(
+    ".snowflake, .pollen, .firefly, .leaf-fall, .raindrop, .hearts"
+  ).forEach(el => el.remove());
 }
 
 

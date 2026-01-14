@@ -8,6 +8,7 @@
 <meta name="description" content="D&D Character Forge: Create, customize, and manage D&D 5e characters with features like a character creator, name generator, and power scaling.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link rel="stylesheet" href="modes.css">
 <link rel="stylesheet" href="style.css">
 <script src="lan.js" defer></script>
 <script src="script.js" defer></script>
@@ -26,7 +27,7 @@
       <button onclick="setMode('rain')">🌧️</button>
       <button onclick="setMode('dark')">🌑</button>
       <button onclick="setMode('colorblind')">👁️</button>
-      <button id="winter-btn" onclick="setMode('winter')" style="display:none;">❄️</button>
+	  <button id="season-btn" onclick="setMode(getSeasonMode())">❄️</button>
     </div>
   </div>
 

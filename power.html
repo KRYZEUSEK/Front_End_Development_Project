@@ -5,6 +5,7 @@
 <title>Duel – D&D Character Forge</title>
 <meta name="description" content="Compare two D&D characters and estimate which one would most likely win in a duel.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="modes.css">
 <link rel="stylesheet" href="style.css">
 <script src="lan.js" defer></script>
 <script src="script.js" defer></script>
@@ -24,7 +25,7 @@
     <button onclick="setMode('rain')">🌧️</button>
     <button onclick="setMode('dark')">🌑</button>
     <button onclick="setMode('colorblind')">👁️</button>
-    <button id="winter-btn" onclick="setMode('winter')" style="display:none;">❄️</button>
+	<button id="season-btn" onclick="setMode(getSeasonMode())">❄️</button>
   </div>
 </div>
 

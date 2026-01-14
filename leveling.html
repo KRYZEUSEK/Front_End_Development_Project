@@ -8,6 +8,7 @@
 <meta name="description" content="Level up your D&D character, choose classes, and manage level progression.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link rel="stylesheet" href="modes.css">
 <link rel="stylesheet" href="style.css">
 
 <script src="data/classes.js" defer></script>
@@ -33,7 +34,7 @@
       <button onclick="setMode('rain')">🌧️</button>
       <button onclick="setMode('dark')">🌑</button>
       <button onclick="setMode('colorblind')">👁️</button>
-      <button id="winter-btn" onclick="setMode('winter')" style="display:none;">❄️</button>
+	  <button id="season-btn" onclick="setMode(getSeasonMode())">❄️</button>
     </div>
   </div>
 

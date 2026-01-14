@@ -238,28 +238,36 @@ function getCharacterData() {
 
 /* Apply data to form */
 function setCharacterData(data) {
-  firstName.value = data.firstName || "";
-  lastName.value = data.lastName || "";
-  raceSelect.value = data.race || "Human";
-  customRace.value = data.race || "";
-  alignment.value = data.alignment || "";
+  // Basic info
+  firstName.value = data.basic?.firstName || "";
+  lastName.value = data.basic?.lastName || "";
+  raceSelect.value = data.basic?.race || "Human";
+  customRace.value = data.basic?.race || "";
+  alignment.value = data.basic?.alignment || "";
+  document.getElementById("class").value = data.basic?.class || "";
+  document.getElementById("level").value = data.basic?.level || 1;
 
+  // Stats
   if (data.stats) {
-    str.value = data.stats.str;
-    dex.value = data.stats.dex;
-    con.value = data.stats.con;
-    int.value = data.stats.int;
-    wis.value = data.stats.wis;
-    cha.value = data.stats.cha;
+    str.value = data.stats.str || 0;
+    dex.value = data.stats.dex || 0;
+    con.value = data.stats.con || 0;
+    int.value = data.stats.int || 0;
+    wis.value = data.stats.wis || 0;
+    cha.value = data.stats.cha || 0;
   }
 
-  age.value = data.age || "";
-  height.value = data.height || "";
-  weight.value = data.weight || "";
-  notes.value = data.notes || "";
+  // Extra info
+  age.value = data.extra?.age || "";
+  height.value = data.extra?.height || "";
+  weight.value = data.extra?.weight || "";
+  sex.value = data.extra?.sex || "";
+  gender.value = data.extra?.gender || "";
+  notes.value = data.extra?.notes || "";
 
   updatePreview();
 }
+
 
 /* ------------------------------
    SAVE / LOAD LOCALSTORAGE
@@ -274,6 +282,7 @@ function loadFromLocal() {
   const data = localStorage.getItem("characterData");
   if (data) setCharacterData(JSON.parse(data));
 }
+
 
 /* ------------------------------
    EXPORT JSON

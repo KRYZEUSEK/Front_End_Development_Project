@@ -368,3 +368,45 @@ document.getElementById("resetLeveling").onclick = () => {
   updateSummary();
   renderHistory();
 };
+
+// ------------------------------
+// LOAD LEVELING FROM SAVE
+// ------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  const loadBtn = document.getElementById("loadLeveling");
+  if (!loadBtn) return;
+
+  loadBtn.addEventListener("click", () => {
+    const saved = localStorage.getItem("saveLeveling");
+    if (!saved) {
+      alert("No saved leveling data found.");
+      return;
+    }
+
+    try {
+      levelingState = JSON.parse(saved); // load saved state
+      save();           // update localStorage/current state
+      normalizeLevels(); // fix any inconsistencies
+      updateSummary();   // refresh summary UI
+      renderHistory();   // refresh history UI
+      alert("Leveling data loaded successfully!");
+    } catch (err) {
+      console.error("Failed to load leveling data:", err);
+      alert("Failed to load leveling data. See console for details.");
+    }
+  });
+});
+document.addEventListener("DOMContentLoaded", () => {
+  const saveBtn = document.getElementById("saveLeveling");
+  if (!saveBtn) return;
+
+  saveBtn.addEventListener("click", () => {
+    try {
+      localStorage.setItem("saveLeveling", JSON.stringify(levelingState));
+      alert("Leveling data saved successfully!");
+    } catch (err) {
+      console.error("Failed to save leveling data:", err);
+      alert("Failed to save leveling data. See console for details.");
+    }
+  });
+});

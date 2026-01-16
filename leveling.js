@@ -331,40 +331,80 @@ levelingState.pendingLevel.choices.spells = {
 
 function renderSpellGroup({ container, title, spells, limit, target }) {
   const wrap = document.createElement("div");
+
+  // Title
+  const header = document.createElement("strong");
+  header.textContent = title;
+  wrap.appendChild(header);
+
+  // Counter
   const counter = document.createElement("div");
-
   counter.textContent = `${limit} remaining`;
-  wrap.append(document.createElement("strong"), counter);
+  wrap.appendChild(counter);
 
-  wrap.firstChild.textContent = title;
+  // Grid container
+  const grid = document.createElement("div");
+  grid.className = "spell-grid";
 
   spells.forEach(spell => {
-    const label = document.createElement("label");
+    const spellData = SPELLS_DETAILS[spell] || {};
+
+    const card = document.createElement("div");
+    card.className = "spell-card";
+    if (target.includes(spell)) card.classList.add("selected");
+
+    // Checkbox (hidden visually, we use click on card)
     const cb = document.createElement("input");
-
     cb.type = "checkbox";
+    cb.checked = target.includes(spell);
+    cb.style.display = "none"; // hidden, card click toggles
 
-    cb.onchange = () => {
+    // Click on card toggles selection
+    card.onclick = () => {
+      if (!cb.checked && target.length >= limit) return;
+
+      cb.checked = !cb.checked;
+
       if (cb.checked) {
-        if (target.length >= limit) {
-          cb.checked = false;
-          return;
-        }
         target.push(spell);
+        card.classList.add("selected");
       } else {
-        target.splice(target.indexOf(spell), 1);
+        const index = target.indexOf(spell);
+        if (index !== -1) target.splice(index, 1);
+        card.classList.remove("selected");
       }
 
       counter.textContent = `${limit - target.length} remaining`;
       validate();
     };
 
-    label.append(cb, spell);
-    wrap.append(label, document.createElement("br"));
+    // Spell image
+    const img = document.createElement("img");
+    img.src = spellData.img || "data/placeholder.png";
+    img.alt = spell;
+
+    // Spell info
+    const info = document.createElement("div");
+    info.className = "spell-meta";
+    info.innerHTML = `
+      <strong>${spell}</strong><br>
+      Level: ${spellData.level ?? "-"}<br>
+      Type: ${spellData.type ?? "-"}<br>
+      Damage: ${spellData.dice ?? "-"}<br>
+      Damage Type: ${spellData.damageType ?? "-"}
+    `;
+
+    card.append(cb, img, info);
+    grid.appendChild(card);
   });
 
-  container.append(wrap, document.createElement("hr"));
+  wrap.appendChild(grid);
+  container.appendChild(wrap);
+  container.appendChild(document.createElement("hr"));
 }
+
+
+
 function renderSpellReplacement(container, cls, classState) {
   const wrap = document.createElement("div");
   const title = document.createElement("strong");

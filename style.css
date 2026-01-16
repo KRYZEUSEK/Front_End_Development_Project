@@ -303,3 +303,35 @@ fieldset:nth-of-type(2) input:disabled {
 .file-button:hover {
   background: var(--button-hover);
 }
+
+/* spell grid for leveling */
+
+.spell-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.spell-card {
+  border: 1px solid var(--bg-darker);
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  text-align: center;
+  background: var(--bg-main);
+}
+
+.spell-card.selected {
+  outline: 3px solid var(--bg-darker);
+}
+
+.spell-card img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.spell-meta {
+  font-size: 0.8em;
+  opacity: 0.8;
+}

@@ -450,7 +450,7 @@ function startSummer() {
 }
 
 function startAutumn() {
-  const leaves = ["🍂", "🍁", "🍃"];
+  const leaves = ["🍂", "🍁", "🍃", "🌿", "⸙"];
 
   if (autumnInterval !== null) return;
 

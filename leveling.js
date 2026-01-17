@@ -203,10 +203,31 @@ function renderLevelChoices() {
     hasChoices = true;
   }
 
-  if (required.spells) {
-    renderSpells(div);
-    hasChoices = true;
-  }
+const cls = levelingState.pendingLevel.class;
+const classState = getClassSpellState(cls);
+// Ensure spells choice object exists for replacement-only levels
+if (!levelingState.pendingLevel.choices.spells) {
+  levelingState.pendingLevel.choices.spells = {
+    cantrips: [],
+    spells: [],
+    replace: null,
+    requiredCantrips: 0,
+    requiredSpells: 0
+  };
+}
+
+
+// Render new spell choices if this level grants spells
+if (required.spells) {
+  renderSpells(div);
+  hasChoices = true;
+}
+// Otherwise, still allow spell replacement if the class already knows spells
+else if (classState.spells.length > 0) {
+  renderSpellReplacement(div, cls, classState);
+  hasChoices = true;
+}
+
 
   if (!hasChoices) {
     div.textContent = "No choices required at this level.";
@@ -414,13 +435,15 @@ function renderSpells(container) {
 
   const classState = getClassSpellState(cls);
   
-levelingState.pendingLevel.choices.spells = {
-  cantrips: [],
-  spells: [],
-  replace: null,
-  requiredCantrips: 0,
-  requiredSpells: 0
-};
+if (!levelingState.pendingLevel.choices.spells) {
+  levelingState.pendingLevel.choices.spells = {
+    cantrips: [],
+    spells: [],
+    replace: null,
+    requiredCantrips: 0,
+    requiredSpells: 0
+  };
+}
 
 
   /* ---------- CANTRIPS ---------- */
@@ -476,11 +499,16 @@ levelingState.pendingLevel.choices.spells = {
     });
   }
 
-  /* ---------- OPTIONAL REPLACEMENT ---------- */
+// ---------- OPTIONAL REPLACEMENT ----------
+// Always allow replacement if the class already knows spells
+// and the class uses spellsKnown progression
+if (
+  current.spellsKnown &&
+  classState.spells.length > 0
+) {
+  renderSpellReplacement(container, cls, classState);
+}
 
-  if (current.spellsKnown && classState.spells.length) {
-    renderSpellReplacement(container, cls, classState);
-  }
 }
 const DamageTypeColors = {
   acid: "#CDF2AA",
@@ -602,9 +630,6 @@ function renderSpellGroup({ container, title, spells, limit, target }) {
   container.appendChild(document.createElement("hr"));
 }
 
-
-
-
 function renderSpellReplacement(container, cls, classState) {
   const wrap = document.createElement("div");
   const title = document.createElement("strong");
@@ -612,29 +637,31 @@ function renderSpellReplacement(container, cls, classState) {
   title.textContent = "Replace one known spell (optional)";
   wrap.append(title, document.createElement("br"));
 
+  // --- REMOVE SELECT ---
   const removeSelect = document.createElement("select");
   removeSelect.appendChild(new Option("— choose spell to replace —", ""));
 
-  classState.spells.forEach(s =>
-    removeSelect.appendChild(new Option(s, s))
-  );
+  classState.spells.forEach(spell => {
+    removeSelect.appendChild(new Option(spell, spell));
+  });
 
+  // --- ADD SELECT ---
   const addSelect = document.createElement("select");
   addSelect.appendChild(new Option("— choose new spell —", ""));
 
-  const maxSpellLevel = getSpellcasting(
-    cls,
-    levelingState.pendingLevel.classLevel
-  ).maxSpellLevel;
+  const maxSpellLevel =
+    getSpellcasting(cls, levelingState.pendingLevel.classLevel)?.maxSpellLevel || 0;
 
   for (let lvl = 1; lvl <= maxSpellLevel; lvl++) {
     (SPELLS[cls]?.[lvl] || []).forEach(spell => {
+      // Do NOT allow adding a spell already known
       if (!classState.spells.includes(spell)) {
         addSelect.appendChild(new Option(spell, spell));
       }
     });
   }
 
+  // --- SYNC TO STATE ---
   function update() {
     if (removeSelect.value && addSelect.value) {
       levelingState.pendingLevel.choices.spells.replace = {
@@ -653,6 +680,7 @@ function renderSpellReplacement(container, cls, classState) {
   wrap.append(removeSelect, addSelect);
   container.append(wrap, document.createElement("hr"));
 }
+
 
 
 /* ------------------------------
@@ -791,22 +819,24 @@ if (features.length) {
     }
 
     /* ---------- SPELLS ---------- */
-    if (l.choices?.spells) {
-      const { cantrips = [], spells = [], replace } = l.choices.spells;
+	const spellChoices = l.choices?.spells;
 
-      if (cantrips.length) {
-        lines.push(`  Cantrips: ${cantrips.join(", ")}`);
-      }
+	if (spellChoices) {
+	  const { cantrips = [], spells = [], replace } = spellChoices;
 
-      if (spells.length) {
-        lines.push(`  Spells: ${spells.join(", ")}`);
-      }
+	  if (cantrips.length) {
+		lines.push(`  Cantrips: ${cantrips.join(", ")}`);
+	  }
 
-      if (replace) {
-        lines.push(`  Replaced: ${replace.remove} → ${replace.add}`);
-      }
+	  if (spells.length) {
+		lines.push(`  Spells: ${spells.join(", ")}`);
+	  }
 
-    }
+	  if (replace) {
+		lines.push(`  Replaced: ${replace.remove} → ${replace.add}`);
+	  }
+	}
+
 	
 	if (l.choices?.subclassSpells?.length) {
 	  lines.push(`  Subclass Spells: ${l.choices.subclassSpells.join(", ")}`);

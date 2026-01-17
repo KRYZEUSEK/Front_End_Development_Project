@@ -130,7 +130,7 @@ const SPELLS_DETAILS = {
 "Encode Thoughts": {
     level: 0,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/b/b6/Detect_Thoughts_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -312,7 +312,7 @@ const SPELLS_DETAILS = {
 "Mending": {
     level: 0,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/7/75/Mending.webp",
     type: "heal",
     damageType: "heal",
     dice: "1d4",
@@ -326,7 +326,7 @@ const SPELLS_DETAILS = {
 "Message": {
     level: 0,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/9/96/Perform_Whistle.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -340,7 +340,7 @@ const SPELLS_DETAILS = {
 "Mind Sliver": {
     level: 0,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/d/d8/Synaptic_Discharge.webp",
     type: "damage",
     damageType: "psychic",
     dice: "1d6",
@@ -368,7 +368,7 @@ const SPELLS_DETAILS = {
 "Mold Earth": {
     level: 0,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/d/d8/Generic_Damage.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -382,7 +382,7 @@ const SPELLS_DETAILS = {
 "On/Off (UA)": {
     level: 0,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/1/11/Psionic_Overload.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -410,7 +410,7 @@ const SPELLS_DETAILS = {
 "Prestidigitation": {
     level: 0,
     school: "Transmutation",
-    img: "https://bg3.wiki/w/images/e/ec/Arcane_Ward.webp",
+    img: "https://bg3.wiki/w/images/6/6e/Daylight_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -424,7 +424,7 @@ const SPELLS_DETAILS = {
 "Primal Savagery": {
     level: 0,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/3/37/Infectious_Bite_Wolf_Companion.webp",
     type: "damage",
     damageType: "slashing",
     dice: "1d10",
@@ -508,7 +508,7 @@ const SPELLS_DETAILS = {
 "Shape Water": {
     level: 0,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/2/2d/Water_Whip.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -550,7 +550,7 @@ const SPELLS_DETAILS = {
 "Spare the Dying": {
     level: 0,
     school: "Necromancy",
-    img: "data/necromancy.png",
+    img: "https://bg3.wiki/w/images/2/2a/Second_Wind.webp",
     type: "heal",
     damageType: "heal",
     dice: "1d4",
@@ -691,7 +691,7 @@ const SPELLS_DETAILS = {
 "Absorb Elements": {
     level: 1,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/0/02/Absorb_Elements.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -721,7 +721,7 @@ const SPELLS_DETAILS = {
 "Alarm": {
     level: 1,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/4/4f/Generic_Threat.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -751,7 +751,7 @@ const SPELLS_DETAILS = {
 "Arcane Weapon (UA)": {
     level: 1,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/d/d5/Divine_Smite.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -811,7 +811,7 @@ const SPELLS_DETAILS = {
 "Beast Bond": {
     level: 1,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/6/66/Feral_Instinct.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -856,7 +856,7 @@ const SPELLS_DETAILS = {
 "Catapult": {
     level: 1,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/3/36/Throw.webp",
     type: "damage",
     damageType: "bludgeoning",
     dice: "3d8",
@@ -871,7 +871,7 @@ const SPELLS_DETAILS = {
 "Cause Fear": {
     level: 1,
     school: "Necromancy",
-    img: "data/necromancy.png",
+    img: "https://bg3.wiki/w/images/f/ff/Dreadful_Aspect.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -886,7 +886,7 @@ const SPELLS_DETAILS = {
 "Ceremony": {
     level: 1,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/4/44/Divine_Favour_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -901,7 +901,7 @@ const SPELLS_DETAILS = {
 "Chaos Bolt": {
     level: 1,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/0/0e/Metamagic_Heightened_Spell.webp",
     type: "damage",
     damageType: "chaotic",
     dice: "2d8+1d6",
@@ -991,7 +991,7 @@ const SPELLS_DETAILS = {
 "Comprehend Languages": {
     level: 1,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/9/92/Comprehend_Languages.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -1036,7 +1036,7 @@ const SPELLS_DETAILS = {
 "Detect Evil and Good": {
     level: 1,
     school: "Divination",
-    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/protection_from_good_and_evil_spell_baldursgate3_wiki_guide_150px_2.png",
+    img: "https://bg3.wiki/w/images/e/ef/Detect_Evil_and_Good_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -1066,7 +1066,7 @@ const SPELLS_DETAILS = {
 "Detect Poison and Disease": {
     level: 1,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/d/d7/Divine_Revelry_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -1111,7 +1111,7 @@ const SPELLS_DETAILS = {
 "Distort Value": {
     level: 1,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://bg3.wiki/w/images/thumb/8/87/Draconic_Ancestry_Blue_Lightning_Icon.webp/120px-Draconic_Ancestry_Blue_Lightning_Icon.webp.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -1141,7 +1141,7 @@ const SPELLS_DETAILS = {
 "Earth Tremor": {
     level: 1,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/d/d6/Erupting_Cinder.webp",
     type: "damage",
     damageType: "bludgeoning",
     dice: "1d6",
@@ -1501,7 +1501,7 @@ const SPELLS_DETAILS = {
 "Identify": {
     level: 1,
     school: "Divination",
-    img: "https://bg3.wiki/w/images/c/cd/Magic_Initiate_Warlock.webp",
+    img: "https://bg3.wiki/w/images/d/d2/Identify.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -1816,7 +1816,7 @@ const SPELLS_DETAILS = {
 "Silvery Barbs": {
     level: 1,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/c/cd/Mantle_of_Majesty.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -1846,7 +1846,7 @@ const SPELLS_DETAILS = {
 "Snare": {
     level: 1,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/4/47/True_Strike_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -1876,7 +1876,7 @@ const SPELLS_DETAILS = {
 "Sudden Awakening (UA)": {
     level: 1,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/b/b1/True_Seeing_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -1921,7 +1921,7 @@ const SPELLS_DETAILS = {
 "Tenser's Floating Disk": {
     level: 1,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/c/cf/Warding_Flare.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -1966,7 +1966,7 @@ const SPELLS_DETAILS = {
 "Unearthly Chorus (UA)": {
     level: 1,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://bg3.wiki/w/images/9/96/Perform_Whistle.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -1981,7 +1981,7 @@ const SPELLS_DETAILS = {
 "Unseen Servant": {
     level: 1,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/thumb/a/a9/Generic_Feature_Icon.webp/144px-Generic_Feature_Icon.webp.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -1996,7 +1996,7 @@ const SPELLS_DETAILS = {
 "Wild Cunning (UA)": {
     level: 1,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/d/d6/Fancy_Footwork.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2041,7 +2041,7 @@ const SPELLS_DETAILS = {
 "Zephyr Strike": {
     level: 1,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "Rakish_Sneak_Attack_Melee.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2087,7 +2087,7 @@ const SPELLS_DETAILS = {
 "Air Bubble": {
     level: 2,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/b/b1/Chromatic_Orb.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2102,7 +2102,7 @@ const SPELLS_DETAILS = {
 "Alter Self": {
     level: 2,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/2/25/Infiltration_Expertise.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2117,7 +2117,7 @@ const SPELLS_DETAILS = {
 "Animal Messenger": {
     level: 2,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/9/94/Speak_with_Animals.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2132,7 +2132,7 @@ const SPELLS_DETAILS = {
 "Arcane Hacking (UA)": {
     level: 2,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/arcanelock-spell-bg3-wiki-guide-64px.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2162,7 +2162,7 @@ const SPELLS_DETAILS = {
 "Augury": {
     level: 2,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/4/44/Divine_Favour_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2192,7 +2192,7 @@ const SPELLS_DETAILS = {
 "Beast Sense": {
     level: 2,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/7/73/Mindless_Rage.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2237,7 +2237,7 @@ const SPELLS_DETAILS = {
 "Borrowed Knowledge": {
     level: 2,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/1/1b/Knowledge_of_the_Ages.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2387,7 +2387,7 @@ const SPELLS_DETAILS = {
 "Digital Phantom (UA)": {
     level: 2,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/2/20/Conjure_Shadow_Lantern_Wraith.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2417,7 +2417,7 @@ const SPELLS_DETAILS = {
 "Dust Devil": {
     level: 2,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/6/6c/Wild_Magic_Summon_Mephit.webp",
     type: "damage",
     damageType: "slashing",
     dice: "2d6",
@@ -2432,7 +2432,7 @@ const SPELLS_DETAILS = {
 "Earthbind": {
     level: 2,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/entangle_spell_baldursgate3_wiki_guide_150px.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2492,7 +2492,7 @@ const SPELLS_DETAILS = {
 "Find Steed": {
     level: 2,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/5/5e/Identify_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2507,7 +2507,7 @@ const SPELLS_DETAILS = {
 "Find Traps": {
     level: 2,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/e/ea/Dungeon_Delver_Resist_Traps.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2522,7 +2522,7 @@ const SPELLS_DETAILS = {
 "Find Vehicle (UA)": {
     level: 2,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/5/5e/Identify_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2567,7 +2567,7 @@ const SPELLS_DETAILS = {
 "Flock of Familiars": {
     level: 2,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/c/c6/Wild_Shape.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2582,7 +2582,7 @@ const SPELLS_DETAILS = {
 "Fortune's Favor": {
     level: 2,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/6/67/Flesh_to_Gold_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2597,7 +2597,7 @@ const SPELLS_DETAILS = {
 "Gentle Repose": {
     level: 2,
     school: "Necromancy",
-    img: "data/necromancy.png",
+    img: "https://bg3.wiki/w/images/f/f1/Reposition_Malefactor.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2612,7 +2612,7 @@ const SPELLS_DETAILS = {
 "Gift of Gab": {
     level: 2,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/4/40/Dissonant_Whispers_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2642,7 +2642,7 @@ const SPELLS_DETAILS = {
 "Healing Spirit": {
     level: 2,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/1/16/Lay_on_Hands_Greater_Healing.webp",
     type: "heal",
     damageType: "heal",
     dice: "1d6",
@@ -2702,7 +2702,7 @@ const SPELLS_DETAILS = {
 "Immovable Object": {
     level: 2,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/8/88/Magical_Ambush.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2732,7 +2732,7 @@ const SPELLS_DETAILS = {
 "Jim's Glowing Coin": {
     level: 2,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/c/ce/Magic_Circle_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2747,7 +2747,7 @@ const SPELLS_DETAILS = {
 "Kinetic Jaunt": {
     level: 2,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/2/2a/Bladesong.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2792,7 +2792,7 @@ const SPELLS_DETAILS = {
 "Levitate": {
     level: 2,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/e/e2/Levitate.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2807,7 +2807,7 @@ const SPELLS_DETAILS = {
 "Locate Animals or Plants": {
     level: 2,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/5/5e/Identify_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2822,7 +2822,7 @@ const SPELLS_DETAILS = {
 "Locate Object": {
     level: 2,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/5/5e/Identify_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2837,7 +2837,7 @@ const SPELLS_DETAILS = {
 "Magic Mouth": {
     level: 2,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/tasha's_hideous_laughter_spell_baldursgate3_wiki_guide_spell_baldursgate3_wiki_guide_150px_2.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2867,7 +2867,7 @@ const SPELLS_DETAILS = {
 "Maximillian's Earthen Grasp": {
     level: 2,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/mage_hand_spell_baldursgate3_wiki_guide_150px_2.png",
     type: "damage",
     damageType: "bludgeoning",
     dice: "2d6",
@@ -2897,7 +2897,7 @@ const SPELLS_DETAILS = {
 "Mental Barrier (UA)": {
     level: 2,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/a/ab/Focused_Conjuration.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -2912,7 +2912,7 @@ const SPELLS_DETAILS = {
 "Mind Spike": {
     level: 2,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/d/d8/Synaptic_Discharge.webp",
     type: "damage",
     damageType: "psychic",
     dice: "3d8",
@@ -2927,7 +2927,7 @@ const SPELLS_DETAILS = {
 "Mind Thrust (UA)": {
     level: 2,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/d/d8/Synaptic_Discharge.webp",
     type: "damage",
     damageType: "psychic",
     dice: "2d10",
@@ -2987,7 +2987,7 @@ const SPELLS_DETAILS = {
 "Nathair's Mischief": {
     level: 2,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://bg3.wiki/w/images/3/3b/Dirty_Trick_Vicious_Mockery.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3002,7 +3002,7 @@ const SPELLS_DETAILS = {
 "Nystul's Magic Aura": {
     level: 2,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://bg3.wiki/w/images/8/82/Otiluke%27s_Resilient_Sphere_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3077,7 +3077,7 @@ const SPELLS_DETAILS = {
 "Pyrotechnics": {
     level: 2,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/colour_spray_spell_baldursgate3_wiki_guide_150px_2.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3122,7 +3122,7 @@ const SPELLS_DETAILS = {
 "Rope Trick": {
     level: 2,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/c/cb/Panache.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3212,7 +3212,7 @@ const SPELLS_DETAILS = {
 "Skywrite": {
     level: 2,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/9/99/Comprehend_Languages_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3287,7 +3287,7 @@ const SPELLS_DETAILS = {
 "Spray Of Cards": {
     level: 2,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/6/6c/Force_Tunnel.webp",
     type: "damage",
     damageType: "slashing",
     dice: "3d4",
@@ -3302,7 +3302,7 @@ const SPELLS_DETAILS = {
 "Spray of Cards (UA)": {
     level: 2,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/6/6c/Force_Tunnel.webp",
     type: "damage",
     damageType: "slashing",
     dice: "3d4",
@@ -3422,7 +3422,7 @@ const SPELLS_DETAILS = {
 "Warp Sense": {
     level: 2,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/thumb/8/8c/Repulsor_Illithid_Power.webp/380px-Repulsor_Illithid_Power.webp.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3467,7 +3467,7 @@ const SPELLS_DETAILS = {
 "Wristpocket": {
     level: 2,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/e/ec/Produce_Flame_Dismiss_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3482,7 +3482,7 @@ const SPELLS_DETAILS = {
 "Zone of Truth": {
     level: 2,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/f/f4/Turn_the_Tide.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3513,7 +3513,7 @@ const SPELLS_DETAILS = {
 "Antagonize": {
     level: 3,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/3/32/Vow_of_Enmity.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3528,7 +3528,7 @@ const SPELLS_DETAILS = {
 "Antagonize (UA)": {
     level: 3,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/3/32/Vow_of_Enmity.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3543,7 +3543,7 @@ const SPELLS_DETAILS = {
 "Ashardalon's Stride": {
     level: 3,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/wiki/File:Fire_Breath_Line.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3648,7 +3648,7 @@ const SPELLS_DETAILS = {
 "Catnap": {
     level: 3,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/e/e9/Cat%27s_Grace_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3663,7 +3663,7 @@ const SPELLS_DETAILS = {
 "Clairvoyance": {
     level: 3,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/c/ce/Magic_Circle_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3678,7 +3678,7 @@ const SPELLS_DETAILS = {
 "Conjure Animals": {
     level: 3,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/3/35/Conjure_Animals_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3708,7 +3708,7 @@ const SPELLS_DETAILS = {
 "Conjure Lesser Demon (UA)": {
     level: 3,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/thumb/1/1b/Find_Familiar_Quasit.webp/380px-Find_Familiar_Quasit.webp.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3813,7 +3813,7 @@ const SPELLS_DETAILS = {
 "Enemies Abound": {
     level: 3,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/3/32/Vow_of_Enmity.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3828,7 +3828,7 @@ const SPELLS_DETAILS = {
 "Erupting Earth": {
     level: 3,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/d/d6/Erupting_Cinder.webp",
     type: "damage",
     damageType: "bludgeoning",
     dice: "3d12",
@@ -3843,7 +3843,7 @@ const SPELLS_DETAILS = {
 "Fast Friends": {
     level: 3,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/2/22/Friends.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3918,7 +3918,7 @@ const SPELLS_DETAILS = {
 "Flame Stride (UA)": {
     level: 3,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/3/32/Smouldering_Touch.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -3948,7 +3948,7 @@ const SPELLS_DETAILS = {
 "Galder's Tower": {
     level: 3,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/wiki/File:Urban_Tracker.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4008,7 +4008,7 @@ const SPELLS_DETAILS = {
 "Haywire (UA)": {
     level: 3,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/2/21/Song_of_Defence.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4068,7 +4068,7 @@ const SPELLS_DETAILS = {
 "Incite Greed": {
     level: 3,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/5/55/Dirty_Trick_Flick_o%27_the_Wrist.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4083,7 +4083,7 @@ const SPELLS_DETAILS = {
 "Intellect Fortress": {
     level: 3,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/a/ab/Focused_Conjuration.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4098,7 +4098,7 @@ const SPELLS_DETAILS = {
 "Invisibility To Cameras (UA)": {
     level: 3,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/invisivility_spell_baldursgate3_wiki_guide_150px_2.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4113,7 +4113,7 @@ const SPELLS_DETAILS = {
 "Leomund's Tiny Hut": {
     level: 3,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/5/58/Transmuter%27s_Stone_Resistance.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4173,7 +4173,7 @@ const SPELLS_DETAILS = {
 "Magic Circle": {
     level: 3,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/b/b3/Magic_Circle.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4188,7 +4188,7 @@ const SPELLS_DETAILS = {
 "Major Image": {
     level: 3,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/minor_illusion_spell_baldursgate3_wiki_guide_150px_2.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4248,7 +4248,7 @@ const SPELLS_DETAILS = {
 "Motivational Speech": {
     level: 3,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/2/2d/Mantle_of_Inspiration.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4263,7 +4263,7 @@ const SPELLS_DETAILS = {
 "Nondetection": {
     level: 3,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/2/27/Eyebite_Asleep_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4278,7 +4278,7 @@ const SPELLS_DETAILS = {
 "Phantom Steed": {
     level: 3,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://bg3.wiki/w/images/2/20/Conjure_Shadow_Lantern_Wraith.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4308,7 +4308,7 @@ const SPELLS_DETAILS = {
 "Protection from Ballistics (UA)": {
     level: 3,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/protection_from_energy_spells_bg3_wiki_guide64px.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4338,7 +4338,7 @@ const SPELLS_DETAILS = {
 "Psionic Blast (UA)": {
     level: 3,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/1/11/Psionic_Overload.webp",
     type: "damage",
     damageType: "psychic",
     dice: "6d6",
@@ -4398,7 +4398,7 @@ const SPELLS_DETAILS = {
 "Sending": {
     level: 3,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/f/f9/Dispel_Evil_And_Good_Break_Enchantment_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4458,7 +4458,7 @@ const SPELLS_DETAILS = {
 "Speak with Plants": {
     level: 3,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/planth_grow_spells_bg3_wiki_guide64px.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4518,7 +4518,7 @@ const SPELLS_DETAILS = {
 "Summon Fey": {
     level: 3,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/8/87/Fallen_Lover.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4548,7 +4548,7 @@ const SPELLS_DETAILS = {
 "Summon Shadowspawn": {
     level: 3,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/2/20/Conjure_Shadow_Lantern_Wraith.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4578,7 +4578,7 @@ const SPELLS_DETAILS = {
 "Summon Warrior Spirit (UA)": {
     level: 3,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/b/b1/Guardian_of_Faith.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4593,7 +4593,7 @@ const SPELLS_DETAILS = {
 "Thunder Step": {
     level: 3,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/d/da/Thunderwave.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4608,7 +4608,7 @@ const SPELLS_DETAILS = {
 "Tidal Wave": {
     level: 3,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/2/2d/Water_Whip.webp",
     type: "damage",
     damageType: "bludgeoning",
     dice: "4d10",
@@ -4623,7 +4623,7 @@ const SPELLS_DETAILS = {
 "Tiny Servant": {
     level: 3,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/thumb/a/a9/Generic_Feature_Icon.webp/144px-Generic_Feature_Icon.webp.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4638,7 +4638,7 @@ const SPELLS_DETAILS = {
 "Tongues": {
     level: 3,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/9/92/Comprehend_Languages.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4683,7 +4683,7 @@ const SPELLS_DETAILS = {
 "Wall of Water": {
     level: 3,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/2/2d/Water_Whip.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4698,7 +4698,7 @@ const SPELLS_DETAILS = {
 "Water Breathing": {
     level: 3,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/2/2d/Water_Whip.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4713,7 +4713,7 @@ const SPELLS_DETAILS = {
 "Water Walk": {
     level: 3,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/2/2d/Water_Whip.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4744,7 +4744,7 @@ const SPELLS_DETAILS = {
 "Arcane Eye": {
     level: 4,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/f/fa/Arcane_Eye.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4759,7 +4759,7 @@ const SPELLS_DETAILS = {
 "Aura of Life": {
     level: 4,
     school: "Abjuration",
-    img: "https://bg3.wiki/w/images/3/36/Aura_of_Devotion.webp",
+    img: "https://bg3.wiki/w/images/a/ae/Healing_Radiance.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4819,7 +4819,7 @@ const SPELLS_DETAILS = {
 "Charm Monster": {
     level: 4,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/f/fa/Charm_Animals_and_Plants.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4834,7 +4834,7 @@ const SPELLS_DETAILS = {
 "Compulsion": {
     level: 4,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/4/48/Karsus%27_Compulsion.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4864,7 +4864,7 @@ const SPELLS_DETAILS = {
 "Conjure Barlgura (UA)": {
     level: 4,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/6/6e/Boar_Companion.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4879,7 +4879,7 @@ const SPELLS_DETAILS = {
 "Conjure Knowbot (UA)": {
     level: 4,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/2/21/Static_Overdrive.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4909,7 +4909,7 @@ const SPELLS_DETAILS = {
 "Conjure Shadow Demon (UA)": {
     level: 4,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/2/20/Conjure_Shadow_Lantern_Wraith.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4939,7 +4939,7 @@ const SPELLS_DETAILS = {
 "Control Water": {
     level: 4,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/2/2d/Water_Whip.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -4984,7 +4984,7 @@ const SPELLS_DETAILS = {
 "Divination": {
     level: 4,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/e/e9/Expert_Divination.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5014,7 +5014,7 @@ const SPELLS_DETAILS = {
 "Ego Whip (UA)": {
     level: 4,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/e/ed/Generic_Physical.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5029,7 +5029,7 @@ const SPELLS_DETAILS = {
 "Elemental Bane": {
     level: 4,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/bane_spell_icon_baldursgate3_wiki_guide_200px.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5059,7 +5059,7 @@ const SPELLS_DETAILS = {
 "Fabricate": {
     level: 4,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/7/75/Mending.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5074,7 +5074,7 @@ const SPELLS_DETAILS = {
 "Find Greater Steed": {
     level: 4,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/5/5e/Identify_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5089,7 +5089,7 @@ const SPELLS_DETAILS = {
 "Fire Shield": {
     level: 4,
     school: "Evocation",
-    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/fireshield-spell-bg3-wiki-guide-150px.png",
+    img: "https://bg3.wiki/w/images/a/a6/Fire_Shield_Warm_Icon.webp",
     type: "damage",
     damageType: "fire & cold",
     dice: null,
@@ -5119,7 +5119,7 @@ const SPELLS_DETAILS = {
 "Galder's Speedy Courier": {
     level: 4,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/d/d6/Expeditious_Retreat_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5134,7 +5134,7 @@ const SPELLS_DETAILS = {
 "Gate Seal": {
     level: 4,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/arcane_gate_conjuration_school_baldursgate3_wiki_guide_64px.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5149,7 +5149,7 @@ const SPELLS_DETAILS = {
 "Giant Insect": {
     level: 4,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/3/37/Find_Familiar_Spider_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5224,7 +5224,7 @@ const SPELLS_DETAILS = {
 "Guardian of Nature": {
     level: 4,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/9/94/Nature%27s_Ward.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5239,7 +5239,7 @@ const SPELLS_DETAILS = {
 "Hallucinatory Terrain": {
     level: 4,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://bg3.wiki/w/images/a/a4/Hypnotic_Gaze.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5269,7 +5269,7 @@ const SPELLS_DETAILS = {
 "Leomund's Secret Chest": {
     level: 4,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/6/67/Dungeon_Delver_Perception.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5284,7 +5284,7 @@ const SPELLS_DETAILS = {
 "Locate Creature": {
     level: 4,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/5/5e/Identify_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5299,7 +5299,7 @@ const SPELLS_DETAILS = {
 "Mordenkainen's Faithful Hound": {
     level: 4,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/1/14/Hound_of_Ill_Omen_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5314,7 +5314,7 @@ const SPELLS_DETAILS = {
 "Mordenkainen's Private Sanctum": {
     level: 4,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/f/f3/Tranquility.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5374,7 +5374,7 @@ const SPELLS_DETAILS = {
 "Raulothim's Psychic Lance": {
     level: 4,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/b/b2/Grasping_Appendage_Icon.webp",
     type: "damage",
     damageType: "psychic",
     dice: null,
@@ -5389,7 +5389,7 @@ const SPELLS_DETAILS = {
 "Raulothim's Psychic Lance (UA)": {
     level: 4,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/b/b2/Grasping_Appendage_Icon.webp",
     type: "damage",
     damageType: "psychic",
     dice: null,
@@ -5404,7 +5404,7 @@ const SPELLS_DETAILS = {
 "Shadow of Moil": {
     level: 4,
     school: "Necromancy",
-    img: "data/necromancy.png",
+    img: "https://bg3.wiki/w/images/e/e9/Umbral_Shroud.webp",
     type: "damage",
     damageType: "fire & necrotic",
     dice: null,
@@ -5419,7 +5419,7 @@ const SPELLS_DETAILS = {
 "Sickening Radiance": {
     level: 4,
     school: "Evocation",
-    img: "https://bg3.wiki/w/images/3/3b/Radiance_of_the_Dawn.webp",
+    img: "https://bg3.wiki/w/images/2/2d/Inquisitor%27s_Might.webp",
     type: "damage",
     damageType: "radiant",
     dice: null,
@@ -5509,7 +5509,7 @@ const SPELLS_DETAILS = {
 "Storm Sphere": {
     level: 4,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/3/35/Heart_of_the_Storm_Lightning.webp",
     type: "damage",
     damageType: "bludgeoning & lightning",
     dice: null,
@@ -5524,7 +5524,7 @@ const SPELLS_DETAILS = {
 "Summon Aberration": {
     level: 4,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/f/f4/Conjure_Us.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5539,7 +5539,7 @@ const SPELLS_DETAILS = {
 "Summon Construct": {
     level: 4,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/2/21/Static_Overdrive.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5569,7 +5569,7 @@ const SPELLS_DETAILS = {
 "Summon Greater Demon": {
     level: 4,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/0/0e/Planar_Ally.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5584,7 +5584,7 @@ const SPELLS_DETAILS = {
 "Synchronicity (UA)": {
     level: 4,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/a/a6/Fast_Hands.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5599,7 +5599,7 @@ const SPELLS_DETAILS = {
 "System Backdoor (UA)": {
     level: 4,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/a/a6/Fast_Hands.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5644,7 +5644,7 @@ const SPELLS_DETAILS = {
 "Watery Sphere": {
     level: 4,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/d/d1/Create_Water_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5660,7 +5660,7 @@ const SPELLS_DETAILS = {
 "Animate Objects": {
     level: 5,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/a/a6/Fast_Hands.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5675,7 +5675,7 @@ const SPELLS_DETAILS = {
 "Antilife Shell": {
     level: 5,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/7/7a/Animate_Dead_Duergar_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5690,7 +5690,7 @@ const SPELLS_DETAILS = {
 "Awaken": {
     level: 5,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/8/8e/Arcane_Eye_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5720,7 +5720,7 @@ const SPELLS_DETAILS = {
 "Bigby's Hand": {
     level: 5,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/0/03/Unarmed_Strike.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5735,7 +5735,7 @@ const SPELLS_DETAILS = {
 "Circle of Power": {
     level: 5,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/0/0b/Daylight_Enchant_Item_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5765,7 +5765,7 @@ const SPELLS_DETAILS = {
 "Commune": {
     level: 5,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/3/35/Generic_Tactical.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5780,7 +5780,7 @@ const SPELLS_DETAILS = {
 "Commune with City (UA)": {
     level: 5,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/wiki/File:Urban_Tracker.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5795,7 +5795,7 @@ const SPELLS_DETAILS = {
 "Commune with Nature": {
     level: 5,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/9/94/Nature%27s_Ward.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5855,7 +5855,7 @@ const SPELLS_DETAILS = {
 "Conjure Vrock (UA)": {
     level: 5,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/5/5f/Conjure_Minor_Elemental_Mud_Mephits_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5870,7 +5870,7 @@ const SPELLS_DETAILS = {
 "Contact Other Plane": {
     level: 5,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/8/88/Magical_Ambush.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5915,7 +5915,7 @@ const SPELLS_DETAILS = {
 "Create Spelljamming Helm": {
     level: 5,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/6/6d/Colossus_Slayer.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5930,7 +5930,7 @@ const SPELLS_DETAILS = {
 "Creation": {
     level: 5,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://bg3.wiki/w/images/9/9c/Cloud_of_Jellyfish.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -5945,7 +5945,7 @@ const SPELLS_DETAILS = {
 "Danse Macabre": {
     level: 5,
     school: "Necromancy",
-    img: "data/necromancy.png",
+    img: "https://bg3.wiki/w/images/2/2a/Danse_Macabre.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6020,7 +6020,7 @@ const SPELLS_DETAILS = {
 "Dream": {
     level: 5,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://bg3.wiki/w/images/8/87/Glyph_of_Warding_Sleep_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6050,7 +6050,7 @@ const SPELLS_DETAILS = {
 "Far Step": {
     level: 5,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/5/53/Unarmoured_Movement.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6080,7 +6080,7 @@ const SPELLS_DETAILS = {
 "Geas": {
     level: 5,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/command_halt_spell_baldursgate3_wiki_guide_150px_2.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6110,7 +6110,7 @@ const SPELLS_DETAILS = {
 "Hallow": {
     level: 5,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/8/84/Crusader%27s_Mantle.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6140,7 +6140,7 @@ const SPELLS_DETAILS = {
 "Holy Weapon": {
     level: 5,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/b/bf/Improved_Divine_Smite.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6170,7 +6170,7 @@ const SPELLS_DETAILS = {
 "Infernal Calling": {
     level: 5,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/2/21/Fiendish_Ascension_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6200,7 +6200,7 @@ const SPELLS_DETAILS = {
 "Legend Lore": {
     level: 5,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/9/99/Comprehend_Languages_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6215,7 +6215,7 @@ const SPELLS_DETAILS = {
 "Maelstrom": {
     level: 5,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/3/35/Heart_of_the_Storm_Lightning.webp",
     type: "damage",
     damageType: "bludgeoning",
     dice: null,
@@ -6245,7 +6245,7 @@ const SPELLS_DETAILS = {
 "Mislead": {
     level: 5,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://bg3.wiki/w/images/7/7b/Confusion_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6260,7 +6260,7 @@ const SPELLS_DETAILS = {
 "Modify Memory": {
     level: 5,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/7/7b/Confusion_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6290,7 +6290,7 @@ const SPELLS_DETAILS = {
 "Passwall": {
     level: 5,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/6/6e/Arcane_Gate_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6320,7 +6320,7 @@ const SPELLS_DETAILS = {
 "Raise Dead": {
     level: 5,
     school: "Necromancy",
-    img: "data/necromancy.png",
+    img: "https://bg3.wiki/w/images/4/4f/Animate_Dead_Ghoul_Icon.webp",
     type: "heal",
     damageType: "heal",
     dice: null,
@@ -6335,7 +6335,7 @@ const SPELLS_DETAILS = {
 "Rary's Telepathic Bond": {
     level: 5,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/telekinesis-spell-bg3-wiki-guide-64px.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6350,7 +6350,7 @@ const SPELLS_DETAILS = {
 "Reincarnate": {
     level: 5,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/revivify_necromancy_spell_bg3_wiki_64px.png",
     type: "heal",
     damageType: "heal",
     dice: null,
@@ -6365,7 +6365,7 @@ const SPELLS_DETAILS = {
 "Scrying": {
     level: 5,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/2/2b/Pass_Without_Trace_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6395,7 +6395,7 @@ const SPELLS_DETAILS = {
 "Shutdown (UA)": {
     level: 5,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/4/40/Dispel_Disguise_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6410,7 +6410,7 @@ const SPELLS_DETAILS = {
 "Skill Empowerment": {
     level: 5,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/enhance_ability_spell_baldursgate3_wiki_guide_150px.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6440,7 +6440,7 @@ const SPELLS_DETAILS = {
 "Summon Celestial": {
     level: 5,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/a/a6/Sights_of_the_Seelie_Summon_Deva.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6455,7 +6455,7 @@ const SPELLS_DETAILS = {
 "Summon Draconic Spirit": {
     level: 5,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/9/92/Ranger_Knight.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6470,7 +6470,7 @@ const SPELLS_DETAILS = {
 "Summon Draconic Spirit (UA)": {
     level: 5,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/9/92/Ranger_Knight.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6485,7 +6485,7 @@ const SPELLS_DETAILS = {
 "Swift Quiver": {
     level: 5,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/2/29/Volley.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6500,7 +6500,7 @@ const SPELLS_DETAILS = {
 "Synaptic Static": {
     level: 5,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/thumb/d/d8/Synaptic_Discharge.webp/380px-Synaptic_Discharge.webp.png",
     type: "damage",
     damageType: "psychic",
     dice: null,
@@ -6530,7 +6530,7 @@ const SPELLS_DETAILS = {
 "Teleportation Circle": {
     level: 5,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/8/8a/Glyph_of_Warding_Detonation_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6545,7 +6545,7 @@ const SPELLS_DETAILS = {
 "Temporal Shunt": {
     level: 5,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/blink-spell-bg3-wiki-guide-64px.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6560,7 +6560,7 @@ const SPELLS_DETAILS = {
 "Transmute Rock": {
     level: 5,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/a/a7/Transmuter%27s_Stone_passive_feature.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6575,7 +6575,7 @@ const SPELLS_DETAILS = {
 "Tree Stride": {
     level: 5,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/7/7e/Primal_Strike.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6590,7 +6590,7 @@ const SPELLS_DETAILS = {
 "Wall of Force": {
     level: 5,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/c/cf/Warding_Flare.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6681,7 +6681,7 @@ const SPELLS_DETAILS = {
 "Bones of the Earth": {
     level: 6,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/bursting_sinew-spell_baldursgate3_wiki_guide_150px.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6726,7 +6726,7 @@ const SPELLS_DETAILS = {
 "Conjure Fey": {
     level: 6,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/8/87/Fallen_Lover.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6741,7 +6741,7 @@ const SPELLS_DETAILS = {
 "Contingency": {
     level: 6,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/b/be/Slow_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6756,7 +6756,7 @@ const SPELLS_DETAILS = {
 "Create Homunculus": {
     level: 6,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/1/1b/Disguise_Self_Masc_Half-Elf_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6801,7 +6801,7 @@ const SPELLS_DETAILS = {
 "Drawmij's Instant Summons": {
     level: 6,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/8/87/Conjure_Elemental_Water_Myrmidon_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6816,7 +6816,7 @@ const SPELLS_DETAILS = {
 "Druid Grove": {
     level: 6,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/9/94/Nature%27s_Ward.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6846,7 +6846,7 @@ const SPELLS_DETAILS = {
 "Find the Path": {
     level: 6,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/5/5e/Identify_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6861,7 +6861,7 @@ const SPELLS_DETAILS = {
 "Fizban's Platinum Shield": {
     level: 6,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/e/e0/Fire_Shield_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6876,7 +6876,7 @@ const SPELLS_DETAILS = {
 "Fizban's Platinum Shield (UA)": {
     level: 6,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/e/e0/Fire_Shield_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6906,7 +6906,7 @@ const SPELLS_DETAILS = {
 "Forbiddance": {
     level: 6,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/ottosirresistibledance_spell_enchantment_school_baldursgate3_wiki_guide_64px.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -6951,7 +6951,7 @@ const SPELLS_DETAILS = {
 "Guards and Wards": {
     level: 6,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/0/0b/Weapon_Master.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7011,7 +7011,7 @@ const SPELLS_DETAILS = {
 "Investiture of Flame": {
     level: 6,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/1/1d/Explosive_Retribution.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7026,7 +7026,7 @@ const SPELLS_DETAILS = {
 "Investiture of Ice": {
     level: 6,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/7/7c/Generic_Cold.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7071,7 +7071,7 @@ const SPELLS_DETAILS = {
 "Magic Jar": {
     level: 6,
     school: "Necromancy",
-    img: "data/necromancy.png",
+    img: "https://bg3.wiki/w/images/2/29/Magic_Jar.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7086,7 +7086,7 @@ const SPELLS_DETAILS = {
 "Mass Suggestion": {
     level: 6,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/thumb/4/4c/Command_Approach.webp/380px-Command_Approach.webp.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7101,7 +7101,7 @@ const SPELLS_DETAILS = {
 "Mental Prison": {
     level: 6,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://bg3.wiki/w/images/a/ab/Focused_Conjuration.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7116,7 +7116,7 @@ const SPELLS_DETAILS = {
 "Move Earth": {
     level: 6,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/d/d8/Generic_Damage.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7131,7 +7131,7 @@ const SPELLS_DETAILS = {
 "Otherworldly Form (UA)": {
     level: 6,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/a/a7/Giant_Killer.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7191,7 +7191,7 @@ const SPELLS_DETAILS = {
 "Primordial Ward": {
     level: 6,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/5/58/Transmuter%27s_Stone_Resistance.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7221,7 +7221,7 @@ const SPELLS_DETAILS = {
 "Psychic Crush (UA)": {
     level: 6,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/d/da/Phantasmal_Killer_Icon.webp",
     type: "damage",
     damageType: "psychic",
     dice: null,
@@ -7236,7 +7236,7 @@ const SPELLS_DETAILS = {
 "Scatter": {
     level: 6,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/b/bc/Leave_Ethereal_Plane_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7251,7 +7251,7 @@ const SPELLS_DETAILS = {
 "Soul Cage": {
     level: 6,
     school: "Necromancy",
-    img: "data/necromancy.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/hold_person_spell_baldursgate3_wiki_guide_150px_2.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7266,7 +7266,7 @@ const SPELLS_DETAILS = {
 "Summon Fiend": {
     level: 6,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/0/0e/Planar_Ally.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7296,7 +7296,7 @@ const SPELLS_DETAILS = {
 "Tasha's Otherworldly Guise": {
     level: 6,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/magic_weapon_spell_transmutation_bg3_wik_64px.png",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7311,7 +7311,7 @@ const SPELLS_DETAILS = {
 "Tenser's Transformation": {
     level: 6,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/4/41/Symbiotic_Entity.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7326,7 +7326,7 @@ const SPELLS_DETAILS = {
 "Transport via Plants": {
     level: 6,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/6/62/Spreading_Spores.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7341,7 +7341,7 @@ const SPELLS_DETAILS = {
 "True Seeing": {
     level: 6,
     school: "Divination",
-    img: "data/divination.png",
+    img: "https://bg3.wiki/w/images/5/57/True_Seeing.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7401,7 +7401,7 @@ const SPELLS_DETAILS = {
 "Word of Recall": {
     level: 6,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/2/2b/Wild_Magic_Teleport_activate_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7417,7 +7417,7 @@ const SPELLS_DETAILS = {
 "Conjure Celestial": {
     level: 7,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/a/a6/Sights_of_the_Seelie_Summon_Deva.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7432,7 +7432,7 @@ const SPELLS_DETAILS = {
 "Conjure Hezrou (UA)": {
     level: 7,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/4/49/Bear_Companion.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7447,7 +7447,7 @@ const SPELLS_DETAILS = {
 "Create Magen": {
     level: 7,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/1/1e/Disguise_Self_Masc_Strong_Human_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7507,7 +7507,7 @@ const SPELLS_DETAILS = {
 "Draconic Transformation": {
     level: 7,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/9/92/Ranger_Knight.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7522,7 +7522,7 @@ const SPELLS_DETAILS = {
 "Draconic Transformation (UA)": {
     level: 7,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/9/92/Ranger_Knight.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7537,7 +7537,7 @@ const SPELLS_DETAILS = {
 "Dream of the Blue Veil": {
     level: 7,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/b/b7/Empowered_Evocation.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7552,7 +7552,7 @@ const SPELLS_DETAILS = {
 "Etherealness": {
     level: 7,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/2/2b/Wild_Magic_Teleport_activate_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7597,7 +7597,7 @@ const SPELLS_DETAILS = {
 "Forcecage": {
     level: 7,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/7/7a/Globe_of_Invulnerability_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7612,7 +7612,7 @@ const SPELLS_DETAILS = {
 "Mirage Arcane": {
     level: 7,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://bg3.wiki/w/images/f/fa/Arcane_Eye.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7627,7 +7627,7 @@ const SPELLS_DETAILS = {
 "Mordenkainen's Magnificent Mansion": {
     level: 7,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/3/3a/Formsculpt_Tressym_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7657,7 +7657,7 @@ const SPELLS_DETAILS = {
 "Plane Shift": {
     level: 7,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/2/2b/Wild_Magic_Teleport_activate_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7687,7 +7687,7 @@ const SPELLS_DETAILS = {
 "Prismatic Spray": {
     level: 7,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/wiki/File:Potent_Spellcasting.webp",
     type: "damage",
     damageType: "various",
     dice: null,
@@ -7702,7 +7702,7 @@ const SPELLS_DETAILS = {
 "Project Image": {
     level: 7,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://bg3.wiki/w/images/9/90/Illusory_Self.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7717,7 +7717,7 @@ const SPELLS_DETAILS = {
 "Regenerate": {
     level: 7,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/c/c4/Divine_Intervention_Opulent_Revival.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7747,7 +7747,7 @@ const SPELLS_DETAILS = {
 "Reverse Gravity": {
     level: 7,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/4/46/Levitate_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7762,7 +7762,7 @@ const SPELLS_DETAILS = {
 "Sequester": {
     level: 7,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/4/4e/Invisibility_spell_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7777,7 +7777,7 @@ const SPELLS_DETAILS = {
 "Simulacrum": {
     level: 7,
     school: "Illusion",
-    img: "data/illusion.png",
+    img: "https://bg3.wiki/w/images/c/c3/Magic_Jar_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7792,7 +7792,7 @@ const SPELLS_DETAILS = {
 "Symbol": {
     level: 7,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/6/67/Glyph_of_Warding_Thunder_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7807,7 +7807,7 @@ const SPELLS_DETAILS = {
 "Teleport": {
     level: 7,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/2/2b/Wild_Magic_Teleport_activate_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7822,7 +7822,7 @@ const SPELLS_DETAILS = {
 "Temple of the Gods": {
     level: 7,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/5/5a/Divine_Intervention_Sunder_the_Heretical.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7898,7 +7898,7 @@ const SPELLS_DETAILS = {
 "Antimagic Field": {
     level: 8,
     school: "Abjuration",
-    img: "data/abjuration.png",
+    img: "https://bg3.wiki/w/images/4/4b/Daylight_Sphere_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7913,7 +7913,7 @@ const SPELLS_DETAILS = {
 "Antipathy/Sympathy": {
     level: 8,
     school: "Enchantment",
-    img: "data/enchantment.png",
+    img: "https://bg3.wiki/w/images/e/e8/Devour_Soul.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7928,7 +7928,7 @@ const SPELLS_DETAILS = {
 "Clone": {
     level: 8,
     school: "Necromancy",
-    img: "data/necromancy.png",
+    img: "https://bg3.wiki/w/images/1/19/Invoke_Duplicity.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7943,7 +7943,7 @@ const SPELLS_DETAILS = {
 "Control Weather": {
     level: 8,
     school: "Transmutation",
-    img: "data/transmutation.png",
+    img: "https://bg3.wiki/w/images/6/63/Dampen_Elements.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -7958,7 +7958,7 @@ const SPELLS_DETAILS = {
 "Dark Star": {
     level: 8,
     school: "Evocation",
-    img: "data/evocation.png",
+    img: "https://bg3.wiki/w/images/b/b4/Concentrated_Blast.webp",
     type: "damage",
     damageType: "necrotic",
     dice: null,
@@ -7973,7 +7973,7 @@ const SPELLS_DETAILS = {
 "Demiplane": {
     level: 8,
     school: "Conjuration",
-    img: "data/conjuration.png",
+    img: "https://bg3.wiki/w/images/3/30/Blink_Teleport_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -8018,7 +8018,7 @@ const SPELLS_DETAILS = {
 "Feeblemind": {
     level: 8,
     school: "Enchantment",
-    img: "https://bg3.wiki/w/images/a/ad/Ray_of_Enfeeblement.webp",
+    img: "https://bg3.wiki/w/images/b/b3/Eyebite_Sickened_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -8093,7 +8093,7 @@ const SPELLS_DETAILS = {
 "Maddening Darkness": {
     level: 8,
     school: "Evocation",
-    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/darkness_spell_baldursgate3_wiki_guide_150px_2.png",
+    img: "https://bg3.wiki/w/images/a/aa/Eyes_of_the_Dark_Darkness_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,
@@ -8484,7 +8484,7 @@ const SPELLS_DETAILS = {
 "Time Stop": {
     level: 9,
     school: "Transmutation",
-    img: "https://bg3.wiki/w/images/d/d0/Freecast.webp",
+    img: "https://bg3.wiki/w/images/b/be/Slow_Icon.webp",
     type: "effect",
     damageType: null,
     dice: null,

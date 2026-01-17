@@ -247,6 +247,7 @@ function renderSubclass(container) {
 
     if (lvl.choices.subclass) {
       renderSubclassFeaturesInline(featureWrapper);
+      renderAdditionalSpells(featureWrapper); // <-- NEW
     }
 
     validate();
@@ -255,7 +256,10 @@ function renderSubclass(container) {
   container.append(label, select, document.createElement("br"), featureWrapper);
 
   // If already chosen, render features immediately
-  if (chosen) renderSubclassFeaturesInline(featureWrapper);
+  if (chosen) {
+	  renderSubclassFeaturesInline(featureWrapper);
+	  renderAdditionalSpells(featureWrapper); // <-- NEW
+	}
 }
 function renderSubclassFeaturesInline(container) {
   const lvl = levelingState.pendingLevel;
@@ -295,6 +299,40 @@ function renderSubclassFeaturesInline(container) {
     container.append(label, select, document.createElement("br"));
   });
 }
+
+/* ------------------------------
+   SUBCLASS ADDITIONAL SPELLS
+------------------------------ */
+function renderAdditionalSpells(container) {
+  const lvl = levelingState.pendingLevel;
+  const { class: cls, classLevel, choices } = lvl;
+  const subclass = choices.subclass;
+  if (!subclass) return;
+
+  // Get the extra spellcasting data for this subclass at this level
+  const subSpellData =
+    SUBCLASS_SPELLCASTING?.[cls]?.[subclass]?.progression?.[classLevel];
+  const availableSpells = SUBCLASS_SPELLS?.[subclass]?.[classLevel] || [];
+
+  if (!subSpellData || !availableSpells?.length) return;
+
+  // Prepare target array to store chosen subclass spells
+  if (!choices.subclassSpells) choices.subclassSpells = [];
+  const target = choices.subclassSpells;
+
+  // Determine how many spells can be chosen (use spellsKnown or spellsPrepared)
+  const limit = subSpellData.spellsKnown ?? subSpellData.spellsPrepared ?? availableSpells.length;
+
+  // Render using the same spell grid function
+  renderSpellGroup({
+    container,
+    title: `Additional ${subclass} Spells (choose ${limit})`,
+    spells: availableSpells,
+    limit,
+    target
+  });
+}
+
 
 
 /* ------------------------------
@@ -680,6 +718,12 @@ document.getElementById("confirmLevelBtn").onclick = () => {
       classState.spells.push(chosen.replace.add);
     }
   }
+  
+  // ---------- SUBCLASS SPELLS ----------
+	if (lvl.choices?.subclassSpells?.length) {
+	  classState.spells.push(...lvl.choices.subclassSpells);
+	}
+
 
   levelingState.levels.push({
     ...lvl,
@@ -761,7 +805,12 @@ if (features.length) {
       if (replace) {
         lines.push(`  Replaced: ${replace.remove} → ${replace.add}`);
       }
+
     }
+	
+	if (l.choices?.subclassSpells?.length) {
+	  lines.push(`  Subclass Spells: ${l.choices.subclassSpells.join(", ")}`);
+	}
   });
 
   out.textContent = lines.join("\n");

@@ -187,3 +187,79 @@ const SPELLS = {
 }
 
 };
+
+const SUBCLASS_SPELLS = {
+
+  /* =========================
+     ROGUE
+  ========================= */
+  "Arcane Trickster": {
+    3: ["Mage Hand", "Minor Illusion", "Charm Person", "Disguise Self", "Sleep"], // level 3
+    4: ["Mirror Image", "Invisibility", "Blur"], // level 4
+    8: ["Fireball", "Counterspell", "Haste"], // level 8
+    10: ["Fly", "Major Image"] // level 10
+  },
+
+  /* =========================
+     FIGHTER
+  ========================= */
+  "Eldritch Knight": {
+    3: ["Shield", "Magic Missile", "Burning Hands", "Mage Armor"], // level 3
+    7: ["Misty Step", "Mirror Image"], // level 7
+    10: ["Fireball", "Counterspell"], // level 10
+    15: ["Fly", "Haste"] // level 15
+  },
+
+  /* =========================
+     BARD
+  ========================= */
+  "Lore": {
+    3: ["Counterspell", "Fireball", "Haste", "Polymorph"], // Additional Magical Secrets
+    6: ["Dispel Magic", "Teleport", "Animate Objects"] // Extra Magical Secrets
+  },
+
+  /* =========================
+     DRUID
+  ========================= */
+  "Land": {
+    3: ["Spider Climb", "Melf's Acid Arrow"], // example bonus spells for Land Druid (Forest)
+    5: ["Slow", "Flame Strike"],
+    7: ["Freedom of Movement", "Locate Creature"],
+    9: ["Commune", "Tree Stride"]
+  },
+
+  /* =========================
+     ARTIFICER
+  ========================= */
+  "Alchemist": {
+    3: ["Aid", "Lesser Restoration"], // example
+    5: ["Mass Healing Word", "Beacon of Hope"]
+  },
+  "Artillerist": {
+    3: ["Magic Missile", "Shield"],
+    5: ["Fireball", "Counterspell"]
+  },
+  "Battle Smith": {
+    3: ["Shield", "Absorb Elements"]
+  },
+  "Armorer": {
+    3: ["Shield", "Thunderwave"]
+  },
+
+  /* =========================
+     PALADIN
+  ========================= */
+  "Devotion": {
+    3: ["Sanctuary", "Protection from Evil and Good"],
+    5: ["Lesser Restoration", "Zone of Truth"]
+  },
+  "Ancients": {
+    3: ["Ensnaring Strike", "Speak with Animals"],
+    5: ["Moonbeam", "Mist Step"]
+  },
+  "Vengeance": {
+    3: ["Bane", "Hunter's Mark"],
+    5: ["Hold Person", "Misty Step"]
+  }
+
+};

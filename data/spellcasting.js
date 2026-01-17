@@ -259,3 +259,179 @@ const SPELLCASTING = {
     ]
   }
 };
+
+const SUBCLASS_SPELLCASTING = {
+
+  /* =========================
+     BARD
+  ========================= */
+  bard: {
+    "Lore": {
+      type: "known",
+      progression: [
+        null,
+        null,
+        { spellsKnown: 2, maxSpellLevel: 1 },  // Level 3: Additional Magical Secrets (choose 2)
+        null,
+        null,
+        null,
+        null,
+        null,
+        { spellsKnown: 2, maxSpellLevel: 3 }   // Level 6: Extra Magical Secrets (choose 2)
+        // Continue with more if you want, but typically 3 & 6 are key
+      ]
+    }
+  },
+
+  /* =========================
+     ROGUE
+  ========================= */
+  rogue: {
+    "Arcane Trickster": {
+      type: "known",
+      progression: [
+        null,
+        null,
+        null,
+        { spellsKnown: 3, maxSpellLevel: 1, spellSchools: ["Enchantment", "Illusion"] }, // Level 3
+        null,
+        { spellsKnown: 4, maxSpellLevel: 2, spellSchools: ["Enchantment", "Illusion"] }, // Level 4
+        null,
+        { spellsKnown: 5, maxSpellLevel: 2, spellSchools: ["Enchantment", "Illusion"] }, // Level 8
+        null,
+        { spellsKnown: 6, maxSpellLevel: 3, spellSchools: ["Enchantment", "Illusion"] }  // Level 10
+      ]
+    }
+  },
+
+  /* =========================
+     FIGHTER
+  ========================= */
+  fighter: {
+    "Eldritch Knight": {
+      type: "known",
+      progression: [
+        null,
+        null,
+        null,
+        { spellsKnown: 2, maxSpellLevel: 1, spellSchools: ["Abjuration", "Evocation"] }, // Level 3
+        null,
+        { spellsKnown: 3, maxSpellLevel: 2, spellSchools: ["Abjuration", "Evocation"] }, // Level 7
+        null,
+        { spellsKnown: 4, maxSpellLevel: 2, spellSchools: ["Abjuration", "Evocation"] }, // Level 10
+        null,
+        { spellsKnown: 5, maxSpellLevel: 3, spellSchools: ["Abjuration", "Evocation"] }  // Level 15
+      ]
+    }
+  },
+
+  /* =========================
+     PALADIN (Oath Subclasses)
+  ========================= */
+  paladin: {
+    "Devotion": {
+      type: "prepared",
+      progression: [
+        null,
+        null,
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 1 }, // Level 3
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 1 }, // Level 5
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 2 }  // Level 9
+      ]
+    },
+    "Ancients": {
+      type: "prepared",
+      progression: [
+        null,
+        null,
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 1 },
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 1 },
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 2 }
+      ]
+    },
+    "Vengeance": {
+      type: "prepared",
+      progression: [
+        null,
+        null,
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 1 },
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 1 },
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 2 }
+      ]
+    }
+    // Repeat similarly for other paladin Oaths if needed
+  },
+
+  /* =========================
+     DRUID
+  ========================= */
+  druid: {
+    "Land": {
+      type: "prepared",
+      progression: [
+        null,
+        null,
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 1 }, // Level 3: bonus spells
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 2 }, // Level 5
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 3 }, // Level 7
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 4 }  // Level 9
+      ]
+    }
+  },
+
+  /* =========================
+     ARTIFICER
+  ========================= */
+  artificer: {
+    "Alchemist": {
+      type: "prepared",
+      progression: [
+        null,
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 1 }, // Level 3
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 2 }, // Level 5
+      ]
+    },
+    "Artillerist": {
+      type: "prepared",
+      progression: [
+        null,
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 1 }, // Level 3
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 2 }  // Level 5
+      ]
+    },
+    "Battle Smith": {
+      type: "prepared",
+      progression: [
+        null,
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 1 } // Level 3
+      ]
+    },
+    "Armorer": {
+      type: "prepared",
+      progression: [
+        null,
+        null,
+        { spellsPrepared: 1, maxSpellLevel: 1 } // Level 3
+      ]
+    }
+  }
+
+};

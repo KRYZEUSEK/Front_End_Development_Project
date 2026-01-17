@@ -533,7 +533,6 @@ function validate() {
 ------------------------------ */
 
 document.getElementById("confirmLevelBtn").onclick = () => {
-document.getElementById("confirmLevelBtn").onclick = () => {
   const lvl = levelingState.pendingLevel;
   const classState = getClassSpellState(lvl.class);
   const chosen = lvl.choices?.spells;
@@ -562,17 +561,6 @@ document.getElementById("confirmLevelBtn").onclick = () => {
   updateSummary();
   renderHistory();
 };
-
-
-  levelingState.pendingLevel = null;
-  document.getElementById("levelChoicesFieldset").style.display = "none";
-
-  save();
-  normalizeLevels();   // ← ensures consistency
-  updateSummary();
-  renderHistory();
-};
-
 /* ------------------------------
    UI
 ------------------------------ */
@@ -595,11 +583,30 @@ function renderHistory() {
 
   levelingState.levels.forEach(l => {
     counts[l.class] = (counts[l.class] || 0) + 1;
+    const lvlLabel = `${CLASSES[l.class].name} ${counts[l.class]}`;
+    lines.push(lvlLabel);
 
-    lines.push(`${CLASSES[l.class].name} ${counts[l.class]}`);
+    /* ---------- SUBCLASS ---------- */
+    if (l.choices?.subclass) {
+      lines.push(`  Subclass: ${l.choices.subclass}`);
+    }
 
+    /* ---------- FEATURES ---------- */
+    const features = l.required?.features || [];
+    if (features.length) {
+      lines.push(`  Features: ${features.join(", ")}`);
+    }
+
+    /* ---------- ASI / FEAT ---------- */
+    if (l.choices?.asi) {
+      lines.push(`  ASI: +${l.choices.asi.value} ${l.choices.asi.stat}`);
+    } else if (l.choices?.feat) {
+      lines.push(`  Feat: ${l.choices.feat}`);
+    }
+
+    /* ---------- SPELLS ---------- */
     if (l.choices?.spells) {
-      const { cantrips = [], spells = [] } = l.choices.spells;
+      const { cantrips = [], spells = [], replace } = l.choices.spells;
 
       if (cantrips.length) {
         lines.push(`  Cantrips: ${cantrips.join(", ")}`);
@@ -608,11 +615,16 @@ function renderHistory() {
       if (spells.length) {
         lines.push(`  Spells: ${spells.join(", ")}`);
       }
+
+      if (replace) {
+        lines.push(`  Replaced: ${replace.remove} → ${replace.add}`);
+      }
     }
   });
 
   out.textContent = lines.join("\n");
 }
+
 
 
 /* ------------------------------

@@ -276,27 +276,27 @@ const CLASS_PROGRESSION = {
     20:{ features: ["Signature Spells"] }
   },
 
-  artificer: {
-    1: { spells: true, features: ["Arcane Recovery"] },
-    2: { choices: ["Subclass"] },
-    3: { spells: true },
-    4: { asi: true },
-    5: { spells: true },
-    6: { features: ["Subclass Feature"] },
-    7: { spells: true },
-    8: { asi: true },
-    9: { spells: true },
-    10:{ features: ["Subclass Feature"] },
-    11:{ spells: true },
-    12:{ asi: true },
-    13:{ spells: true },
-    14:{ features: ["Subclass Feature"] },
-    15:{ spells: true },
-    16:{ asi: true },
-    17:{ spells: true },
-    18:{ features: ["Spell Mastery"] },
-    19:{ asi: true },
-    20:{ features: ["Signature Spells"] }
-  }
+artificer: {
+  1:  { features: ["Magical Tinkering"], spells: true },
+  2:  { features: ["Infuse Item"] },
+  3:  { choices: ["Subclass"], features: ["The Right Tool for the Job"], spells: true },
+  4:  { asi: true },
+  5:  { features: ["Extra Attack"] },
+  6:  { features: ["Tool Expertise"] },
+  7:  { features: ["Subclass Feature"] },
+  8:  { asi: true },
+  9:  { features: ["Subclass Feature"] },
+  10: { features: ["Magic Item Adept"] },
+  11: { features: ["Spell-Storing Item"] },
+  12: { asi: true },
+  13: { spells: true },
+  14: { features: ["Magic Item Savant"] },
+  15: { features: ["Subclass Feature"] },
+  16: { asi: true },
+  17: { spells: true },
+  18: { features: ["Magic Item Master"] },
+  19: { asi: true },
+  20: { features: ["Soul of Artifice"] }
+}
 
 };

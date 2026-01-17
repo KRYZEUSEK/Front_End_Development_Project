@@ -107,12 +107,20 @@ const CLASSES = {
     subclasses: ["Abjuration", "Conjuration", "Divination", "Enchantment", "Evocation", "Illusion", "Necromancy", "Transmutation"]
   },
 
-  artificer: {
-    name: "Artificer",
-    hitDie: 8,
-    casterType: "half",
-    skillChoices: 2,
-    skills: ["Arcana", "History", "Investigation", "Medicine", "Nature", "Perception", "Sleight of Hand"],
-    subclasses: ["Alchemist", "Armorer", "Artillerist", "Battle Smith"]
-  }
+artificer: {
+  name: "Artificer",
+  hitDie: 8,
+  casterType: "half",
+  skillChoices: 2,
+  skills: [
+    "Arcana",
+    "History",
+    "Investigation",
+    "Medicine",
+    "Nature",
+    "Perception",
+    "Sleight of Hand"
+  ],
+  subclasses: ["Alchemist", "Artillerist", "Battle Smith", "Armorer"]
+}
 };

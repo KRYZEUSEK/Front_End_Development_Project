@@ -75,6 +75,54 @@ function normalizeLevels() {
     })
     .filter(Boolean);
 }
+function renderSubclassFeatureImmediate(container) {
+  const { class: cls, classLevel, choices } = levelingState.pendingLevel;
+  const subclass = choices.subclass;
+  if (!subclass) return;
+
+  const featureData = SUBCLASSES?.[cls]?.[subclass]?.features?.[classLevel];
+  if (!featureData || !featureData.length) return;
+
+  // Create a wrapper to append features below subclass select
+  let wrapper = container.querySelector(".subclass-features");
+  if (!wrapper) {
+    wrapper = document.createElement("div");
+    wrapper.className = "subclass-features";
+    container.appendChild(wrapper);
+  }
+  wrapper.innerHTML = ""; // clear previous features
+
+  featureData.forEach(feature => {
+    const label = document.createElement("label");
+    label.textContent = feature.name;
+
+    if (!feature.choice) {
+      // Auto-grant
+      choices.subclassFeature = { name: feature.name };
+      wrapper.append(label, document.createElement("br"));
+      return;
+    }
+
+    const select = document.createElement("select");
+    select.appendChild(new Option("— choose —", ""));
+    feature.choice.forEach(opt => select.appendChild(new Option(opt, opt)));
+
+    if (
+      choices.subclassFeature &&
+      choices.subclassFeature.name === feature.name &&
+      choices.subclassFeature.choice
+    ) {
+      select.value = choices.subclassFeature.choice;
+    }
+
+    select.onchange = () => {
+      choices.subclassFeature = { name: feature.name, choice: select.value || null };
+      validate();
+    };
+
+    wrapper.append(label, select, document.createElement("br"));
+  });
+}
 
 
 /* ------------------------------
@@ -130,11 +178,23 @@ function renderLevelChoices() {
   confirmBtn.disabled = true;
 
   const { required } = levelingState.pendingLevel;
-
   let hasChoices = false;
 
-  if (required.choices?.includes("Subclass")) {
+  const lvl = levelingState.pendingLevel;
+
+  // 🔹 Always render subclass select if needed for features
+  const needsSubclassSelect =
+    required.choices?.includes("Subclass") ||
+    (required.choices?.includes("SubclassFeature") && !lvl.choices.subclass);
+
+  if (needsSubclassSelect) {
     renderSubclass(div);
+    hasChoices = true;
+  }
+
+  // 🔹 Render subclass features if subclass is known
+  if (required.choices?.includes("SubclassFeature") && lvl.choices.subclass) {
+    renderSubclassFeaturesInline(div);
     hasChoices = true;
   }
 
@@ -148,38 +208,94 @@ function renderLevelChoices() {
     hasChoices = true;
   }
 
-  /* ✅ NO CHOICES THIS LEVEL */
   if (!hasChoices) {
     div.textContent = "No choices required at this level.";
     confirmBtn.disabled = false;
   }
+
+  validate();
 }
+
 
 /* ------------------------------
    SUBCLASS
 ------------------------------ */
-
 function renderSubclass(container) {
-  const cls = levelingState.pendingLevel.class;
+  const lvl = levelingState.pendingLevel;
+  const cls = lvl.class;
+  const chosen = lvl.choices.subclass || "";
 
   const label = document.createElement("label");
   label.textContent = "Subclass";
 
   const select = document.createElement("select");
-
   select.appendChild(new Option("— choose —", ""));
+  CLASSES[cls].subclasses.forEach(s => select.appendChild(new Option(s, s)));
 
-  CLASSES[cls].subclasses.forEach(s => {
-    select.appendChild(new Option(s, s));
-  });
+  select.value = chosen;
+
+  // Create a wrapper for features below the select
+  let featureWrapper = document.createElement("div");
+  featureWrapper.className = "subclass-features";
 
   select.onchange = () => {
-    levelingState.pendingLevel.choices.subclass = select.value || null;
+    lvl.choices.subclass = select.value || null;
+
+    // Clear old features
+    lvl.choices.subclassFeature = undefined;
+    featureWrapper.innerHTML = "";
+
+    if (lvl.choices.subclass) {
+      renderSubclassFeaturesInline(featureWrapper);
+    }
+
     validate();
   };
 
-  container.append(label, select, document.createElement("br"));
+  container.append(label, select, document.createElement("br"), featureWrapper);
+
+  // If already chosen, render features immediately
+  if (chosen) renderSubclassFeaturesInline(featureWrapper);
 }
+function renderSubclassFeaturesInline(container) {
+  const lvl = levelingState.pendingLevel;
+  const { class: cls, classLevel, choices } = lvl;
+  const subclass = choices.subclass;
+  if (!subclass) return;
+
+  const features = SUBCLASSES?.[cls]?.[subclass]?.features?.[classLevel] || [];
+  if (!features.length) return;
+
+  features.forEach(feature => {
+    const label = document.createElement("label");
+    label.textContent = feature.name;
+
+    if (!feature.choice) {
+      // Auto-grant feature
+      choices.subclassFeature = { name: feature.name };
+      container.append(label, document.createElement("br"));
+      return;
+    }
+
+    // Feature requires choice
+    const select = document.createElement("select");
+    select.appendChild(new Option("— choose —", ""));
+    feature.choice.forEach(opt => select.appendChild(new Option(opt, opt)));
+
+    // Restore previous choice
+    if (choices.subclassFeature?.name === feature.name && choices.subclassFeature.choice) {
+      select.value = choices.subclassFeature.choice;
+    }
+
+    select.onchange = () => {
+      choices.subclassFeature = { name: feature.name, choice: select.value || null };
+      validate();
+    };
+
+    container.append(label, select, document.createElement("br"));
+  });
+}
+
 
 /* ------------------------------
    ASI / FEAT
@@ -510,23 +626,40 @@ function validate() {
   let ok = true;
 
   if (required.choices?.includes("Subclass") && !choices.subclass) ok = false;
-  if (required.asi && !choices.asi && !choices.feat) ok = false;
-  if (required.spells) {
-  const s = choices.spells;
-  if (!s) ok = false;
 
-  if (s.requiredCantrips > 0 && s.cantrips.length !== s.requiredCantrips) {
-    ok = false;
-  }
+if (required.choices?.includes("SubclassFeature")) {
+  const { class: cls, classLevel, choices } = levelingState.pendingLevel;
+  const subclass = choices.subclass;
 
-  if (s.requiredSpells > 0 && s.spells.length !== s.requiredSpells) {
-    ok = false;
+  const featureData =
+    SUBCLASSES?.[cls]?.[subclass]?.features?.[classLevel] || [];
+
+  // Only require if a feature actually has a choice
+  const requiresChoice = featureData.some(f => f.choice);
+  if (requiresChoice) {
+    if (!choices.subclassFeature || !choices.subclassFeature.choice) ok = false;
   }
 }
 
+
+  if (required.asi && !choices.asi && !choices.feat) ok = false;
+
+  if (required.spells) {
+    const s = choices.spells;
+    if (!s) ok = false;
+
+    if (s.requiredCantrips > 0 && s.cantrips.length !== s.requiredCantrips) {
+      ok = false;
+    }
+
+    if (s.requiredSpells > 0 && s.spells.length !== s.requiredSpells) {
+      ok = false;
+    }
+  }
 
   document.getElementById("confirmLevelBtn").disabled = !ok;
 }
+
 
 /* ------------------------------
    CONFIRM LEVEL
@@ -591,11 +724,20 @@ function renderHistory() {
       lines.push(`  Subclass: ${l.choices.subclass}`);
     }
 
-    /* ---------- FEATURES ---------- */
-    const features = l.required?.features || [];
-    if (features.length) {
-      lines.push(`  Features: ${features.join(", ")}`);
-    }
+/* ---------- FEATURES ---------- */
+const features = [...(l.required?.features || [])];
+
+if (l.choices?.subclassFeature) {
+  const sf = l.choices.subclassFeature;
+  features.push(
+    sf.choice ? `${sf.name} (${sf.choice})` : sf.name
+  );
+}
+
+if (features.length) {
+  lines.push(`  Features: ${features.join(", ")}`);
+}
+
 
     /* ---------- ASI / FEAT ---------- */
     if (l.choices?.asi) {

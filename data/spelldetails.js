@@ -1576,7 +1576,7 @@ const SPELLS_DETAILS = {
 "Jump": {
     level: 1,
     school: "Transmutation",
-    img: "https://baldursgate3.wiki.fextralife.com/ENHANCE+LEAP",
+    img: "https://baldursgate3.wiki.fextralife.com/file/Baldurs-Gate-3/jump_spell_baldursgate3_wiki_guide_150px_2.png",
     type: "effect",
     damageType: null,
     dice: null,

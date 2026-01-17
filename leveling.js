@@ -46,10 +46,15 @@ function calculateHP(cls, level) {
 }
 
 function getMaxSpellLevel(cls, classLevel) {
-  const casterType = CLASSES[cls].casterType;
+  const casterType = SPELLCASTING[cls].type;
   if (!casterType) return 0;
   return SPELL_LEVEL_BY_CLASS_LEVEL[casterType][classLevel] || 0;
 }
+
+function casterTypeIsPrepared(cls) {
+  return SPELLCASTING[cls]?.type === "prepared";
+}
+
 function normalizeLevels() {
   levelingState.levels = levelingState.levels
     .map(l => {
@@ -402,7 +407,7 @@ function renderASI(container) {
 ------------------------------ */
 /* ------------------------------
 function getMaxSpellLevel(cls, classLevel) {
-  const casterType = CLASSES[cls].casterType;
+  const casterType = SPELLCASTING[cls].type;
   if (!casterType) return 0;
   return SPELL_LEVEL_BY_CLASS_LEVEL[casterType][classLevel];
 }
@@ -426,8 +431,96 @@ function getClassSpellState(cls) {
 
   return levelingState.spells[cls];
 }
-function renderSpells(container) {
+async function renderSpellGroupWithPrefill({ container, title, spells, limit, target, prefill = [] }) {
+  const wrap = document.createElement("div");
+
+  // Title
+  const header = document.createElement("strong");
+  header.textContent = title;
+  wrap.appendChild(header);
+
+  // Counter
+  const counter = document.createElement("div");
+  wrap.appendChild(counter);
+
+  // Grid container
+  const grid = document.createElement("div");
+  grid.className = "spell-grid";
+
+  // Pre-fill target with previously chosen spells if target is empty
+  if (!target || !target.length) {
+    target = Array.from(new Set([...prefill]));
+  }
+
+  // Initial counter text
+  counter.textContent = `${limit - target.length} remaining`;
+
+  for (const spell of spells) {
+    const spellData = SPELLS_DETAILS[spell] || {};
+
+    const card = document.createElement("div");
+    card.className = "spell-card";
+    if (target.includes(spell)) card.classList.add("selected");
+
+    // Checkbox (hidden visually)
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = target.includes(spell);
+    cb.style.display = "none";
+
+    // Click on card toggles selection
+    card.onclick = () => {
+      if (!cb.checked && target.length >= limit) return;
+
+      cb.checked = !cb.checked;
+
+      if (cb.checked) {
+        if (!target.includes(spell)) target.push(spell);
+        card.classList.add("selected");
+      } else {
+        const i = target.indexOf(spell);
+        if (i !== -1) target.splice(i, 1);
+        card.classList.remove("selected");
+      }
+
+      counter.textContent = `${limit - target.length} remaining`;
+      validate();
+    };
+
+    // Spell image
+    const img = document.createElement("img");
+    img.alt = spell;
+    img.src = await getSpellImg(spellData);
+
+    // Spell info
+    const info = document.createElement("div");
+    info.className = "spell-meta";
+
+    const damageColor = DamageTypeColors[spellData.damageType] || "grey";
+
+    info.innerHTML = `
+      <strong>${spell}</strong><br>
+      Level: ${spellData.level ?? "-"}<br>
+      Type: ${spellData.type ?? "-"}<br>
+      Dice: <span style="color:${damageColor}">${spellData.dice ?? "-"}</span><br>
+      Damage Type: <span style="color:${damageColor}">${spellData.damageType ?? "-"}</span>
+    `;
+
+    card.append(cb, img, info);
+    grid.appendChild(card);
+  }
+
+  wrap.appendChild(grid);
+  container.appendChild(wrap);
+  container.appendChild(document.createElement("hr"));
+
+  return target; // return updated target in case you want to store it
+}
+
+
+async function renderSpells(container) {
   const { class: cls, classLevel } = levelingState.pendingLevel;
+  const casterType = SPELLCASTING[cls].type;
 
   const current = getSpellcasting(cls, classLevel);
   const previous = getPreviousSpellcasting(cls, classLevel);
@@ -445,27 +538,22 @@ if (!levelingState.pendingLevel.choices.spells) {
   };
 }
 
+// ---------- CANTRIPS ----------
+const newCantrips = getDelta(current, previous, "cantrips");
+levelingState.pendingLevel.choices.spells.requiredCantrips = newCantrips;
 
-  /* ---------- CANTRIPS ---------- */
+if (newCantrips > 0) {
+  const availableCantrips =
+    (SPELLS[cls]?.[0] || []).filter(s => !classState.cantrips.includes(s));
 
-  const newCantrips = getDelta(current, previous, "cantrips");
-  levelingState.pendingLevel.choices.spells.requiredCantrips = newCantrips;
-
-
-  if (newCantrips > 0) {
-    const availableCantrips =
-      (SPELLS[cls]?.[0] || []).filter(
-        s => !classState.cantrips.includes(s)
-      );
-
-    renderSpellGroup({
-      container,
-      title: `Choose ${newCantrips} new cantrip(s)`,
-      spells: availableCantrips,
-      limit: newCantrips,
-      target: levelingState.pendingLevel.choices.spells.cantrips
-    });
-  }
+  renderSpellGroup({
+    container,
+    title: `Choose ${newCantrips} new cantrip(s)`,
+    spells: availableCantrips,
+    limit: newCantrips,
+    target: levelingState.pendingLevel.choices.spells.cantrips
+  });
+}
 
   /* ---------- SPELLS ---------- */
 
@@ -486,6 +574,20 @@ if (!levelingState.pendingLevel.choices.spells) {
       );
     }
 
+if (casterType == "prepared") {
+	const classState = getClassSpellState(cls);
+	const previouslyChosen = classState.spells; // spells already known/selected before
+
+	levelingState.pendingLevel.choices.spells.spells = await renderSpellGroupWithPrefill({
+	  container,
+	  title: `Choose ${newSpells} new spell(s)`,
+	  spells: availableSpells, // show ALL spells
+	  limit: currentCount,
+	  target: levelingState.pendingLevel.choices.spells.spells,
+	  prefill: previouslyChosen
+	});
+
+} else {
     const filtered = availableSpells.filter(
       s => !classState.spells.includes(s)
     );
@@ -497,19 +599,19 @@ if (!levelingState.pendingLevel.choices.spells) {
       limit: newSpells,
       target: levelingState.pendingLevel.choices.spells.spells
     });
+
+  // ---------- OPTIONAL REPLACEMENT ----------
+  // Always allow replacement if the class already knows spells
+  // and the class uses spellsKnown progression
+  if (
+    current.spellsKnown &&
+    classState.spells.length > 0
+  ) {
+    renderSpellReplacement(container, cls, classState);
   }
-
-// ---------- OPTIONAL REPLACEMENT ----------
-// Always allow replacement if the class already knows spells
-// and the class uses spellsKnown progression
-if (
-  current.spellsKnown &&
-  classState.spells.length > 0
-) {
-  renderSpellReplacement(container, cls, classState);
 }
 
-}
+}}
 const DamageTypeColors = {
   acid: "#CDF2AA",
   bludgeoning: "#B5996D",
@@ -710,18 +812,25 @@ if (required.choices?.includes("SubclassFeature")) {
 
   if (required.asi && !choices.asi && !choices.feat) ok = false;
 
-  if (required.spells) {
-    const s = choices.spells;
-    if (!s) ok = false;
+if (required.spells) {
+  const s = choices.spells;
+  if (!s) ok = false;
 
-    if (s.requiredCantrips > 0 && s.cantrips.length !== s.requiredCantrips) {
-      ok = false;
-    }
-
-    if (s.requiredSpells > 0 && s.spells.length !== s.requiredSpells) {
-      ok = false;
-    }
+  // Cantrips
+  if (s.requiredCantrips > 0 && s.cantrips.length !== s.requiredCantrips) {
+    ok = false;
   }
+
+  // Spells — count only the NEW spells for this level
+  if (s.requiredSpells > 0) {
+    const newSpells = casterTypeIsPrepared(levelingState.pendingLevel.class)
+      ? s.spells.slice(-s.requiredSpells) // last N are the ones being added now
+      : s.spells;
+
+    if (newSpells.length !== s.requiredSpells) ok = false;
+  }
+}
+
 
   document.getElementById("confirmLevelBtn").disabled = !ok;
 }
@@ -748,11 +857,15 @@ document.getElementById("confirmLevelBtn").onclick = () => {
   }
   
   // ---------- SUBCLASS SPELLS ----------
-	if (lvl.choices?.subclassSpells?.length) {
-	  classState.spells.push(...lvl.choices.subclassSpells);
-	}
+  if (lvl.choices?.subclassSpells?.length) {
+    classState.spells.push(...lvl.choices.subclassSpells);
+  }
 
+  // ---------- DEDUPLICATE ARRAYS ----------
+  classState.cantrips = Array.from(new Set(classState.cantrips));
+  classState.spells = Array.from(new Set(classState.spells));
 
+  // ---------- SAVE LEVEL ----------
   levelingState.levels.push({
     ...lvl,
     hp: calculateHP(lvl.class, lvl.classLevel)
@@ -766,6 +879,7 @@ document.getElementById("confirmLevelBtn").onclick = () => {
   updateSummary();
   renderHistory();
 };
+
 /* ------------------------------
    UI
 ------------------------------ */

@@ -328,6 +328,45 @@ levelingState.pendingLevel.choices.spells = {
     renderSpellReplacement(container, cls, classState);
   }
 }
+const DamageTypeColors = {
+  acid: "#CDF2AA",
+  bludgeoning: "#B5996D",
+  cold: "lightblue",
+  fire: "orangered",
+  force: "red",
+  lightning: "#80D0FF",
+  necrotic: "#C2FFCF",
+  piercing: "#DED7CE",
+  poison: "#9EE550",
+  psychic: "pink",
+  radiant: "#FCB149",
+  slashing: "#C98761",
+  thunder: "#DCB5FF",
+  "fire & bludgeoning": "orangered",
+  "radiant or necrotic": "violet",
+  instant: "violet",
+  heal: "#C6F5DA",
+  null: "#D1D1D1" // default
+};
+
+function getSpellImg(spellData) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    // Try main img first
+    img.src = spellData.img || "";
+    img.onload = () => resolve(img.src);
+    img.onerror = () => {
+      // Try by school
+      const schoolImg = spellData.school ? `data/${spellData.school.toLowerCase()}.png` : null;
+      if (!schoolImg) return resolve("data/placeholder.png");
+
+      const img2 = new Image();
+      img2.src = schoolImg;
+      img2.onload = () => resolve(img2.src);
+      img2.onerror = () => resolve("data/placeholder.png");
+    };
+  });
+}
 
 function renderSpellGroup({ container, title, spells, limit, target }) {
   const wrap = document.createElement("div");
@@ -346,18 +385,18 @@ function renderSpellGroup({ container, title, spells, limit, target }) {
   const grid = document.createElement("div");
   grid.className = "spell-grid";
 
-  spells.forEach(spell => {
+  spells.forEach(async (spell) => {
     const spellData = SPELLS_DETAILS[spell] || {};
 
     const card = document.createElement("div");
     card.className = "spell-card";
     if (target.includes(spell)) card.classList.add("selected");
 
-    // Checkbox (hidden visually, we use click on card)
+    // Checkbox (hidden visually)
     const cb = document.createElement("input");
     cb.type = "checkbox";
     cb.checked = target.includes(spell);
-    cb.style.display = "none"; // hidden, card click toggles
+    cb.style.display = "none";
 
     // Click on card toggles selection
     card.onclick = () => {
@@ -380,18 +419,24 @@ function renderSpellGroup({ container, title, spells, limit, target }) {
 
     // Spell image
     const img = document.createElement("img");
-    img.src = spellData.img || "data/placeholder.png";
     img.alt = spell;
+
+    // Use flexible image loading
+    img.src = await getSpellImg(spellData);
 
     // Spell info
     const info = document.createElement("div");
     info.className = "spell-meta";
+
+    // Color Dice and DamageType
+    const damageColor = DamageTypeColors[spellData.damageType] || "grey";
+
     info.innerHTML = `
       <strong>${spell}</strong><br>
       Level: ${spellData.level ?? "-"}<br>
       Type: ${spellData.type ?? "-"}<br>
-      Damage: ${spellData.dice ?? "-"}<br>
-      Damage Type: ${spellData.damageType ?? "-"}
+      Dice: <span style="color:${damageColor}">${spellData.dice ?? "-"}</span><br>
+      Damage Type: <span style="color:${damageColor}">${spellData.damageType ?? "-"}</span>
     `;
 
     card.append(cb, img, info);
@@ -402,6 +447,7 @@ function renderSpellGroup({ container, title, spells, limit, target }) {
   container.appendChild(wrap);
   container.appendChild(document.createElement("hr"));
 }
+
 
 
 

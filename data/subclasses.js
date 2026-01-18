@@ -749,7 +749,7 @@ fighter: {
     features: {
       3: [
         { name: "Weapon Bond" },
-        { name: "Spellcasting" }
+        { name: "Spellcasting", list: "wizard" }
       ],
       7: [
         { name: "War Magic" }
@@ -1445,7 +1445,7 @@ rogue: {
   "Arcane Trickster": {
     features: {
       3: [
-        { name: "Spellcasting" },
+        { name: "Spellcasting", list: "wizard" },
         { name: "Mage Hand Legerdemain" },
         { name: "Arcane Trickster Spells", spells: ["Mage Hand", "Minor Illusion", "Charm Person"] }
       ],

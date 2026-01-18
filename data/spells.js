@@ -9,7 +9,7 @@ const SPELLS = {
     6: ["Disintegrate", "Globe of Invulnerability", "Mass Suggestion", "Flesh to Stone"],
     7: ["Finger of Death", "Teleport", "Plane Shift", "Reverse Gravity"],
     8: ["Dominate Monster", "Earthquake", "Incendiary Cloud", "Antimagic Field"],
-    9: ["Meteor Swarm", "Time Stop", "Wish", "Power Word Kill"]
+    9: ["Meteor Swarm", "Time Stop", "Wish", "Power Word: Kill"]
   },
 
   cleric: {
@@ -47,8 +47,8 @@ const SPELLS = {
     5: ["Animate Objects", "Dominate Person", "Hold Monster", "Mass Cure Wounds"],
     6: ["Mass Suggestion", "Otto's Irresistible Dance", "True Seeing"],
     7: ["Forcecage", "Teleport", "Mirage Arcane"],
-    8: ["Mind Blank", "Power Word Stun"],
-    9: ["Foresight", "Power Word Heal"]
+    8: ["Mind Blank", "Power Word: Stun"],
+    9: ["Foresight", "Power Word: Heal"]
   },
 
   sorcerer: {
@@ -73,7 +73,7 @@ const SPELLS = {
     5: ["Hold Monster", "Wall of Force", "Contact Other Plane", "Dream"],
     6: ["Circle of Death", "Eyebite", "True Seeing"],
     7: ["Finger of Death", "Plane Shift"],
-    8: ["Demiplane", "Power Word Stun"],
+    8: ["Demiplane", "Power Word: Stun"],
     9: ["Foresight", "True Polymorph"]
   },
 
@@ -204,10 +204,11 @@ const SUBCLASS_SPELLS = {
      FIGHTER
   ========================= */
   "Eldritch Knight": {
-    3: ["Shield", "Magic Missile", "Burning Hands", "Mage Armor"], // level 3
-    7: ["Misty Step", "Mirror Image"], // level 7
-    10: ["Fireball", "Counterspell"], // level 10
-    15: ["Fly", "Haste"] // level 15
+    0: ["Acid Splash", "Blade Ward", "Booming Blade", "Chill Touch", "Control Flames", "Create Bonfire", "Dancing Lights", "Encode Thoughts", "Fire Bolt", "Friends", "Frostbite", "Green-Flame Blade", "Gust", "Infestation", "Light", "Lightning Lure", "Mage Hand", "Mending", "Message", "Mind Sliver", "Minor Illusion", "Mold Earth", "On/Off (UA)", "Poison Spray", "Prestidigitation", "Ray of Frost", "Sapping Sting", "Shape Water", "Shocking Grasp", "Sword Burst", "Thunderclap", "Toll the Dead", "True Strike"], // level 3
+    1: ["Absorb Elements", "Acid Stream (UA)", "Alarm", "Burning Hands", "Chromatic Orb", "Earth Tremor", "Frost Fingers", "Jim's Magic Missile", "Mage Armor", "Magic Missile", "Protection from Evil and Good", "Shield", "Snare", "Tasha's Caustic Brew", "Thunderwave", "Witch Bolt"], // level 7
+    2: ["Aganazzar's Scorcher", "Arcane Lock", "Continual Flame", "Darkness", "Digital Phantom (UA)", "Gust of Wind", "Icingdeath's Frost (UA)", "Melf's Acid Arrow", "Mental Barrier (UA)", "Rime's Binding Ice", "Scorching Ray", "Shatter", "Snilloc's Snowball Swarm", "Thought Shield (UA)", "Warding Wind"], // level 10
+    3: ["Counterspell", "Dispel Magic", "Fireball", "Glyph of Warding", "Intellect Fortress", "Leomund's Tiny Hut", "Lightning Bolt", "Magic Circle", "Melf's Minute Meteors", "Nondetection", "Protection from Ballistics (UA)", "Protection from Energy", "Psionic Blast (UA)", "Pulse Wave", "Remove Curse", "Sending", "Wall of Sand", "Wall of Water"], // level 15
+    4: ["Banishment", "Fire Shield", "Gate Seal", "Gravity Sinkhole", "Ice Storm", "Mordenkainen's Private Sanctum", "Otiluke's Resilient Sphere", "Sickening Radiance", "Stoneskin", "Storm Sphere", "Vitriolic Sphere", "Wall of Fire"]
   },
 
   /* =========================

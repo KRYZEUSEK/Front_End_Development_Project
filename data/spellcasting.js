@@ -272,13 +272,13 @@ const SUBCLASS_SPELLCASTING = {
       progression: [
         null,
         null,
-        { spellsKnown: 2, maxSpellLevel: 1 },  // Level 3: Additional Magical Secrets (choose 2)
+        { cantrips: 2, spellsKnown: 2, maxSpellLevel: 1 },  // Level 3: Additional Magical Secrets (choose 2)
         null,
         null,
         null,
         null,
         null,
-        { spellsKnown: 2, maxSpellLevel: 3 }   // Level 6: Extra Magical Secrets (choose 2)
+        { cantrips: 2, spellsKnown: 2, maxSpellLevel: 3 }   // Level 6: Extra Magical Secrets (choose 2)
         // Continue with more if you want, but typically 3 & 6 are key
       ]
     }
@@ -295,13 +295,13 @@ const SUBCLASS_SPELLCASTING = {
         null,
         null,
         null,
-        { spellsKnown: 3, maxSpellLevel: 1, spellSchools: ["Enchantment", "Illusion"] }, // Level 3
+        { cantrips: 2, spellsKnown: 3, maxSpellLevel: 1, spellSchools: ["Enchantment", "Illusion"] }, // Level 3
         null,
-        { spellsKnown: 4, maxSpellLevel: 2, spellSchools: ["Enchantment", "Illusion"] }, // Level 4
+        { cantrips: 2, spellsKnown: 4, maxSpellLevel: 2, spellSchools: ["Enchantment", "Illusion"] }, // Level 4
         null,
-        { spellsKnown: 5, maxSpellLevel: 2, spellSchools: ["Enchantment", "Illusion"] }, // Level 8
+        { cantrips: 2, spellsKnown: 5, maxSpellLevel: 2, spellSchools: ["Enchantment", "Illusion"] }, // Level 8
         null,
-        { spellsKnown: 6, maxSpellLevel: 3, spellSchools: ["Enchantment", "Illusion"] }  // Level 10
+        { cantrips: 2, spellsKnown: 6, maxSpellLevel: 3, spellSchools: ["Enchantment", "Illusion"] }  // Level 10
       ]
     }
   },
@@ -317,13 +317,13 @@ const SUBCLASS_SPELLCASTING = {
         null,
         null,
         null,
-        { spellsKnown: 2, maxSpellLevel: 1, spellSchools: ["Abjuration", "Evocation"] }, // Level 3
+        { cantrips: 2, spellsKnown: 2, maxSpellLevel: 1, spellSchools: ["Abjuration", "Evocation"] }, // Level 3
         null,
-        { spellsKnown: 3, maxSpellLevel: 2, spellSchools: ["Abjuration", "Evocation"] }, // Level 7
+        { cantrips: 2, spellsKnown: 3, maxSpellLevel: 2, spellSchools: ["Abjuration", "Evocation"] }, // Level 7
         null,
-        { spellsKnown: 4, maxSpellLevel: 2, spellSchools: ["Abjuration", "Evocation"] }, // Level 10
+        { cantrips: 2, spellsKnown: 4, maxSpellLevel: 2, spellSchools: ["Abjuration", "Evocation"] }, // Level 10
         null,
-        { spellsKnown: 5, maxSpellLevel: 3, spellSchools: ["Abjuration", "Evocation"] }  // Level 15
+        { cantrips: 2, spellsKnown: 5, maxSpellLevel: 3, spellSchools: ["Abjuration", "Evocation"] }  // Level 15
       ]
     }
   },
@@ -339,11 +339,11 @@ const SUBCLASS_SPELLCASTING = {
         null,
         null,
         null,
-        { spellsPrepared: 1, maxSpellLevel: 1 }, // Level 3
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 1 }, // Level 3
         null,
-        { spellsPrepared: 1, maxSpellLevel: 1 }, // Level 5
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 1 }, // Level 5
         null,
-        { spellsPrepared: 1, maxSpellLevel: 2 }  // Level 9
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 2 }  // Level 9
       ]
     },
     "Ancients": {
@@ -353,11 +353,11 @@ const SUBCLASS_SPELLCASTING = {
         null,
         null,
         null,
-        { spellsPrepared: 1, maxSpellLevel: 1 },
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 1 },
         null,
-        { spellsPrepared: 1, maxSpellLevel: 1 },
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 1 },
         null,
-        { spellsPrepared: 1, maxSpellLevel: 2 }
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 2 }
       ]
     },
     "Vengeance": {
@@ -367,11 +367,11 @@ const SUBCLASS_SPELLCASTING = {
         null,
         null,
         null,
-        { spellsPrepared: 1, maxSpellLevel: 1 },
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 1 },
         null,
-        { spellsPrepared: 1, maxSpellLevel: 1 },
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 1 },
         null,
-        { spellsPrepared: 1, maxSpellLevel: 2 }
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 2 }
       ]
     }
     // Repeat similarly for other paladin Oaths if needed
@@ -388,13 +388,13 @@ const SUBCLASS_SPELLCASTING = {
         null,
         null,
         null,
-        { spellsPrepared: 1, maxSpellLevel: 1 }, // Level 3: bonus spells
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 1 }, // Level 3: bonus spells
         null,
-        { spellsPrepared: 1, maxSpellLevel: 2 }, // Level 5
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 2 }, // Level 5
         null,
-        { spellsPrepared: 1, maxSpellLevel: 3 }, // Level 7
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 3 }, // Level 7
         null,
-        { spellsPrepared: 1, maxSpellLevel: 4 }  // Level 9
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 4 }  // Level 9
       ]
     }
   },
@@ -409,9 +409,9 @@ const SUBCLASS_SPELLCASTING = {
       progression: [
         null,
         null,
-        { spellsPrepared: 1, maxSpellLevel: 1 }, // Level 3
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 1 }, // Level 3
         null,
-        { spellsPrepared: 1, maxSpellLevel: 2 }, // Level 5
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 2 }, // Level 5
       ]
     },
     "Artillerist": {
@@ -420,9 +420,9 @@ const SUBCLASS_SPELLCASTING = {
       progression: [
         null,
         null,
-        { spellsPrepared: 1, maxSpellLevel: 1 }, // Level 3
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 1 }, // Level 3
         null,
-        { spellsPrepared: 1, maxSpellLevel: 2 }  // Level 5
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 2 }  // Level 5
       ]
     },
     "Battle Smith": {
@@ -431,7 +431,7 @@ const SUBCLASS_SPELLCASTING = {
       progression: [
         null,
         null,
-        { spellsPrepared: 1, maxSpellLevel: 1 } // Level 3
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 1 } // Level 3
       ]
     },
     "Armorer": {
@@ -440,7 +440,7 @@ const SUBCLASS_SPELLCASTING = {
       progression: [
         null,
         null,
-        { spellsPrepared: 1, maxSpellLevel: 1 } // Level 3
+        { cantrips: 2, spellsKnown: 1, maxSpellLevel: 1 } // Level 3
       ]
     }
   }

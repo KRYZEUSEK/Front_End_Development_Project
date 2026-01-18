@@ -335,3 +335,25 @@ fieldset:nth-of-type(2) input:disabled {
   font-size: 0.8em;
   opacity: 0.8;
 }
+
+.spell-source-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  margin: 4px 0 8px;
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+.spell-source-filters label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.spell-source-filters input[type="checkbox"] {
+  transform: scale(0.8);
+  margin: 0;
+}

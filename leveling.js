@@ -5,6 +5,22 @@ const SPELL_LEVEL_BY_CLASS_LEVEL = {
   pact:  [0,1,1,2,2,3,3,4,4,5,5,5,5,5,5,5,5,5,5,5,5]
 };
 
+const SPELL_SOURCES = [
+  "Player's Handbook",
+  "Xanathar's Guide to Everything",
+  "Guildmaster's Guide to Ravnica",
+  "Tasha's Cauldron of Everything",
+  "Sword Coast Adventurer's Guide",
+  "Fizban's Treasury of Dragons",
+  "Explorer's Guide to Wildemount",
+  "The Book of Many Things",
+  "Lost Laboratory of Kwalish",
+  "Acquisitions Inc.",
+  "Strixhaven: A Curriculum of Chaos",
+  "Unearthed Arcana",
+  "Others"
+];
+
 let levelingState = (() => {
   const raw = JSON.parse(localStorage.getItem("levelingData"));
 
@@ -24,8 +40,20 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ------------------------------
    HELPERS
 ------------------------------ */
-function isCasterClass(cls) {
+function getSpellSource(spell) {
+  const src = SPELLS_DETAILS[spell]?.source;
+  if (!src || src === "tmp") return "Others";
+  return src;
+}
+
+function isSpecialSubclass(cls) {
   return !!SPELLCASTING?.[cls]?.progression;
+}
+
+function isSpecialClass(subclass) {
+	if (subclass == "Eldritch Knight") return true;
+	if (subclass == "Arcane Trickster") return true;
+  return false;
 }
 
 function getClassLevel(cls) {
@@ -34,6 +62,9 @@ function getClassLevel(cls) {
 
 function getPreviousSpellcasting(cls, classLevel) {
   return getSpellcasting(cls, classLevel - 1);
+}
+function getPreviousSpellcastingSubclass(cls, subclass, classLevel) {
+  return getSpellcastingSubclass(cls, subclass, classLevel - 1);
 }
 
 function getDelta(current, previous, key) {
@@ -141,6 +172,32 @@ function renderSubclassFeatureImmediate(container) {
     wrapper.append(label, select, document.createElement("br"));
   });
 }
+function createSourceFilters(container, onChange) {
+  const filterWrap = document.createElement("div");
+  filterWrap.className = "spell-source-filters";
+
+  const activeSources = new Set(SPELL_SOURCES); // all enabled by default
+
+  SPELL_SOURCES.forEach(source => {
+    const label = document.createElement("label");
+    label.style.marginRight = "8px";
+
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = true;
+
+    cb.onchange = () => {
+      cb.checked ? activeSources.add(source) : activeSources.delete(source);
+      onChange(activeSources);
+    };
+
+    label.append(cb, " ", source);
+    filterWrap.appendChild(label);
+  });
+
+  container.appendChild(filterWrap);
+  return activeSources;
+}
 
 
 /* ------------------------------
@@ -228,6 +285,8 @@ if (!levelingState.pendingLevel.choices.spells) {
   levelingState.pendingLevel.choices.spells = {
     cantrips: [],
     spells: [],
+    special_cantrips: [],
+    special_spells: [],
     replace: null,
     requiredCantrips: 0,
     requiredSpells: 0
@@ -292,10 +351,15 @@ function renderSubclass(container, spellContainer) {
     }
 
     // 🔹 Re-render spell selection after subclass change
-    if (isCasterClass(cls)) {
+    if (isSpecialSubclass(cls)) {
 		const spellContainer = getOrCreateSpellContainer(container);
 		spellContainer.innerHTML = ""; // ✅ clears ONLY spells
 		await renderSpells(spellContainer);
+    }
+    if (isSpecialSubclass(chosen)) {
+		const spellContainer = getOrCreateSpellContainer(container);
+		spellContainer.innerHTML = ""; 
+		await renderSpecialSpells(spellContainer);
     }
 
     validate();
@@ -309,7 +373,7 @@ function renderSubclass(container, spellContainer) {
     //renderAdditionalSpells(featureWrapper);
 
     // 🔹 Also render spells immediately
-    if (isCasterClass(cls)) {
+    if (isSpecialSubclass(cls)) {
       spellContainer.innerHTML = "";
       renderSpells(spellContainer);
     }
@@ -330,10 +394,18 @@ function renderSubclassFeaturesInline(container) {
     const label = document.createElement("label");
     label.textContent = feature.name;
 
-    if (!feature.choice) {
+    if (!feature.choice && !feature.list) {
       // Auto-grant feature
       choices.subclassFeature = { name: feature.name };
       container.append(label, document.createElement("br"));
+      return;
+    }
+
+    if (feature.list) {
+      choices.subclassFeature = { name: feature.name };
+      container.append(label, document.createElement("br"));
+      const spellContainer = getOrCreateSpellContainer(container);
+      renderSpecialSpells(spellContainer);
       return;
     }
 
@@ -448,18 +520,28 @@ function getSpellcasting(cls, classLevel) {
   return data.progression[classLevel] || null;
 }
 
+function getSpellcastingSubclass(cls, subclass, classLevel) {
+  const data = SUBCLASS_SPELLCASTING[cls][subclass];
+  if (!data) return null;
+
+  return data.progression[classLevel] || null;
+}
+
 function getClassSpellState(cls) {
   if (!levelingState.spells) levelingState.spells = {};
 
   if (!levelingState.spells[cls]) {
     levelingState.spells[cls] = {
       cantrips: [],
-      spells: []
+      spells: [],
+      special_cantrips: [],
+      special_spells: [],
     };
   }
 
   return levelingState.spells[cls];
 }
+
 async function renderSpellGroupWithPrefill({ container, title, spells, limit, target, prefill = [] }) {
   const wrap = document.createElement("div");
 
@@ -471,6 +553,9 @@ async function renderSpellGroupWithPrefill({ container, title, spells, limit, ta
   // Counter
   const counter = document.createElement("div");
   wrap.appendChild(counter);
+
+// Source filters
+let activeSources = createSourceFilters(wrap, updateVisibility);
 
   // Grid container
   const grid = document.createElement("div");
@@ -484,6 +569,7 @@ async function renderSpellGroupWithPrefill({ container, title, spells, limit, ta
   // Initial counter text
   counter.textContent = `${limit - target.length} remaining`;
 
+	const cards = [];
   for (const spell of spells) {
     const spellData = SPELLS_DETAILS[spell] || {};
 
@@ -534,6 +620,10 @@ async function renderSpellGroupWithPrefill({ container, title, spells, limit, ta
       Dice: <span style="color:${damageColor}">${spellData.dice ?? "-"}</span><br>
       Damage Type: <span style="color:${damageColor}">${spellData.damageType ?? "-"}</span>
     `;
+	
+	const source = getSpellSource(spell);
+	card.dataset.source = source;
+	cards.push(card);
 
     card.append(cb, img, info);
     grid.appendChild(card);
@@ -542,9 +632,15 @@ async function renderSpellGroupWithPrefill({ container, title, spells, limit, ta
   wrap.appendChild(grid);
   container.appendChild(wrap);
   container.appendChild(document.createElement("hr"));
-
+  function updateVisibility(activeSources) {
+  cards.forEach(card => {
+    const src = card.dataset.source;
+    card.style.display = activeSources.has(src) ? "" : "none";
+  });
+}
   return target; // return updated target in case you want to store it
 }
+
 
 async function renderSpells(container) {
   const { class: cls, classLevel } = levelingState.pendingLevel;
@@ -560,6 +656,8 @@ async function renderSpells(container) {
     levelingState.pendingLevel.choices.spells = {
       cantrips: [],
       spells: [],
+      special_cantrips: [],
+      special_spells: [],
       replace: null,
       requiredCantrips: 0,
       requiredSpells: 0
@@ -645,6 +743,81 @@ async function renderSpells(container) {
 }
 
 
+async function renderSpecialSpells(container) {
+  const { class: cls, classLevel } = levelingState.pendingLevel;
+  const subclass = levelingState.pendingLevel.choices.subclass;
+
+  const current = getSpellcastingSubclass(cls, subclass, classLevel);
+  const previous = getPreviousSpellcastingSubclass(cls, subclass, classLevel);
+  
+  if (!current) return;
+
+  const classState = getClassSpellState(cls);
+
+  if (!levelingState.pendingLevel.choices.spells) {
+    levelingState.pendingLevel.choices.spells = {
+      cantrips: [],
+      spells: [],
+      special_cantrips: [],
+      special_spells: [],
+      replace: null,
+      requiredCantrips: 0,
+      requiredSpells: 0
+    };
+  }
+
+  const spellChoices = levelingState.pendingLevel.choices.spells;
+
+  /* ---------- CANTRIPS ---------- */
+  const newCantrips = getDelta(current, previous, "cantrips");
+  spellChoices.requiredCantrips = newCantrips;
+
+  if (newCantrips > 0) {
+    const availableCantrips = (SUBCLASS_SPELLS[subclass]?.[0] || []).filter(
+      s => !classState.cantrips.includes(s)
+    );
+
+    renderSpellGroup({
+      container,
+      title: `Choose ${newCantrips} new cantrip(s)`,
+      spells: availableCantrips,
+      limit: newCantrips,
+      target: spellChoices.special_cantrips
+    });
+  }
+
+  /* ---------- SPELLS ---------- */
+  const currentCount = current.spellsKnown ?? current.spellsPrepared ?? 0;
+  const previousCount = previous?.spellsKnown ?? previous?.spellsPrepared ?? 0;
+  const newSpells = Math.max(currentCount - previousCount, 0);
+  spellChoices.requiredSpells = newSpells;
+
+  if (newSpells <= 0) return;
+
+  // Build available spell list
+  let availableSpells = [];
+
+  const maxSpellLevel = SPELL_LEVEL_BY_CLASS_LEVEL.third[classLevel];
+	
+  for (let lvl = 1; lvl <= current.maxSpellLevel; lvl++) {
+    availableSpells.push(...(SUBCLASS_SPELLS[subclass]?.[lvl] || []));
+  }
+
+  // Render spell selection
+    const filtered = availableSpells.filter(s => !classState.spells.includes(s));
+
+    renderSpellGroup({
+      container,
+      title: `Choose ${newSpells} new spell(s)`,
+      spells: filtered,
+      limit: newSpells,
+      target: spellChoices.special_spells
+    });
+  
+}
+
+
+
 const DamageTypeColors = {
   acid: "#CDF2AA",
   bludgeoning: "#B5996D",
@@ -698,12 +871,17 @@ function renderSpellGroup({ container, title, spells, limit, target }) {
   counter.textContent = `${limit} remaining`;
   wrap.appendChild(counter);
 
+// Source filters
+let activeSources = createSourceFilters(wrap, updateVisibility);
+
   // Grid container
   const grid = document.createElement("div");
   grid.className = "spell-grid";
 
+	const cards = [];
   spells.forEach(async (spell) => {
     const spellData = SPELLS_DETAILS[spell] || {};
+	
 
     const card = document.createElement("div");
     card.className = "spell-card";
@@ -755,10 +933,22 @@ function renderSpellGroup({ container, title, spells, limit, target }) {
       Dice: <span style="color:${damageColor}">${spellData.dice ?? "-"}</span><br>
       Damage Type: <span style="color:${damageColor}">${spellData.damageType ?? "-"}</span>
     `;
+	
+	const source = getSpellSource(spell);
+	card.dataset.source = source;
+	cards.push(card);
 
     card.append(cb, img, info);
     grid.appendChild(card);
+	
   });
+  function updateVisibility(activeSources) {
+  cards.forEach(card => {
+    const src = card.dataset.source;
+    card.style.display = activeSources.has(src) ? "" : "none";
+  });
+}
+
 
   wrap.appendChild(grid);
   container.appendChild(wrap);

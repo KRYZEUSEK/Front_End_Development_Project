@@ -180,33 +180,6 @@ function renderSubclassFeatureImmediate(container) {
     wrapper.append(label, select, document.createElement("br"));
   });
 }
-function createSourceFilters(container, onChange) {
-  const filterWrap = document.createElement("div");
-  filterWrap.className = "spell-source-filters";
-
-  const activeSources = new Set(SPELL_SOURCES); // all enabled by default
-
-  SPELL_SOURCES.forEach(source => {
-    const label = document.createElement("label");
-    label.style.marginRight = "8px";
-
-    const cb = document.createElement("input");
-    cb.type = "checkbox";
-    cb.checked = true;
-
-    cb.onchange = () => {
-      cb.checked ? activeSources.add(source) : activeSources.delete(source);
-      onChange(activeSources);
-    };
-
-    label.append(cb, " ", source);
-    filterWrap.appendChild(label);
-  });
-
-  container.appendChild(filterWrap);
-  return activeSources;
-}
-
 
 /* ------------------------------
    CLASS SELECT

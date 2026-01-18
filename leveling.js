@@ -601,9 +601,6 @@ async function renderSpellGroupWithPrefill({ container, title, spells, limit, ta
   const counter = document.createElement("div");
   wrap.appendChild(counter);
 
-// Source filters
-let activeSources = createSourceFilters(wrap, updateVisibility);
-
   // Grid container
   const grid = document.createElement("div");
   grid.className = "spell-grid";
@@ -676,15 +673,10 @@ let activeSources = createSourceFilters(wrap, updateVisibility);
     grid.appendChild(card);
   }
 
+  createSourceFilters(wrap, cards);
   wrap.appendChild(grid);
   container.appendChild(wrap);
   container.appendChild(document.createElement("hr"));
-  function updateVisibility(activeSources) {
-  cards.forEach(card => {
-    const src = card.dataset.source;
-    card.style.display = activeSources.has(src) ? "" : "none";
-  });
-}
   return target; // return updated target in case you want to store it
 }
 
@@ -918,14 +910,11 @@ function renderSpellGroup({ container, title, spells, limit, target }) {
   counter.textContent = `${limit} remaining`;
   wrap.appendChild(counter);
 
-// Source filters
-let activeSources = createSourceFilters(wrap, updateVisibility);
-
   // Grid container
   const grid = document.createElement("div");
   grid.className = "spell-grid";
 
-	const cards = [];
+  const cards = [];
   spells.forEach(async (spell) => {
     const spellData = SPELLS_DETAILS[spell] || {};
 	
@@ -989,71 +978,60 @@ let activeSources = createSourceFilters(wrap, updateVisibility);
     grid.appendChild(card);
 	
   });
-  function updateVisibility(activeSources) {
-  cards.forEach(card => {
-    const src = card.dataset.source;
-    card.style.display = activeSources.has(src) ? "" : "none";
-  });
-}
 
-
+  createSourceFilters(wrap, cards);
   wrap.appendChild(grid);
   container.appendChild(wrap);
   container.appendChild(document.createElement("hr"));
 }
 
-function createSourceFilters(container, updateVisibility, cards) {
-  // ---------- Toggle button ----------
+function createSourceFilters(container, cards) {
   const toggleBtn = document.createElement("button");
   toggleBtn.type = "button";
   toggleBtn.textContent = "▶ Show Filters";
   toggleBtn.style.margin = "4px 0";
   toggleBtn.style.fontSize = "0.85rem";
 
-  // ---------- Filters wrapper (hidden initially) ----------
   const filterWrap = document.createElement("div");
   filterWrap.className = "spell-source-filters";
   filterWrap.style.display = "none";
   filterWrap.style.flexWrap = "wrap";
 
   toggleBtn.onclick = () => {
-    if (filterWrap.style.display === "none") {
-      filterWrap.style.display = "flex";
-      toggleBtn.textContent = "▼ Hide Filters";
-    } else {
-      filterWrap.style.display = "none";
-      toggleBtn.textContent = "▶ Show Filters";
-    }
+    const open = filterWrap.style.display === "none";
+    filterWrap.style.display = open ? "flex" : "none";
+    toggleBtn.textContent = open ? "▼ Hide Filters" : "▶ Show Filters";
   };
 
-  container.appendChild(toggleBtn);
-  container.appendChild(filterWrap);
+  container.append(toggleBtn, filterWrap);
 
-  // ---------- Checkboxes ----------
-  const activeSources = new Set();
+  const activeSources = new Set(["Player's Handbook"]);
+
+  function updateVisibility() {
+    cards.forEach(card => {
+      card.style.display = activeSources.has(card.dataset.source) ? "" : "none";
+    });
+  }
+
   SPELL_SOURCES.forEach(source => {
     const label = document.createElement("label");
     label.style.marginRight = "8px";
 
     const cb = document.createElement("input");
     cb.type = "checkbox";
-
-    // Only Player's Handbook checked by default
     cb.checked = source === "Player's Handbook";
-    if (cb.checked) activeSources.add(source);
 
-    // Trigger visibility immediately
     cb.onchange = () => {
-      if (cb.checked) activeSources.add(source);
-      else activeSources.delete(source);
-      updateVisibility(activeSources, cards);
+      cb.checked ? activeSources.add(source) : activeSources.delete(source);
+      updateVisibility();
     };
 
     label.append(cb, " ", source);
     filterWrap.appendChild(label);
   });
 
-  return activeSources;
+  // 🔥 APPLY FILTER IMMEDIATELY
+  updateVisibility();
 }
 
 function renderSpellReplacement(container, cls, classState) {

@@ -955,6 +955,56 @@ let activeSources = createSourceFilters(wrap, updateVisibility);
   container.appendChild(document.createElement("hr"));
 }
 
+
+function createSourceFilters(container) {
+  // ---------- Toggle button ----------
+  const toggleBtn = document.createElement("button");
+  toggleBtn.type = "button";
+  toggleBtn.textContent = "▶ Show Filters";
+  toggleBtn.style.margin = "4px 0";
+  toggleBtn.style.fontSize = "0.85rem";
+
+  // ---------- Filters wrapper (hidden initially) ----------
+  const filterWrap = document.createElement("div");
+  filterWrap.className = "spell-source-filters";
+  filterWrap.style.display = "none";
+
+  toggleBtn.onclick = () => {
+    if (filterWrap.style.display === "none") {
+      filterWrap.style.display = "flex";
+      toggleBtn.textContent = "▼ Hide Filters";
+    } else {
+      filterWrap.style.display = "none";
+      toggleBtn.textContent = "▶ Show Filters";
+    }
+  };
+
+  container.appendChild(toggleBtn);
+  container.appendChild(filterWrap);
+
+  // ---------- Checkboxes ----------
+  const activeSources = new Set();
+  SPELL_SOURCES.forEach(source => {
+    const label = document.createElement("label");
+    label.style.marginRight = "8px";
+
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+
+    // Only Player's Handbook checked by default
+    cb.checked = source === "Player's Handbook";
+    if (cb.checked) activeSources.add(source);
+
+    label.append(cb, " ", source);
+    filterWrap.appendChild(label);
+
+    // Add onchange later (after cards exist)
+    cb.dataset.source = source;
+  });
+
+  return activeSources;
+}
+
 function renderSpellReplacement(container, cls, classState) {
   const wrap = document.createElement("div");
   const title = document.createElement("strong");

@@ -241,7 +241,7 @@ const SPELLS_DETAILS = {
     Duration: "Instantaneous",
     SavingThrow: null
 },
-"Hand of Radiance": {
+"Hand of Radiance (UA)": {
     level: 0,
     school: "Evocation",
     img: "https://bg3.wiki/w/images/thumb/3/3b/Radiance_of_the_Dawn.webp/380px-Radiance_of_the_Dawn.webp.png",

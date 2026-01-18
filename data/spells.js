@@ -1,98 +1,96 @@
 const SPELLS = {
   wizard: {
-    0: ["Fire Bolt", "Light", "Mage Hand", "Prestidigitation", "Ray of Frost", "Minor Illusion", "Acid Splash", "Chill Touch"],
-    1: ["Magic Missile", "Shield", "Sleep", "Mage Armor", "Detect Magic", "Burning Hands", "Chromatic Orb", "Thunderwave"],
-    2: ["Mirror Image", "Misty Step", "Hold Person", "Scorching Ray", "Invisibility", "Levitate", "Web", "Blur"],
-    3: ["Counterspell", "Dispel Magic", "Fireball", "Fly", "Haste", "Lightning Bolt", "Major Image", "Sleet Storm"],
-    4: ["Greater Invisibility", "Polymorph", "Ice Storm", "Dimension Door", "Stoneskin", "Wall of Fire"],
-    5: ["Wall of Force", "Teleportation Circle", "Cone of Cold", "Cloudkill", "Animate Objects", "Bigby's Hand"],
-    6: ["Disintegrate", "Globe of Invulnerability", "Mass Suggestion", "Flesh to Stone"],
-    7: ["Finger of Death", "Teleport", "Plane Shift", "Reverse Gravity"],
-    8: ["Dominate Monster", "Earthquake", "Incendiary Cloud", "Antimagic Field"],
-    9: ["Meteor Swarm", "Time Stop", "Wish", "Power Word: Kill"]
+    0: ["Acid Splash", "Blade Ward", "Chill Touch", "Control Flames", "Create Bonfire", "Dancing Lights", "Encode Thoughts", "Fire Bolt", "Friends", "Frostbite", "Gust", "Infestation", "Light", "Mage Hand", "Mending", "Message", "Minor Illusion", "Mold Earth", "Poison Spray", "Prestidigitation", "Ray of Frost", "Sapping Sting", "Shape Water", "Shocking Grasp", "Thunderclap", "Toll the Dead", "True Strike"],
+    1: ["Absorb Elements", "Alarm", "Burning Hands", "Catapult", "Cause Fear", "Charm Person", "Chromatic Orb", "Color Spray", "Comprehend Languages", "Detect Magic", "Disguise Self", "Distort Value", "Earth Tremor", "Expeditious Retreat", "False Life", "Feather Fall", "Find Familiar", "Fog Cloud", "Frost Fingers", "Gift of Alacrity", "Grease", "Ice Knife", "Identify", "Illusory Script", "Jim's Magic Missile", "Jump", "Longstrider"],
+    2: ["Aganazzar's Scorcher", "Air Bubble", "Alter Self", "Arcane Lock", "Blindness/Deafness", "Blur", "Borrowed Knowledge", "Cloud of Daggers", "Continual Flame", "Crown of Madness", "Darkness", "Darkvision", "Detect Thoughts", "Dragon's Breath", "Dust Devil", "Earthbind", "Enlarge/Reduce", "Flaming Sphere", "Flock of Familiars", "Fortune's Favor", "Gentle Repose", "Gift of Gab", "Gust of Wind", "Hold Person", "Immovable Object", "Invisibility", "Jim's Glowing Coin"],
+    3: ["Animate Dead", "Antagonize", "Ashardalon's Stride", "Bestow Curse", "Blink", "Catnap", "Clairvoyance", "Counterspell", "Dispel Magic", "Enemies Abound", "Erupting Earth", "Fast Friends", "Fear", "Feign Death", "Fireball", "Flame Arrows", "Fly", "Galder's Tower", "Gaseous Form", "Glyph of Warding", "Haste", "Hypnotic Pattern", "Incite Greed", "Leomund's Tiny Hut", "Life Transference", "Lightning Bolt", "Magic Circle", "Major Image", "Melf's Minute Meteors", "Nondetection", "Phantom Steed", "Protection from Energy", "Pulse Wave", "Remove Curse", "Sending", "Sleet Storm", "Slow", "Stinking Cloud", "Summon Lesser Demons", "Thunder Step", "Tidal Wave", "Tiny Servant", "Tongues", "Vampiric Touch", "Wall of Sand", "Wall of Water", "Water Breathing"],
+    4: ["Arcane Eye", "Banishment", "Blight", "Charm Monster", "Confusion", "Conjure Minor Elementals", "Control Water", "Dimension Door", "Elemental Bane", "Evard's Black Tentacles", "Fabricate", "Fire Shield", "Galder's Speedy Courier", "Gate Seal", "Gravity Sinkhole", "Greater Invisibility", "Hallucinatory Terrain", "Ice Storm", "Leomund's Secret Chest", "Locate Creature", "Mordenkainen's Faithful Hound", "Mordenkainen's Private Sanctum", "Otiluke's Resilient Sphere", "Phantasmal Killer", "Polymorph", "Raulothim's Psychic Lance", "Sickening Radiance", "Spirit Of Death", "Stone Shape", "Stoneskin", "Storm Sphere", "Summon Greater Demon", "Vitriolic Sphere", "Wall of Fire", "Watery Sphere"],
+    5: ["Animate Objects", "Bigby's Hand", "Cloudkill", "Cone of Cold", "Conjure Elemental", "Contact Other Plane", "Control Winds", "Create Spelljamming Helm", "Creation", "Danse Macabre", "Dawn", "Dominate Person", "Dream", "Enervation", "Far Step", "Geas", "Hold Monster", "Immolation", "Infernal Calling", "Legend Lore", "Mislead", "Modify Memory", "Negative Energy Flood", "Passwall", "Planar Binding", "Rary's Telepathic Bond", "Scrying", "Seeming", "Skill Empowerment", "Steel Wind Strike", "Summon Draconic Spirit", "Synaptic Static", "Telekinesis", "Teleportation Circle", "Temporal Shunt"],
+    6: ["Arcane Gate", "Chain Lightning", "Circle of Death", "Contingency", "Create Homunculus", "Create Undead", "Disintegrate", "Drawmij's Instant Summons", "Eyebite", "Fizban's Platinum Shield", "Flesh to Stone", "Globe of Invulnerability", "Gravity Fissure", "Guards and Wards", "Investiture of Flame", "Investiture of Ice", "Investiture of Stone", "Investiture of Wind", "Magic Jar", "Mass Suggestion", "Mental Prison", "Move Earth", "Otiluke's Freezing Sphere", "Otto's Irresistible Dance", "Programmed Illusion", "Scatter", "Soul Cage", "Sunbeam", "Tenser's Transformation", "True Seeing", "Wall of Ice"],
+    7: ["Create Magen", "Crown of Stars", "Delayed Blast Fireball", "Draconic Transformation", "Etherealness", "Finger of Death", "Forcecage", "Mirage Arcane", "Mordenkainen's Magnificent Mansion", "Mordenkainen's Sword", "Plane Shift", "Power Word: Pain", "Prismatic Spray", "Project Image", "Reverse Gravity", "Sequester", "Simulacrum", "Symbol", "Teleport", "Tether Essence", "Whirlwind"],
+    8: ["Abi-Dalzim's Horrid Wilting", "Antimagic Field", "Antipathy/Sympathy", "Clone", "Control Weather", "Dark Star", "Demiplane", "Dominate Monster", "Feeblemind", "Illusory Dragon", "Incendiary Cloud", "Maddening Darkness", "Maze", "Mighty Fortress", "Mind Blank", "Power Word: Stun", "Reality Break", "Sunburst", "Telepathy"],
+    9: ["Astral Projection", "Foresight", "Gate", "Imprisonment", "Invulnerability", "Mass Polymorph", "Meteor Swarm", "Power Word: Kill", "Prismatic Wall", "Psychic Scream", "Ravenous Void", "Shapechange", "Time Ravage", "Time Stop", "True Polymorph", "Weird", "Wish"]
   },
 
   cleric: {
-    0: ["Guidance", "Sacred Flame", "Thaumaturgy", "Light", "Spare the Dying"],
-    1: ["Cure Wounds", "Bless", "Shield of Faith", "Command", "Detect Magic", "Inflict Wounds", "Protection from Evil and Good"],
-    2: ["Spiritual Weapon", "Hold Person", "Lesser Restoration", "Enhance Ability", "Aid", "Prayer of Healing"],
-    3: ["Dispel Magic", "Spirit Guardians", "Mass Healing Word", "Revivify", "Beacon of Hope", "Sending"],
-    4: ["Freedom of Movement", "Guardian of Faith", "Divination", "Death Ward", "Control Water"],
-    5: ["Raise Dead", "Flame Strike", "Mass Cure Wounds", "Dispel Evil and Good", "Commune"],
-    6: ["Heal", "Blade Barrier", "Word of Recall"],
+    0: ["Guidance", "Light", "Mending", "Resistance", "Sacred Flame", "Spare the Dying", "Thaumaturgy", "Toll the Dead", "Word of Radiance"],
+    1: ["Bane", "Bless", "Ceremony", "Command", "Create or Destroy Water", "Cure Wounds", "Detect Evil and Good", "Detect Magic", "Detect Poison and Disease", "Guiding Bolt", "Healing Word", "Inflict Wounds", "Protection from Evil and Good", "Purify Food and Drink", "Sanctuary", "Shield of Faith"],
+    2: ["Aid", "Augury", "Blindness/Deafness", "Borrowed Knowledge", "Calm Emotions", "Continual Flame", "Enhance Ability", "Find Traps", "Gentle Repose", "Hold Person", "Lesser Restoration", "Locate Object", "Prayer of Healing", "Protection from Poison", "Silence", "Spiritual Weapon", "Warding Bond", "Zone of Truth"],
+    3: ["Animate Dead", "Beacon of Hope", "Bestow Curse", "Clairvoyance", "Create Food and Water", "Daylight", "Dispel Magic", "Fast Friends", "Feign Death", "Glyph of Warding", "Incite Greed", "Life Transference", "Magic Circle", "Mass Healing Word", "Meld into Stone", "Motivational Speech", "Protection from Energy", "Remove Curse", "Revivify", "Sending", "Speak with Dead", "Spirit Guardians", "Tongues", "Water Walk"],
+    4: ["Banishment", "Control Water", "Death Ward", "Divination", "Freedom of Movement", "Guardian of Faith", "Locate Creature", "Stone Shape"],
+    5: ["Commune", "Contagion", "Dawn", "Dispel Evil and Good", "Flame Strike", "Geas", "Greater Restoration", "Hallow", "Holy Weapon", "Insect Plague", "Legend Lore", "Mass Cure Wounds", "Planar Binding", "Raise Dead", "Scrying"],
+    6: ["Blade Barrier", "Create Undead", "Find the Path", "Forbiddance", "Harm", "Heal", "Heroes' Feast", "Planar Ally", "True Seeing", "Word of Recall"],
     7: ["Conjure Celestial", "Divine Word", "Etherealness", "Fire Storm", "Plane Shift", "Regenerate", "Resurrection", "Symbol", "Temple of the Gods"],
-    8: ["Holy Aura", "Earthquake"],
-    9: ["True Resurrection", "Astral Projection"]
+    8: ["Antimagic Field", "Control Weather", "Earthquake", "Holy Aura"],
+    9: ["Astral Projection", "Gate", "Mass Heal", "True Resurrection"]
   },
 
   druid: {
-    0: ["Druidcraft", "Shillelagh", "Guidance", "Produce Flame", "Thorn Whip"],
-    1: ["Entangle", "Goodberry", "Cure Wounds", "Faerie Fire", "Thunderwave", "Absorb Elements"],
-    2: ["Moonbeam", "Flaming Sphere", "Hold Person", "Pass without Trace", "Spike Growth", "Lesser Restoration"],
-    3: ["Call Lightning", "Plant Growth", "Wind Wall", "Water Breathing", "Dispel Magic", "Sleet Storm"],
-    4: ["Ice Storm", "Stoneskin", "Greater Invisibility", "Freedom of Movement", "Conjure Minor Elementals"],
-    5: ["Wall of Stone", "Commune with Nature", "Tree Stride", "Reincarnate", "Mass Cure Wounds"],
-    6: ["Heal", "Conjure Fey", "Sunbeam", "Transport via Plants"],
-    7: ["Fire Storm", "Regenerate", "Plane Shift"],
-    8: ["Animal Shapes", "Earthquake", "Sunburst"],
-    9: ["Foresight", "Shapechange", "Storm of Vengeance"]
+    0: ["Control Flames", "Create Bonfire", "Druidcraft", "Frostbite", "Guidance", "Gust", "Infestation", "Magic Stone", "Mending", "Mold Earth", "Poison Spray", "Primal Savagery", "Produce Flame", "Resistance", "Shape Water", "Shillelagh", "Thorn Whip", "Thunderclap"],
+    1: ["Absorb Elements", "Animal Friendship", "Beast Bond", "Charm Person", "Create or Destroy Water", "Cure Wounds", "Detect Magic", "Detect Poison and Disease", "Earth Tremor", "Entangle", "Faerie Fire", "Fog Cloud", "Goodberry", "Healing Word", "Ice Knife", "Jump", "Longstrider", "Purify Food and Drink", "Snare", "Speak with Animals", "Thunderwave"],
+    2: ["Air Bubble", "Animal Messenger", "Barkskin", "Beast Sense", "Darkvision", "Dust Devil", "Earthbind", "Enhance Ability", "Find Traps", "Flame Blade", "Flaming Sphere", "Gust of Wind", "Healing Spirit", "Heat Metal", "Hold Person", "Lesser Restoration", "Locate Animals or Plants", "Locate Object", "Moonbeam", "Pass Without Trace", "Protection from Poison", "Skywrite", "Spike Growth", "Warding Wind", "Wither and Bloom"],
+    3: ["Call Lightning", "Conjure Animals", "Daylight", "Dispel Magic", "Erupting Earth", "Feign Death", "Flame Arrows", "Meld into Stone", "Plant Growth", "Protection from Energy", "Sleet Storm", "Speak with Plants", "Tidal Wave", "Wall of Water", "Water Breathing", "Water Walk", "Wind Wall"],
+    4: ["Blight", "Charm Monster", "Confusion", "Conjure Minor Elementals", "Conjure Woodland Beings", "Control Water", "Dominate Beast", "Elemental Bane", "Freedom of Movement", "Giant Insect", "Grasping Vine", "Guardian of Nature", "Hallucinatory Terrain", "Ice Storm", "Locate Creature", "Polymorph", "Stone Shape", "Stoneskin", "Wall of Fire", "Watery Sphere"],
+    5: ["Antilife Shell", "Awaken", "Commune with Nature", "Conjure Elemental", "Contagion", "Control Winds", "Geas", "Greater Restoration", "Insect Plague", "Maelstrom", "Mass Cure Wounds", "Planar Binding", "Reincarnate", "Scrying", "Summon Draconic Spirit", "Transmute Rock", "Tree Stride", "Wall of Stone", "Wrath Of Nature"],
+    6: ["Bones of the Earth", "Conjure Fey", "Druid Grove", "Find the Path", "Heal", "Heroes' Feast", "Investiture of Flame", "Investiture of Ice", "Investiture of Stone", "Investiture of Wind", "Move Earth", "Primordial Ward", "Sunbeam", "Transport via Plants", "Wall of Thorns", "Wind Walk"],
+    7: ["Draconic Transformation", "Fire Storm", "Mirage Arcane", "Plane Shift", "Regenerate", "Reverse Gravity", "Whirlwind"],
+    8: ["Animal Shapes", "Antipathy/Sympathy", "Control Weather", "Earthquake", "Feeblemind", "Sunburst", "Tsunami"],
+    9: ["Foresight", "Shapechange", "Storm of Vengeance", "True Resurrection"]
   },
 
   bard: {
-    0: ["Vicious Mockery", "Prestidigitation", "Mage Hand", "Dancing Lights", "Minor Illusion"],
-    1: ["Healing Word", "Charm Person", "Detect Magic", "Dissonant Whispers", "Faerie Fire", "Thunderwave"],
-    2: ["Enhance Ability", "Invisibility", "Hold Person", "Mirror Image", "Suggestion", "Lesser Restoration"],
-    3: ["Hypnotic Pattern", "Dispel Magic", "Leomund's Tiny Hut", "Major Image", "Counterspell"],
-    4: ["Greater Invisibility", "Polymorph", "Freedom of Movement", "Compulsion"],
-    5: ["Animate Objects", "Dominate Person", "Hold Monster", "Mass Cure Wounds"],
-    6: ["Mass Suggestion", "Otto's Irresistible Dance", "True Seeing"],
-    7: ["Forcecage", "Teleport", "Mirage Arcane"],
-    8: ["Mind Blank", "Power Word: Stun"],
-    9: ["Foresight", "Power Word: Heal"]
+    0: ["Blade Ward", "Dancing Lights", "Friends", "Light", "Mage Hand", "Mending", "Message", "Minor Illusion", "Prestidigitation", "Thunderclap", "True Strike", "Vicious Mockery"],
+    1: ["Animal Friendship", "Bane", "Charm Person", "Comprehend Languages", "Cure Wounds", "Detect Magic", "Disguise Self", "Dissonant Whispers", "Distort Value", "Earth Tremor", "Faerie Fire", "Feather Fall", "Healing Word", "Heroism", "Identify", "Illusory Script", "Longstrider", "Silent Image", "Silvery Barbs", "Sleep", "Speak with Animals", "Tasha's Hideous Laughter", "Thunderwave", "Unseen Servant"],
+    2: ["Animal Messenger", "Blindness/Deafness", "Borrowed Knowledge", "Calm Emotions", "Cloud of Daggers", "Crown of Madness", "Detect Thoughts", "Enhance Ability", "Enthrall", "Gift of Gab", "Heat Metal", "Hold Person", "Invisibility", "Kinetic Jaunt", "Knock", "Lesser Restoration", "Locate Animals or Plants", "Locate Object", "Magic Mouth", "Nathair's Mischief", "Phantasmal Force", "Pyrotechnics", "See Invisibility", "Shatter", "Silence", "Skywrite", "Spray Of Cards", "Suggestion", "Warding Wind", "Zone of Truth"],
+    3: ["Antagonize", "Bestow Curse", "Catnap", "Clairvoyance", "Dispel Magic", "Enemies Abound", "Fast Friends", "Fear", "Feign Death", "Glyph of Warding", "Hypnotic Pattern", "Leomund's Tiny Hut", "Major Image", "Motivational Speech", "Nondetection", "Plant Growth", "Sending", "Speak with Dead", "Speak with Plants", "Stinking Cloud", "Tongues"],
+    4: ["Charm Monster", "Compulsion", "Confusion", "Dimension Door", "Freedom of Movement", "Greater Invisibility", "Hallucinatory Terrain", "Locate Creature", "Polymorph", "Raulothim's Psychic Lance"],
+    5: ["Animate Objects", "Awaken", "Dominate Person", "Dream", "Geas", "Greater Restoration", "Hold Monster", "Legend Lore", "Mass Cure Wounds", "Mislead", "Modify Memory", "Planar Binding", "Raise Dead", "Scrying", "Seeming", "Skill Empowerment", "Synaptic Static", "Teleportation Circle"],
+    6: ["Eyebite", "Find the Path", "Guards and Wards", "Mass Suggestion", "Otto's Irresistible Dance", "Programmed Illusion", "True Seeing"],
+    7: ["Etherealness", "Forcecage", "Mirage Arcane", "Mordenkainen's Magnificent Mansion", "Mordenkainen's Sword", "Prismatic Spray", "Project Image", "Regenerate", "Resurrection", "Symbol", "Teleport"],
+    8: ["Dominate Monster", "Feeblemind", "Glibness", "Mind Blank", "Power Word: Stun"],
+    9: ["Foresight", "Mass Polymorph", "Power Word: Heal", "Power Word: Kill", "Psychic Scream", "True Polymorph"]
   },
 
   sorcerer: {
-    0: ["Fire Bolt", "Light", "Mage Hand", "Prestidigitation", "Ray of Frost", "Acid Splash", "Chill Touch"],
-    1: ["Shield", "Magic Missile", "Mage Armor", "Burning Hands", "Chromatic Orb", "Thunderwave"],
-    2: ["Mirror Image", "Misty Step", "Hold Person", "Scorching Ray", "Invisibility", "Blur", "Web"],
-    3: ["Fireball", "Counterspell", "Fly", "Haste", "Lightning Bolt", "Major Image", "Sleet Storm"],
-    4: ["Greater Invisibility", "Polymorph", "Ice Storm", "Dimension Door", "Stoneskin", "Wall of Fire"],
-    5: ["Wall of Force", "Teleportation Circle", "Cone of Cold", "Animate Objects", "Bigby's Hand"],
-    6: ["Disintegrate", "Mass Suggestion", "Globe of Invulnerability"],
-    7: ["Teleport", "Plane Shift", "Finger of Death"],
-    8: ["Dominate Monster", "Earthquake", "Antimagic Field"],
-    9: ["Meteor Swarm", "Time Stop", "Wish"]
+    0: ["Acid Splash", "Blade Ward", "Chill Touch", "Control Flames", "Create Bonfire", "Dancing Lights", "Fire Bolt", "Friends", "Frostbite", "Gust", "Infestation", "Light", "Mage Hand", "Mending", "Message", "Minor Illusion", "Mold Earth", "Poison Spray", "Prestidigitation", "Ray of Frost", "Shape Water", "Shocking Grasp", "Thunderclap", "True Strike"],
+    1: ["Absorb Elements", "Burning Hands", "Catapult", "Chaos Bolt", "Charm Person", "Chromatic Orb", "Color Spray", "Comprehend Languages", "Detect Magic", "Disguise Self", "Distort Value", "Earth Tremor", "Expeditious Retreat", "False Life", "Feather Fall", "Fog Cloud", "Ice Knife", "Jump", "Mage Armor", "Magic Missile", "Ray of Sickness", "Shield", "Silent Image", "Silvery Barbs", "Sleep", "Thunderwave", "Witch Bolt"],
+    2: ["Aganazzar's Scorcher", "Air Bubble", "Alter Self", "Blindness/Deafness", "Blur", "Cloud of Daggers", "Crown of Madness", "Darkness", "Darkvision", "Detect Thoughts", "Dragon's Breath", "Dust Devil", "Earthbind", "Enhance Ability", "Enlarge/Reduce", "Gust of Wind", "Hold Person", "Invisibility", "Kinetic Jaunt", "Knock", "Levitate", "Maximillian's Earthen Grasp", "Mind Spike", "Mirror Image", "Misty Step", "Nathair's Mischief", "Phantasmal Force", "Pyrotechnics", "Rime's Binding Ice", "Scorching Ray", "See Invisibility", "Shadow Blade", "Shatter", "Snilloc's Snowball Swarm", "Spider Climb", "Spray Of Cards", "Suggestion", "Vortex Warp", "Warding Wind", "Warp Sense", "Web", "Wither and Bloom"],
+    3: ["Antagonize", "Ashardalon's Stride", "Blink", "Catnap", "Clairvoyance", "Counterspell", "Daylight", "Dispel Magic", "Enemies Abound", "Erupting Earth", "Fear", "Fireball", "Flame Arrows", "Fly", "Gaseous Form", "Haste", "Hypnotic Pattern", "Incite Greed", "Lightning Bolt", "Major Image", "Melf's Minute Meteors", "Protection from Energy", "Sleet Storm", "Slow", "Stinking Cloud", "Thunder Step", "Tidal Wave", "Tongues", "Wall of Water", "Water Breathing", "Water Walk"],
+    4: ["Banishment", "Blight", "Charm Monster", "Confusion", "Dimension Door", "Dominate Beast", "Gate Seal", "Greater Invisibility", "Ice Storm", "Polymorph", "Raulothim's Psychic Lance", "Sickening Radiance", "Spirit Of Death", "Stoneskin", "Storm Sphere", "Vitriolic Sphere", "Wall of Fire", "Watery Sphere"],
+    5: ["Animate Objects", "Cloudkill", "Cone of Cold", "Control Winds", "Creation", "Dominate Person", "Enervation", "Far Step", "Hold Monster", "Immolation", "Insect Plague", "Seeming", "Skill Empowerment", "Summon Draconic Spirit", "Synaptic Static", "Telekinesis", "Teleportation Circle", "Wall of Light", "Wall of Stone"],
+    6: ["Arcane Gate", "Chain Lightning", "Circle of Death", "Disintegrate", "Eyebite", "Fizban's Platinum Shield", "Globe of Invulnerability", "Investiture of Flame", "Investiture of Ice", "Investiture of Stone", "Investiture of Wind", "Mass Suggestion", "Mental Prison", "Move Earth", "Scatter", "Sunbeam", "True Seeing"],
+    7: ["Crown of Stars", "Delayed Blast Fireball", "Draconic Transformation", "Etherealness", "Finger of Death", "Fire Storm", "Plane Shift", "Power Word: Pain", "Prismatic Spray", "Reverse Gravity", "Teleport"],
+    8: ["Abi-Dalzim's Horrid Wilting", "Dominate Monster", "Earthquake", "Incendiary Cloud", "Power Word: Stun", "Sunburst"],
+    9: ["Blade of Disaster", "Gate", "Mass Polymorph", "Meteor Swarm", "Power Word: Kill", "Psychic Scream", "Time Stop", "Wish"]
   },
 
   warlock: {
-    0: ["Eldritch Blast", "Mage Hand", "Prestidigitation", "Minor Illusion", "Chill Touch"],
-    1: ["Hex", "Armor of Agathys", "Hellish Rebuke", "Charm Person", "Witch Bolt"],
-    2: ["Mirror Image", "Misty Step", "Hold Person", "Invisibility", "Darkness"],
-    3: ["Counterspell", "Dispel Magic", "Fear", "Fly", "Hunger of Hadar"],
-    4: ["Banishment", "Greater Invisibility", "Phantasmal Killer", "Stoneskin"],
-    5: ["Hold Monster", "Wall of Force", "Contact Other Plane", "Dream"],
-    6: ["Circle of Death", "Eyebite", "True Seeing"],
-    7: ["Finger of Death", "Plane Shift"],
-    8: ["Demiplane", "Power Word: Stun"],
-    9: ["Foresight", "True Polymorph"]
+    0: ["Blade Ward", "Chill Touch", "Create Bonfire", "Eldritch Blast", "Friends", "Frostbite", "Infestation", "Mage Hand", "Magic Stone", "Minor Illusion", "Poison Spray", "Prestidigitation", "Thunderclap", "Toll the Dead", "True Strike"],
+    1: ["Armor of Agathys", "Arms of Hadar", "Cause Fear", "Charm Person", "Comprehend Languages", "Distort Value", "Expeditious Retreat", "Hellish Rebuke", "Hex", "Illusory Script", "Protection from Evil and Good", "Unseen Servant", "Witch Bolt"],
+    2: ["Borrowed Knowledge", "Cloud of Daggers", "Crown of Madness", "Darkness", "Earthbind", "Enthrall", "Flock of Familiars", "Hold Person", "Invisibility", "Mind Spike", "Mirror Image", "Misty Step", "Ray of Enfeeblement", "Shadow Blade", "Shatter", "Spider Climb", "Spray Of Cards", "Suggestion", "Warp Sense"],
+    3: ["Antagonize", "Counterspell", "Dispel Magic", "Enemies Abound", "Fear", "Fly", "Gaseous Form", "Hunger Of Hadar", "Hypnotic Pattern", "Incite Greed", "Magic Circle", "Major Image", "Remove Curse", "Summon Lesser Demons", "Thunder Step", "Tongues", "Vampiric Touch"],
+    4: ["Banishment", "Blight", "Charm Monster", "Dimension Door", "Elemental Bane", "Galder's Speedy Courier", "Gate Seal", "Hallucinatory Terrain", "Raulothim's Psychic Lance", "Shadow Of Moil", "Sickening Radiance", "Spirit Of Death"],
+    5: ["Contact Other Plane", "Danse Macabre", "Dream", "Enervation", "Far Step", "Hold Monster", "Infernal Calling", "Negative Energy Flood", "Scrying", "Synaptic Static", "Wall of Light"],
+    6: ["Arcane Gate", "Circle of Death", "Conjure Fey", "Create Undead", "Eyebite", "Flesh to Stone", "Investiture of Flame", "Investiture of Ice", "Investiture of Stone", "Investiture of Wind", "Mass Suggestion", "Mental Prison", "Scatter", "Soul Cage", "True Seeing"],
+    7: ["Crown of Stars", "Etherealness", "Finger of Death", "Forcecage", "Plane Shift", "Power Word: Pain"],
+    8: ["Demiplane", "Dominate Monster", "Feeblemind", "Glibness", "Maddening Darkness", "Power Word: Stun"],
+    9: ["Astral Projection", "Foresight", "Imprisonment", "Power Word: Kill", "Psychic Scream", "True Polymorph"]
   },
 
   paladin: {
-    0: ["Sacred Flame", "Light", "Thaumaturgy", "Guidance"],
-    1: ["Bless", "Cure Wounds", "Divine Favor", "Shield of Faith", "Compelled Duel"],
-    2: ["Lesser Restoration", "Magic Weapon", "Aid", "Find Steed"],
-    3: ["Aura of Vitality", "Dispel Magic", "Revivify", "Remove Curse"],
-    4: ["Death Ward", "Staggering Smite", "Guardian of Faith", "Freedom of Movement"],
-    5: ["Banishing Smite", "Destructive Wave", "Circle of Power"]
+    1: ["Bless", "Ceremony", "Command", "Compelled Duel", "Cure Wounds", "Detect Evil and Good", "Detect Magic", "Detect Poison and Disease", "Divine Favor", "Heroism", "Protection from Evil and Good", "Purify Food and Drink", "Searing Smite", "Shield of Faith", "Thunderous Smite", "Wrathful Smite"],
+    2: ["Aid", "Branding Smite", "Find Steed", "Lesser Restoration", "Locate Object", "Magic Weapon", "Protection from Poison", "Zone of Truth"],
+    3: ["Aura of Vitality", "Blinding Smite", "Create Food and Water", "Crusader's Mantle", "Daylight", "Dispel Magic", "Elemental Weapon", "Magic Circle", "Remove Curse", "Revivify"],
+    4: ["Aura of Life", "Aura of Purity", "Banishment", "Death Ward", "Find Greater Steed", "Locate Creature", "Staggering Smite"],
+    5: ["Banishing Smite", "Circle of Power", "Destructive Wave", "Dispel Evil and Good", "Geas", "Holy Weapon", "Raise Dead"]
   },
 
   ranger: {
-    0: ["Hunter's Mark", "Shillelagh", "Guidance", "Light", "Resistance"],
-    1: ["Cure Wounds", "Hail of Thorns", "Detect Magic", "Ensnaring Strike"],
-    2: ["Pass without Trace", "Lesser Restoration", "Spike Growth", "Animal Messenger"],
-    3: ["Conjure Animals", "Lightning Arrow", "Plant Growth", "Wind Wall"],
-    4: ["Freedom of Movement", "Grasping Vine", "Stoneskin"],
-    5: ["Commune with Nature", "Swift Quiver", "Tree Stride"]
+    1: ["Absorb Elements", "Alarm", "Animal Friendship", "Beast Bond", "Cure Wounds", "Detect Magic", "Detect Poison and Disease", "Ensnaring Strike", "Fog Cloud", "Goodberry", "Hail of Thorns", "Hunter's Mark", "Jump", "Longstrider", "Snare", "Speak with Animals", "Zephyr Strike"],
+    2: ["Air Bubble", "Animal Messenger", "Barkskin", "Beast Sense", "Cordon of Arrows", "Darkvision", "Find Traps", "Healing Spirit", "Lesser Restoration", "Locate Animals or Plants", "Locate Object", "Pass Without Trace", "Protection from Poison", "Silence", "Spike Growth"],
+    3: ["Ashardalon's Stride", "Conjure Animals", "Conjure Barrage", "Daylight", "Flame Arrows", "Lightning Arrow", "Nondetection", "Plant Growth", "Protection from Energy", "Speak with Plants", "Water Breathing", "Water Walk", "Wind Wall"],
+    4: ["Conjure Woodland Beings", "Freedom of Movement", "Grasping Vine", "Guardian of Nature", "Locate Creature", "Stoneskin"],
+    5: ["Commune with Nature", "Conjure Volley", "Steel Wind Strike", "Swift Quiver", "Tree Stride", "Wrath Of Nature"]
   },
    artificer: {
     0: ["Acid Splash", "Booming Blade", "Create Bonfire", "Dancing Lights", "Fire Bolt", "Frostbite", "Green-Flame Blade", "Guidance", "Light", "Lightning Lure", "Mage Hand", "Magic Stone", "Mending", "Message", "Poison Spray", "Prestidigitation", "Ray of Frost", "Resistance", "Shocking Grasp", "Spare the Dying", "Sword Burst", "Thorn Whip", "Thunderclap"],

@@ -955,8 +955,7 @@ let activeSources = createSourceFilters(wrap, updateVisibility);
   container.appendChild(document.createElement("hr"));
 }
 
-
-function createSourceFilters(container) {
+function createSourceFilters(container, updateVisibility, cards) {
   // ---------- Toggle button ----------
   const toggleBtn = document.createElement("button");
   toggleBtn.type = "button";
@@ -968,6 +967,7 @@ function createSourceFilters(container) {
   const filterWrap = document.createElement("div");
   filterWrap.className = "spell-source-filters";
   filterWrap.style.display = "none";
+  filterWrap.style.flexWrap = "wrap";
 
   toggleBtn.onclick = () => {
     if (filterWrap.style.display === "none") {
@@ -995,11 +995,15 @@ function createSourceFilters(container) {
     cb.checked = source === "Player's Handbook";
     if (cb.checked) activeSources.add(source);
 
+    // Trigger visibility immediately
+    cb.onchange = () => {
+      if (cb.checked) activeSources.add(source);
+      else activeSources.delete(source);
+      updateVisibility(activeSources, cards);
+    };
+
     label.append(cb, " ", source);
     filterWrap.appendChild(label);
-
-    // Add onchange later (after cards exist)
-    cb.dataset.source = source;
   });
 
   return activeSources;

@@ -567,6 +567,7 @@ async function renderSpells(container) {
   }
 
   const spellChoices = levelingState.pendingLevel.choices.spells;
+  const subclass = levelingState.pendingLevel.choices.subclass;
 
   /* ---------- CANTRIPS ---------- */
   const newCantrips = getDelta(current, previous, "cantrips");
@@ -576,6 +577,11 @@ async function renderSpells(container) {
     const availableCantrips = (SPELLS[cls]?.[0] || []).filter(
       s => !classState.cantrips.includes(s)
     );
+	  // 🔹 Merge subclass addon spells directly into main spell grid
+	  if (subclass && SPELLS_SUBCLASS_ADDON?.[cls]?.[subclass]) {
+		const subclassCantrips = SPELLS_SUBCLASS_ADDON[cls][subclass];
+		 availableCantrips.push(...subclassCantrips[0]);
+	  }
 
     renderSpellGroup({
       container,
@@ -601,11 +607,10 @@ async function renderSpells(container) {
   }
 
   // 🔹 Merge subclass addon spells directly into main spell grid
-  const subclass = levelingState.pendingLevel.choices.subclass;
   if (subclass && SPELLS_SUBCLASS_ADDON?.[cls]?.[subclass]) {
     const subclassSpells = SPELLS_SUBCLASS_ADDON[cls][subclass];
     for (const lvl in subclassSpells) {
-      availableSpells.push(...subclassSpells[lvl]);
+      if(lvl>0) availableSpells.push(...subclassSpells[lvl]);
     }
   }
 

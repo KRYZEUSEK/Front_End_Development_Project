@@ -278,6 +278,7 @@ const SPELLS_SUBCLASS_ADDON = {
   },
   warlock: {
     Hexblade: {
+      0: ["Booming Blade"],
       1: ["Chaos Bolt"],
       3: ["Flame Arrows"],
       5: ["Immolation"]

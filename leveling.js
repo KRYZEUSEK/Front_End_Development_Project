@@ -24,6 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ------------------------------
    HELPERS
 ------------------------------ */
+function isCasterClass(cls) {
+  return !!SPELLCASTING?.[cls]?.progression;
+}
 
 function getClassLevel(cls) {
   return levelingState.levels.filter(l => l.class === cls).length;
@@ -53,6 +56,16 @@ function getMaxSpellLevel(cls, classLevel) {
 
 function casterTypeIsPrepared(cls) {
   return SPELLCASTING[cls]?.type === "prepared";
+}
+
+function getOrCreateSpellContainer(parent) {
+  let spellDiv = parent.querySelector(".spell-container");
+  if (!spellDiv) {
+    spellDiv = document.createElement("div");
+    spellDiv.className = "spell-container";
+    parent.appendChild(spellDiv);
+  }
+  return spellDiv;
 }
 
 function normalizeLevels() {
@@ -193,7 +206,7 @@ function renderLevelChoices() {
     (required.choices?.includes("SubclassFeature") && !lvl.choices.subclass);
 
   if (needsSubclassSelect) {
-    renderSubclass(div);
+    renderSubclass(div, div);
     hasChoices = true;
   }
 
@@ -224,9 +237,11 @@ if (!levelingState.pendingLevel.choices.spells) {
 
 // Render new spell choices if this level grants spells
 if (required.spells) {
-  renderSpells(div);
+  const spellContainer = getOrCreateSpellContainer(div);
+  renderSpells(spellContainer);
   hasChoices = true;
 }
+
 // Otherwise, still allow spell replacement if the class already knows spells
 else if (classState.spells.length > 0) {
   renderSpellReplacement(div, cls, classState);
@@ -246,7 +261,7 @@ else if (classState.spells.length > 0) {
 /* ------------------------------
    SUBCLASS
 ------------------------------ */
-function renderSubclass(container) {
+function renderSubclass(container, spellContainer) {
   const lvl = levelingState.pendingLevel;
   const cls = lvl.class;
   const chosen = lvl.choices.subclass || "";
@@ -260,11 +275,11 @@ function renderSubclass(container) {
 
   select.value = chosen;
 
-  // Create a wrapper for features below the select
+  // Wrapper for features below the select
   let featureWrapper = document.createElement("div");
   featureWrapper.className = "subclass-features";
 
-  select.onchange = () => {
+  select.onchange = async () => {
     lvl.choices.subclass = select.value || null;
 
     // Clear old features
@@ -273,7 +288,14 @@ function renderSubclass(container) {
 
     if (lvl.choices.subclass) {
       renderSubclassFeaturesInline(featureWrapper);
-      renderAdditionalSpells(featureWrapper); // <-- NEW
+      //renderAdditionalSpells(featureWrapper);
+    }
+
+    // 🔹 Re-render spell selection after subclass change
+    if (isCasterClass(cls)) {
+		const spellContainer = getOrCreateSpellContainer(container);
+		spellContainer.innerHTML = ""; // ✅ clears ONLY spells
+		await renderSpells(spellContainer);
     }
 
     validate();
@@ -283,10 +305,18 @@ function renderSubclass(container) {
 
   // If already chosen, render features immediately
   if (chosen) {
-	  renderSubclassFeaturesInline(featureWrapper);
-	  renderAdditionalSpells(featureWrapper); // <-- NEW
-	}
+    renderSubclassFeaturesInline(featureWrapper);
+    //renderAdditionalSpells(featureWrapper);
+
+    // 🔹 Also render spells immediately
+    if (isCasterClass(cls)) {
+      spellContainer.innerHTML = "";
+      renderSpells(spellContainer);
+    }
+  }
 }
+
+
 function renderSubclassFeaturesInline(container) {
   const lvl = levelingState.pendingLevel;
   const { class: cls, classLevel, choices } = lvl;
@@ -329,37 +359,36 @@ function renderSubclassFeaturesInline(container) {
 /* ------------------------------
    SUBCLASS ADDITIONAL SPELLS
 ------------------------------ */
+/*
 function renderAdditionalSpells(container) {
   const lvl = levelingState.pendingLevel;
   const { class: cls, classLevel, choices } = lvl;
   const subclass = choices.subclass;
   if (!subclass) return;
 
-  // Get the extra spellcasting data for this subclass at this level
-  const subSpellData =
-    SUBCLASS_SPELLCASTING?.[cls]?.[subclass]?.progression?.[classLevel];
-  const availableSpells = SUBCLASS_SPELLS?.[subclass]?.[classLevel] || [];
+  // Base spell data for this subclass
+  const availableSpells = [];
 
-  if (!subSpellData || !availableSpells?.length) return;
+  // 🔹 Add subclass addon spells
+  const subclassAddon = SPELLS_SUBCLASS_ADDON?.[cls]?.[subclass]?.[String(classLevel)];
+  if (subclassAddon) {
+    availableSpells.push(...subclassAddon);
+  }
 
-  // Prepare target array to store chosen subclass spells
+  if (!availableSpells.length) return;
+
+  // Ensure storage exists
   if (!choices.subclassSpells) choices.subclassSpells = [];
-  const target = choices.subclassSpells;
 
-  // Determine how many spells can be chosen (use spellsKnown or spellsPrepared)
-  const limit = subSpellData.spellsKnown ?? subSpellData.spellsPrepared ?? availableSpells.length;
-
-  // Render using the same spell grid function
   renderSpellGroup({
     container,
-    title: `Additional ${subclass} Spells (choose ${limit})`,
+    title: `Additional ${subclass} Spells (choose ${availableSpells.length})`,
     spells: availableSpells,
-    limit,
-    target
+    limit: availableSpells.length,
+    target: choices.subclassSpells
   });
 }
-
-
+*/
 
 /* ------------------------------
    ASI / FEAT
@@ -517,7 +546,6 @@ async function renderSpellGroupWithPrefill({ container, title, spells, limit, ta
   return target; // return updated target in case you want to store it
 }
 
-
 async function renderSpells(container) {
   const { class: cls, classLevel } = levelingState.pendingLevel;
   const casterType = SPELLCASTING[cls].type;
@@ -527,91 +555,91 @@ async function renderSpells(container) {
   if (!current) return;
 
   const classState = getClassSpellState(cls);
-  
-if (!levelingState.pendingLevel.choices.spells) {
-  levelingState.pendingLevel.choices.spells = {
-    cantrips: [],
-    spells: [],
-    replace: null,
-    requiredCantrips: 0,
-    requiredSpells: 0
-  };
-}
 
-// ---------- CANTRIPS ----------
-const newCantrips = getDelta(current, previous, "cantrips");
-levelingState.pendingLevel.choices.spells.requiredCantrips = newCantrips;
+  if (!levelingState.pendingLevel.choices.spells) {
+    levelingState.pendingLevel.choices.spells = {
+      cantrips: [],
+      spells: [],
+      replace: null,
+      requiredCantrips: 0,
+      requiredSpells: 0
+    };
+  }
 
-if (newCantrips > 0) {
-  const availableCantrips =
-    (SPELLS[cls]?.[0] || []).filter(s => !classState.cantrips.includes(s));
+  const spellChoices = levelingState.pendingLevel.choices.spells;
 
-  renderSpellGroup({
-    container,
-    title: `Choose ${newCantrips} new cantrip(s)`,
-    spells: availableCantrips,
-    limit: newCantrips,
-    target: levelingState.pendingLevel.choices.spells.cantrips
-  });
-}
+  /* ---------- CANTRIPS ---------- */
+  const newCantrips = getDelta(current, previous, "cantrips");
+  spellChoices.requiredCantrips = newCantrips;
+
+  if (newCantrips > 0) {
+    const availableCantrips = (SPELLS[cls]?.[0] || []).filter(
+      s => !classState.cantrips.includes(s)
+    );
+
+    renderSpellGroup({
+      container,
+      title: `Choose ${newCantrips} new cantrip(s)`,
+      spells: availableCantrips,
+      limit: newCantrips,
+      target: spellChoices.cantrips
+    });
+  }
 
   /* ---------- SPELLS ---------- */
-
-  const currentCount =
-    current.spellsKnown ?? current.spellsPrepared ?? 0;
-  const previousCount =
-    previous?.spellsKnown ?? previous?.spellsPrepared ?? 0;
-
+  const currentCount = current.spellsKnown ?? current.spellsPrepared ?? 0;
+  const previousCount = previous?.spellsKnown ?? previous?.spellsPrepared ?? 0;
   const newSpells = Math.max(currentCount - previousCount, 0);
-  levelingState.pendingLevel.choices.spells.requiredSpells = newSpells;
+  spellChoices.requiredSpells = newSpells;
 
-  if (newSpells > 0) {
-    const availableSpells = [];
+  if (newSpells <= 0) return;
 
-    for (let lvl = 1; lvl <= current.maxSpellLevel; lvl++) {
-      availableSpells.push(
-        ...(SPELLS[cls]?.[lvl] || [])
-      );
+  // Build available spell list
+  let availableSpells = [];
+  for (let lvl = 1; lvl <= current.maxSpellLevel; lvl++) {
+    availableSpells.push(...(SPELLS[cls]?.[lvl] || []));
+  }
+
+  // 🔹 Merge subclass addon spells directly into main spell grid
+  const subclass = levelingState.pendingLevel.choices.subclass;
+  if (subclass && SPELLS_SUBCLASS_ADDON?.[cls]?.[subclass]) {
+    const subclassSpells = SPELLS_SUBCLASS_ADDON[cls][subclass];
+    for (const lvl in subclassSpells) {
+      availableSpells.push(...subclassSpells[lvl]);
     }
+  }
 
-if (casterType == "prepared") {
-	const classState = getClassSpellState(cls);
-	const previouslyChosen = classState.spells; // spells already known/selected before
+  // Deduplicate
+  availableSpells = Array.from(new Set(availableSpells));
 
-	levelingState.pendingLevel.choices.spells.spells = await renderSpellGroupWithPrefill({
-	  container,
-	  title: `Choose ${newSpells} new spell(s)`,
-	  spells: availableSpells, // show ALL spells
-	  limit: currentCount,
-	  target: levelingState.pendingLevel.choices.spells.spells,
-	  prefill: previouslyChosen
-	});
-
-} else {
-    const filtered = availableSpells.filter(
-      s => !classState.spells.includes(s)
-    );
+  // Render spell selection
+  if (casterType === "prepared") {
+    spellChoices.spells = await renderSpellGroupWithPrefill({
+      container,
+      title: `Choose ${newSpells} new spell(s)`,
+      spells: availableSpells,
+      limit: currentCount,
+      target: spellChoices.spells,
+      prefill: classState.spells
+    });
+  } else {
+    const filtered = availableSpells.filter(s => !classState.spells.includes(s));
 
     renderSpellGroup({
       container,
       title: `Choose ${newSpells} new spell(s)`,
       spells: filtered,
       limit: newSpells,
-      target: levelingState.pendingLevel.choices.spells.spells
+      target: spellChoices.spells
     });
 
-  // ---------- OPTIONAL REPLACEMENT ----------
-  // Always allow replacement if the class already knows spells
-  // and the class uses spellsKnown progression
-  if (
-    current.spellsKnown &&
-    classState.spells.length > 0
-  ) {
-    renderSpellReplacement(container, cls, classState);
+    if (current.spellsKnown && classState.spells.length > 0) {
+      renderSpellReplacement(container, cls, classState);
+    }
   }
 }
 
-}}
+
 const DamageTypeColors = {
   acid: "#CDF2AA",
   bludgeoning: "#B5996D",

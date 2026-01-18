@@ -268,6 +268,7 @@ const SUBCLASS_SPELLCASTING = {
   bard: {
     "Lore": {
       type: "known",
+      list: "wizard",
       progression: [
         null,
         null,
@@ -289,6 +290,7 @@ const SUBCLASS_SPELLCASTING = {
   rogue: {
     "Arcane Trickster": {
       type: "known",
+      list: "wizard",
       progression: [
         null,
         null,
@@ -310,6 +312,7 @@ const SUBCLASS_SPELLCASTING = {
   fighter: {
     "Eldritch Knight": {
       type: "known",
+      list: "wizard",
       progression: [
         null,
         null,
@@ -331,6 +334,7 @@ const SUBCLASS_SPELLCASTING = {
   paladin: {
     "Devotion": {
       type: "prepared",
+      list: "paladin",
       progression: [
         null,
         null,
@@ -344,6 +348,7 @@ const SUBCLASS_SPELLCASTING = {
     },
     "Ancients": {
       type: "prepared",
+      list: "paladin",
       progression: [
         null,
         null,
@@ -357,6 +362,7 @@ const SUBCLASS_SPELLCASTING = {
     },
     "Vengeance": {
       type: "prepared",
+      list: "paladin",
       progression: [
         null,
         null,
@@ -377,6 +383,7 @@ const SUBCLASS_SPELLCASTING = {
   druid: {
     "Land": {
       type: "prepared",
+      druid: "artificer",
       progression: [
         null,
         null,
@@ -398,6 +405,7 @@ const SUBCLASS_SPELLCASTING = {
   artificer: {
     "Alchemist": {
       type: "prepared",
+      list: "artificer",
       progression: [
         null,
         null,
@@ -408,6 +416,7 @@ const SUBCLASS_SPELLCASTING = {
     },
     "Artillerist": {
       type: "prepared",
+      list: "artificer",
       progression: [
         null,
         null,
@@ -418,6 +427,7 @@ const SUBCLASS_SPELLCASTING = {
     },
     "Battle Smith": {
       type: "prepared",
+      list: "artificer",
       progression: [
         null,
         null,
@@ -426,6 +436,7 @@ const SUBCLASS_SPELLCASTING = {
     },
     "Armorer": {
       type: "prepared",
+      list: "artificer",
       progression: [
         null,
         null,

@@ -550,7 +550,7 @@ const SPELLS_DETAILS = {
 "Spare the Dying": {
     level: 0,
     school: "Necromancy",
-    img: "https://bg3.wiki/w/images/2/2a/Second_Wind.webp",
+    img: "https://bg3.wiki/wiki/File:False_Life.webp",
     type: "heal",
     damageType: "heal",
     dice: "1d4",

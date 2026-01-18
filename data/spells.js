@@ -263,3 +263,36 @@ const SUBCLASS_SPELLS = {
   }
 
 };
+
+const SPELLS_SUBCLASS_ADDON = {
+  wizard: {
+    Evocation: {
+      1: ["Chaos Bolt"],
+      3: ["Flame Arrows"],
+      5: ["Immolation"]
+    },
+    Necromancy: {
+      1: ["Inflict Wounds"],
+      2: ["Wither and Bloom"]
+    }
+  },
+  warlock: {
+    Hexblade: {
+      1: ["Chaos Bolt"],
+      3: ["Flame Arrows"],
+      5: ["Immolation"]
+    },
+    Necromancy: {
+      1: ["Inflict Wounds"],
+      2: ["Wither and Bloom"]
+    }
+  },
+
+  cleric: {
+    Light: {
+      1: ["Burning Hands"],
+      2: ["Scorching Ray"]
+    }
+  }
+};
+

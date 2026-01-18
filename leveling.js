@@ -56,6 +56,14 @@ function isSpecialClass(subclass) {
   return false;
 }
 
+function getSpellList(cls) {
+  // If Tasha toggle is checked, use SPELLS_TASHA
+  if (levelingState.useTashaSpells) {
+    return SPELLS_TASHA[cls] || {};
+  }
+  return SPELLS[cls] || {};
+}
+
 function getClassLevel(cls) {
   return levelingState.levels.filter(l => l.class === cls).length;
 }
@@ -244,6 +252,71 @@ document.getElementById("startLevelBtn").onclick = () => {
 /* ------------------------------
    RENDER CHOICES
 ------------------------------ */
+function createTashaToggle(container) {
+  const label = document.createElement("label");
+  label.style.display = "flex";
+  label.style.alignItems = "center";
+  label.style.margin = "8px 0";
+  label.style.cursor = "pointer";
+
+  const cb = document.createElement("input");
+  cb.type = "checkbox";
+  cb.checked = !!levelingState.useTashaSpells;
+  cb.style.display = "none"; // still hidden
+
+  const customBox = document.createElement("span");
+  customBox.style.width = "18px";
+  customBox.style.height = "18px";
+  customBox.style.border = "2px solid #555";
+  customBox.style.borderRadius = "4px";
+  customBox.style.display = "inline-block";
+  customBox.style.marginRight = "8px";
+  customBox.style.position = "relative";
+  customBox.style.background = "#fff";
+  customBox.style.transition = "all 0.2s";
+
+  const checkMark = document.createElement("span");
+  checkMark.style.position = "absolute";
+  checkMark.style.top = "2px";
+  checkMark.style.left = "4px";
+  checkMark.style.width = "6px";
+  checkMark.style.height = "10px";
+  checkMark.style.border = "solid #000";
+  checkMark.style.borderWidth = "0 2px 2px 0";
+  checkMark.style.transform = "rotate(45deg)";
+  checkMark.style.opacity = cb.checked ? "1" : "0";
+  customBox.appendChild(checkMark);
+
+  // Only use the checkbox change event
+  cb.onchange = async (e) => {
+    checkMark.style.opacity = cb.checked ? "1" : "0";
+    levelingState.useTashaSpells = cb.checked;
+
+    const spellContainer = document.querySelector("#level-choices .spell-container");
+    if (spellContainer) {
+      spellContainer.innerHTML = "";
+      await renderSpells(spellContainer);
+    }
+  };
+
+  // Clicking the custom box toggles checkbox
+  customBox.onclick = (e) => {
+    e.stopPropagation(); // prevent bubbling
+    cb.checked = !cb.checked;
+    cb.onchange();
+  };
+
+  const text = document.createElement("span");
+  text.textContent = "Include optional spells from Tasha";
+  text.style.userSelect = "none";
+
+  label.appendChild(customBox);
+  label.appendChild(cb); // hidden for state
+  label.appendChild(text);
+
+  container.appendChild(label);
+}
+
 
 function renderLevelChoices() {
   const div = document.getElementById("level-choices");
@@ -296,6 +369,7 @@ if (!levelingState.pendingLevel.choices.spells) {
 
 // Render new spell choices if this level grants spells
 if (required.spells) {
+	createTashaToggle(div);
   const spellContainer = getOrCreateSpellContainer(div);
   renderSpells(spellContainer);
   hasChoices = true;
@@ -672,7 +746,7 @@ async function renderSpells(container) {
   spellChoices.requiredCantrips = newCantrips;
 
   if (newCantrips > 0) {
-    const availableCantrips = (SPELLS[cls]?.[0] || []).filter(
+    const availableCantrips = (getSpellList(cls)[0] || []).filter(
       s => !classState.cantrips.includes(s)
     );
 	  // 🔹 Merge subclass addon spells directly into main spell grid
@@ -701,7 +775,7 @@ async function renderSpells(container) {
   // Build available spell list
   let availableSpells = [];
   for (let lvl = 1; lvl <= current.maxSpellLevel; lvl++) {
-    availableSpells.push(...(SPELLS[cls]?.[lvl] || []));
+    availableSpells.push(...(getSpellList(cls)[lvl] || []));
   }
 
   // 🔹 Merge subclass addon spells directly into main spell grid
@@ -1032,7 +1106,7 @@ function renderSpellReplacement(container, cls, classState) {
     getSpellcasting(cls, levelingState.pendingLevel.classLevel)?.maxSpellLevel || 0;
 
   for (let lvl = 1; lvl <= maxSpellLevel; lvl++) {
-    (SPELLS[cls]?.[lvl] || []).forEach(spell => {
+    (getSpellList(cls)[lvl] || []).forEach(spell => {
       // Do NOT allow adding a spell already known
       if (!classState.spells.includes(spell)) {
         addSelect.appendChild(new Option(spell, spell));

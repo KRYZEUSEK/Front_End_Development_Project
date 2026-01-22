@@ -56,14 +56,6 @@ function isSpecialClass(subclass) {
   return false;
 }
 
-function getSpellList(cls) {
-  // If Tasha toggle is checked, use SPELLS_TASHA
-  if (levelingState.useTashaSpells) {
-    return SPELLS_TASHA[cls] || {};
-  }
-  return SPELLS[cls] || {};
-}
-
 function getClassLevel(cls) {
   return levelingState.levels.filter(l => l.class === cls).length;
 }
@@ -132,6 +124,7 @@ function normalizeLevels() {
     })
     .filter(Boolean);
 }
+
 function renderSubclassFeatureImmediate(container) {
   const { class: cls, classLevel, choices } = levelingState.pendingLevel;
   const subclass = choices.subclass;
@@ -476,40 +469,6 @@ function renderSubclassFeaturesInline(container) {
 }
 
 /* ------------------------------
-   SUBCLASS ADDITIONAL SPELLS
------------------------------- */
-/*
-function renderAdditionalSpells(container) {
-  const lvl = levelingState.pendingLevel;
-  const { class: cls, classLevel, choices } = lvl;
-  const subclass = choices.subclass;
-  if (!subclass) return;
-
-  // Base spell data for this subclass
-  const availableSpells = [];
-
-  // 🔹 Add subclass addon spells
-  const subclassAddon = SPELLS_SUBCLASS_ADDON?.[cls]?.[subclass]?.[String(classLevel)];
-  if (subclassAddon) {
-    availableSpells.push(...subclassAddon);
-  }
-
-  if (!availableSpells.length) return;
-
-  // Ensure storage exists
-  if (!choices.subclassSpells) choices.subclassSpells = [];
-
-  renderSpellGroup({
-    container,
-    title: `Additional ${subclass} Spells (choose ${availableSpells.length})`,
-    spells: availableSpells,
-    limit: availableSpells.length,
-    target: choices.subclassSpells
-  });
-}
-*/
-
-/* ------------------------------
    ASI / FEAT
 ------------------------------ */
 
@@ -553,13 +512,7 @@ function renderASI(container) {
 /* ------------------------------
    SPELLS
 ------------------------------ */
-/* ------------------------------
-function getMaxSpellLevel(cls, classLevel) {
-  const casterType = SPELLCASTING[cls].type;
-  if (!casterType) return 0;
-  return SPELL_LEVEL_BY_CLASS_LEVEL[casterType][classLevel];
-}
------------------------------- */
+
 function getSpellcasting(cls, classLevel) {
   const data = SPELLCASTING[cls];
   if (!data) return null;
@@ -711,13 +664,20 @@ async function renderSpells(container) {
   spellChoices.requiredCantrips = newCantrips;
 
   if (newCantrips > 0) {
-    const availableCantrips = (getSpellList(cls)[0] || []).filter(
+    const availableCantrips = (SPELLS[cls][0] || []).filter(
       s => !classState.cantrips.includes(s)
     );
+	
 	  // 🔹 Merge subclass addon spells directly into main spell grid
 	  if (subclass && SPELLS_SUBCLASS_ADDON?.[cls]?.[subclass]) {
 		const subclassCantrips = SPELLS_SUBCLASS_ADDON[cls][subclass];
 		 availableCantrips.push(...subclassCantrips[0]);
+	  }
+	  
+	  // 🔹 Merge Tasha addon spells directly into main spell grid
+	  if (levelingState.useTashaSpells && SPELLS_TASHA?.[cls]) {
+		const tashaSpells = SPELLS_TASHA[cls];
+		 availableCantrips.push(...tashaSpells[0]);
 	  }
 
     renderSpellGroup({
@@ -740,15 +700,23 @@ async function renderSpells(container) {
   // Build available spell list
   let availableSpells = [];
   for (let lvl = 1; lvl <= current.maxSpellLevel; lvl++) {
-    availableSpells.push(...(getSpellList(cls)[lvl] || []));
+    availableSpells.push(...(SPELLS[cls][lvl] || []));
   }
 
   // 🔹 Merge subclass addon spells directly into main spell grid
   if (subclass && SPELLS_SUBCLASS_ADDON?.[cls]?.[subclass]) {
     const subclassSpells = SPELLS_SUBCLASS_ADDON[cls][subclass];
-    for (const lvl in subclassSpells) {
-      if(lvl>0) availableSpells.push(...subclassSpells[lvl]);
+    for (let lvl = 1; lvl <= current.maxSpellLevel; lvl++) {
+      availableSpells.push(...subclassSpells[lvl]);
     }
+  }
+
+  // 🔹 Merge Tasha addon spells directly into main spell grid
+  if (levelingState.useTashaSpells && SPELLS_TASHA?.[cls]) {
+    const tashaSpells = SPELLS_TASHA[cls];
+	  for (let lvl = 1; lvl <= current.maxSpellLevel; lvl++) {
+		availableSpells.push(...tashaSpells[lvl]);
+	  }
   }
 
   // Deduplicate
@@ -1019,7 +987,6 @@ function createSourceFilters(container, cards) {
 
     const cb = document.createElement("input");
     cb.type = "checkbox";
-    cb.checked = source === "Player's Handbook";
 
     cb.onchange = () => {
       cb.checked ? activeSources.add(source) : activeSources.delete(source);
@@ -1057,12 +1024,38 @@ function renderSpellReplacement(container, cls, classState) {
     getSpellcasting(cls, levelingState.pendingLevel.classLevel)?.maxSpellLevel || 0;
 
   for (let lvl = 1; lvl <= maxSpellLevel; lvl++) {
-    (getSpellList(cls)[lvl] || []).forEach(spell => {
+    (SPELLS[cls][lvl] || []).forEach(spell => {
       // Do NOT allow adding a spell already known
       if (!classState.spells.includes(spell)) {
         addSelect.appendChild(new Option(spell, spell));
       }
     });
+  }
+
+  // 🔹 Merge subclass addon spells directly into main spell grid
+  if (subclass && SPELLS_SUBCLASS_ADDON?.[cls]?.[subclass]) {
+    for (let lvl = 1; lvl <= current.maxSpellLevel; lvl++) {
+
+		(SPELLS_SUBCLASS_ADDON[cls][subclass][lvl] || []).forEach(spell => {
+		  // Do NOT allow adding a spell already known
+		  if (!classState.spells.includes(spell)) {
+			addSelect.appendChild(new Option(spell, spell));
+		  }
+		});
+    }
+  }
+
+  // 🔹 Merge Tasha addon spells directly into main spell grid
+  if (levelingState.useTashaSpells && SPELLS_TASHA?.[cls]) {
+	  for (let lvl = 1; lvl <= current.maxSpellLevel; lvl++) {
+
+		(SPELLS_TASHA[cls][lvl] || []).forEach(spell => {
+		  // Do NOT allow adding a spell already known
+		  if (!classState.spells.includes(spell)) {
+			addSelect.appendChild(new Option(spell, spell));
+		  }
+		});
+	  }
   }
 
   // --- SYNC TO STATE ---

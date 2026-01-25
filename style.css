@@ -426,3 +426,105 @@ fieldset:nth-of-type(2) input:disabled {
 .modal * {
   cursor: url('cursors/Cherry-Wood-_filter-select_.png'), pointer;
 }
+
+/* ---------------------------------
+   MOBILE FOLDABLE MENU
+----------------------------------- */
+/* MOBILE MENU: hidden by default on desktop */
+.mobile-menu {
+  display: none; /* <-- HIDE on desktop */
+}
+
+@media (max-width: 768px) {
+  .mobile-menu {
+    display: block; /* show only on mobile */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--bg-header);
+    z-index: 1000;
+    border-bottom: 2px solid var(--button-bright);
+  }
+
+  /* Hide desktop nav + fixed buttons */
+  header nav,
+  .language-switcher,
+  .mode-switcher {
+    display: none !important;
+  }
+
+  /* Menu toggle button */
+  .menu-toggle {
+    width: 100%;
+    text-align: left;
+    font-size: 18px;
+    padding: 12px 20px;
+    background: var(--bg-header);
+    border: none;
+    color: var(--text-def);
+    cursor: url('cursors/Cherry-Wood-_filter-select_.png'), pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .menu-content {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 20px 20px 20px;
+  }
+
+  .menu-content.show {
+    display: flex;
+    animation: slideDown 0.3s ease forwards;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .menu-content nav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .menu-content nav a {
+    font-size: 16px;
+    color: var(--text-def);
+    text-decoration: none;
+  }
+
+  .menu-content nav a:hover {
+    color: var(--text-glow);
+    text-shadow: 0 0 5px var(--text-glow);
+  }
+
+  .mobile-language-switcher,
+  .mobile-mode-switcher {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .mobile-language-switcher button,
+  .mobile-mode-switcher button {
+    width: auto;
+    height: auto;
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+}
+
+.menu-toggle:focus,
+.menu-toggle:active {
+  outline: none;
+  box-shadow: none;
+  background: var(--bg-header); /* stays the same as normal */
+  color: var(--text-def);       /* stays the same as normal */
+}

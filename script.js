@@ -795,3 +795,16 @@ document.getElementById("randomLastBtn").addEventListener("click", () => {
   updatePreview(); // optional
 });
 
+/* Mobile */
+function toggleMobileMenu() {
+  const menuContent = document.querySelector('.mobile-menu .menu-content');
+  menuContent.classList.toggle('show');
+
+  // Rotate arrow in button
+  const btn = document.querySelector('.mobile-menu .menu-toggle');
+  if(menuContent.classList.contains('show')){
+    btn.textContent = '▼ Menu';
+  } else {
+    btn.textContent = '▶ Menu';
+  }
+}

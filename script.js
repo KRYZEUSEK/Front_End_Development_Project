@@ -273,15 +273,15 @@ function setCharacterData(data) {
    SAVE / LOAD LOCALSTORAGE
 ------------------------------ */
 
-document.getElementById("saveLocal").onclick = () => {
+/* document.getElementById("saveLocal").onclick = () => {
   localStorage.setItem("characterData", JSON.stringify(getCharacterData()));
   alert("Character saved!");
-};
+};*/
 
 function loadFromLocal() {
   const data = localStorage.getItem("characterData");
   if (data) setCharacterData(JSON.parse(data));
-}
+};
 
 
 /* ------------------------------

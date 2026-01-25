@@ -531,41 +531,138 @@ function renderSubclassFeaturesInline(container) {
 ------------------------------ */
 
 function renderASI(container) {
+  // Message above grid
+  const msg = document.createElement("div");
+  msg.style.color = "red";
+  msg.style.fontSize = "0.85em";
+  msg.style.marginBottom = "4px";
+  container.appendChild(msg);
+
+  // Grid wrapper for stats
   const wrap = document.createElement("div");
+  wrap.style.display = "grid";
+  wrap.style.gridTemplateColumns = "repeat(auto-fit, minmax(100px, 1fr))";
+  wrap.style.gap = "8px";
+  wrap.style.marginBottom = "8px";
+  container.appendChild(wrap);
 
   const stats = ["STR","DEX","CON","INT","WIS","CHA"];
   const selects = stats.map(stat => {
     const s = document.createElement("select");
-    s.appendChild(new Option(stat, ""));
-    s.appendChild(new Option("+1", 1));
-    s.appendChild(new Option("+2", 2));
+    s.dataset.stat = stat;
+    updateOptions(s);
+
+    s.onchange = updateASIChoice;
     return { stat, select: s };
   });
 
+  // Each stat in its own column
   selects.forEach(o => {
-    o.select.onchange = () => {
-      levelingState.pendingLevel.choices.asi = {
-        stat: o.stat,
-        value: Number(o.select.value)
-      };
-      levelingState.pendingLevel.choices.feat = null;
-      validate();
-    };
-    wrap.append(o.stat, o.select, " ");
+    const statWrap = document.createElement("div");
+    statWrap.style.display = "flex";
+    statWrap.style.flexDirection = "column";
+    statWrap.style.alignItems = "center";
+    statWrap.appendChild(o.select);
+    wrap.appendChild(statWrap);
   });
 
+  // Feat selector below grid
   const featSelect = document.createElement("select");
+  featSelect.style.marginTop = "8px";
   featSelect.appendChild(new Option("Choose Feat", ""));
   FEATS.forEach(f => featSelect.appendChild(new Option(f, f)));
-
   featSelect.onchange = () => {
-    levelingState.pendingLevel.choices.feat = featSelect.value;
-    levelingState.pendingLevel.choices.asi = null;
-    validate();
+    levelingState.pendingLevel.choices.feat = featSelect.value || null;
+    updateASIChoice();
   };
+  container.appendChild(featSelect);
 
-  container.append("ASI or Feat:", wrap, featSelect, document.createElement("br"));
+  // Populate +1/+2 options dynamically
+  function updateOptions(select) {
+    const stat = select.dataset.stat;
+    const currentValue = characterState.stats[stat.toLowerCase()] || 10;
+    const selected = Number(select.value);
+
+    select.innerHTML = "";
+    select.appendChild(new Option(`${stat} (${currentValue})`, 0));
+
+    if (currentValue < 20) {
+      select.appendChild(new Option(`${stat} +1 → ${currentValue + 1}`, 1));
+    }
+    if (currentValue <= 18) {
+      select.appendChild(new Option(`${stat} +2 → ${currentValue + 2}`, 2));
+    }
+
+    // Keep previous selection if still valid
+    if ([0,1,2].includes(selected)) select.value = selected;
+  }
+
+  function updateASIChoice() {
+    // Always refresh options
+    selects.forEach(s => updateOptions(s.select));
+
+    const asiValues = selects.map(o => Number(o.select.value)).filter(v => v > 0);
+    const asiStats = selects.filter(o => Number(o.select.value) > 0).map(o => o.stat);
+    const featChosen = featSelect.value;
+
+    // Conflict: both ASI and feat chosen
+    if (asiValues.length && featChosen) {
+      msg.style.color = "red";
+      msg.textContent = "You can't choose both ASI and feat on the same level.";
+      levelingState.pendingLevel.choices.asi = null;
+      validate();
+      return;
+    }
+
+    // Nothing chosen
+    if (asiValues.length === 0 && !featChosen) {
+      msg.style.color = "black";
+      msg.textContent = "Choose ASI or feat";
+      levelingState.pendingLevel.choices.asi = null;
+      validate();
+      return;
+    }
+
+    // ASI validation
+    msg.textContent = "";
+    let valid = true;
+
+    if (asiValues.length === 1 && asiValues[0] === 2) {
+      levelingState.pendingLevel.choices.asi = {
+        type: "+2",
+        stats: { [asiStats[0]]: 2 }
+      };
+    } else if (asiValues.length === 2 && asiValues.every(v => v === 1)) {
+      levelingState.pendingLevel.choices.asi = {
+        type: "+1/+1",
+        stats: {
+          [asiStats[0]]: 1,
+          [asiStats[1]]: 1
+        }
+      };
+    } else {
+      msg.style.color = "red";
+      msg.textContent = "Invalid ASI: choose +2 to one stat or +1 to two stats.";
+      levelingState.pendingLevel.choices.asi = null;
+      valid = false;
+    }
+
+    // Check max 20
+    if (levelingState.pendingLevel.choices.asi) {
+      const wouldExceed = Object.entries(levelingState.pendingLevel.choices.asi.stats)
+        .some(([stat, inc]) => (characterState.stats[stat.toLowerCase()] + inc) > 20);
+      if (wouldExceed) {
+        msg.style.color = "red";
+        msg.textContent = "Selected ASI would exceed 20 in a stat.";
+        levelingState.pendingLevel.choices.asi = null;
+        valid = false;
+      }
+    }
+
+    validate();
+  }
 }
+
 
 /* ------------------------------
    SPELLS

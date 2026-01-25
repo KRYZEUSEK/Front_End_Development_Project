@@ -375,3 +375,54 @@ fieldset:nth-of-type(2) input:disabled {
   transform: scale(0.8);
   margin: 0;
 }
+
+/* ---------------------------------
+   MODAL (CHARACTER LOAD)
+----------------------------------- */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none; /* JS toggles this */
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.modal-content {
+  background: var(--bg-container);
+  color: var(--text-light);
+  border-radius: 14px;
+  padding: 30px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 0 25px var(--shadow);
+  animation: fadeIn 0.4s ease;
+  text-align: center;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  color: var(--text-light);
+}
+
+.modal-content p {
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.modal-actions button {
+  flex: 1;
+}
+
+/* Cursor consistency */
+.modal,
+.modal * {
+  cursor: url('cursors/Cherry-Wood-_filter-select_.png'), pointer;
+}

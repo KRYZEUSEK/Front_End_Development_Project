@@ -5,6 +5,8 @@ const SPELL_LEVEL_BY_CLASS_LEVEL = {
   pact:  [0,1,1,2,2,3,3,4,4,5,5,5,5,5,5,5,5,5,5,5,5]
 };
 
+let pendingCharacterImport = null;
+
 const SPELL_SOURCES = [
   "Player's Handbook",
   "Xanathar's Guide to Everything",
@@ -97,6 +99,14 @@ function getOrCreateSpellContainer(parent) {
     parent.appendChild(spellDiv);
   }
   return spellDiv;
+}
+
+function openLoadCharacterModal() {
+  document.getElementById("loadCharacterModal").style.display = "flex";
+}
+
+function closeLoadCharacterModal() {
+  document.getElementById("loadCharacterModal").style.display = "none";
 }
 
 function normalizeLevels() {
@@ -1374,14 +1384,71 @@ document.getElementById("loadCharacterInput").onchange = e => {
   const reader = new FileReader();
   reader.onload = () => {
     try {
-      const data = JSON.parse(reader.result);
-      importCharacterFile(data);
+      pendingCharacterImport = JSON.parse(reader.result);
+      openLoadCharacterModal();
     } catch {
-      alert("Failed to read character file.");
+      alert("Invalid character file.");
     }
   };
   reader.readAsText(file);
 
-  // reset input so same file can be reloaded
   e.target.value = "";
+};
+
+function importCharacterNonLevelData(characterData) {
+  // Save raw character data if you want future use
+  localStorage.setItem("characterData", JSON.stringify(characterData));
+}
+
+function importCharacterLevelData(characterData) {
+  const classKey = normalizeClassKey(characterData?.basic?.class);
+  const level = Number(characterData?.basic?.level) || 0;
+
+  if (!classKey || level <= 0) return;
+
+  levelingState = {
+    levels: [],
+    pendingLevel: null,
+    spells: {}
+  };
+
+  for (let i = 1; i <= level; i++) {
+    levelingState.levels.push({
+      class: classKey,
+      classLevel: i,
+      hp: calculateHP(classKey, i),
+      required: CLASS_PROGRESSION[classKey]?.[i] || {},
+      choices: {},
+      imported: true
+    });
+  }
+
+  save();
+  normalizeLevels();
+  updateSummary();
+  renderHistory();
+}
+
+document.getElementById("loadLevelYes").onclick = () => {
+  if (!pendingCharacterImport) return;
+
+  importCharacterNonLevelData(pendingCharacterImport);
+  importCharacterLevelData(pendingCharacterImport);
+
+  closeLoadCharacterModal();
+  alert("Character loaded with level info.");
+};
+
+document.getElementById("loadLevelNo").onclick = () => {
+  if (!pendingCharacterImport) return;
+
+  importCharacterNonLevelData(pendingCharacterImport);
+
+  // Do NOT touch levelingState
+  save();
+  updateSummary();
+  renderHistory();
+
+  closeLoadCharacterModal();
+  alert("Character loaded without level info.");
 };

@@ -59,6 +59,24 @@ body {
     overflow-x: hidden;
 	cursor: url('cursors/Cherry Wood (normal select).cur'), auto;
 }
+  
+html,
+body * {
+	cursor: url('cursors/Cherry Wood (normal select).cur'), auto;
+}
+
+.spell-grid,
+.spell-grid *,
+.spell-card,
+.spell-card *
+button,
+button *,
+.spell-source-filters,
+.spell-source-filters *,
+.spell-source-filters label {
+	cursor: url('cursors/Cherry-Wood-_filter-select_.png'), pointer;
+}
+
 
 /* Ambient fog */
 body::before {

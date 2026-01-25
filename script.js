@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const savedLang = localStorage.getItem("lang") || "en";
   setLang(savedLang);
 
-  loadFromLocal();
+  //loadFromLocal();
   updatePreview();
 });
 

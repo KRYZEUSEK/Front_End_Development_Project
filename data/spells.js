@@ -296,11 +296,15 @@ const SUBCLASS_SPELLS = {
 const SPELLS_SUBCLASS_ADDON = {
   wizard: {
     Evocation: {
+      0: [],
       1: ["Chaos Bolt"],
+      2: [],
       3: ["Flame Arrows"],
+      4: [],
       5: ["Immolation"]
     },
     Necromancy: {
+      0: [],
       1: ["Inflict Wounds"],
       2: ["Wither and Bloom"]
     }
@@ -309,10 +313,13 @@ const SPELLS_SUBCLASS_ADDON = {
     Hexblade: {
       0: ["Booming Blade"],
       1: ["Chaos Bolt"],
+      2: [],
       3: ["Flame Arrows"],
+      4: [],
       5: ["Immolation"]
     },
     Necromancy: {
+      0: [],
       1: ["Inflict Wounds"],
       2: ["Wither and Bloom"]
     }
@@ -320,6 +327,7 @@ const SPELLS_SUBCLASS_ADDON = {
 
   cleric: {
     Light: {
+      0: [],
       1: ["Burning Hands"],
       2: ["Scorching Ray"]
     }

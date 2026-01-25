@@ -125,6 +125,16 @@ function normalizeLevels() {
     .filter(Boolean);
 }
 
+function normalizeClassKey(className) {
+  if (CLASSES[className]) return className;
+
+  const match = Object.entries(CLASSES).find(
+    ([_, c]) => c.name.toLowerCase() === String(className).toLowerCase()
+  );
+
+  return match ? match[0] : null;
+}
+
 function renderSubclassFeatureImmediate(container) {
   const { class: cls, classLevel, choices } = levelingState.pendingLevel;
   const subclass = choices.subclass;
@@ -228,7 +238,10 @@ function createTashaToggle(container) {
   const cb = document.createElement("input");
   cb.type = "checkbox";
   cb.checked = !!levelingState.useTashaSpells;
-  cb.style.display = "none"; // still hidden
+	cb.style.position = "absolute";
+	cb.style.opacity = "0";
+	cb.style.pointerEvents = "none";
+
 
   const customBox = document.createElement("span");
   customBox.style.width = "18px";
@@ -1256,6 +1269,21 @@ if (features.length) {
 }
 
 
+/* ------------------------------
+   SAVE / LOAD LOCALSTORAGE
+------------------------------ */
+
+/*document.getElementById("saveLeveling").onclick = () => {
+  localStorage.setItem("characterData", JSON.stringify(getCharacterData()));
+  alert("Character saved!");
+};
+
+function loadFromLocal() {
+  const data = localStorage.getItem("characterData");
+  if (data) setCharacterData(JSON.parse(data));
+}*/
+
+
 
 /* ------------------------------
    EXPORT / IMPORT / RESET
@@ -1289,4 +1317,71 @@ document.getElementById("resetLeveling").onclick = () => {
   save();
   updateSummary();
   renderHistory();
+};
+
+/* ------------------------------
+   LOAD BASIC
+------------------------------ */
+
+function importCharacterFile(characterData) {
+  if (!characterData?.basic) {
+    alert("Invalid character file.");
+    return;
+  }
+
+  const classKey = normalizeClassKey(characterData.basic.class);
+  const level = Number(characterData.basic.level) || 0;
+
+  if (!classKey || level <= 0) {
+    alert("Character has invalid class or level.");
+    return;
+  }
+
+  // 🔒 RESET STATE (safe defaults)
+  levelingState = {
+    levels: [],
+    pendingLevel: null,
+    spells: {}
+  };
+
+  // 🔁 AUTO-BUILD LEVEL HISTORY
+  for (let i = 1; i <= level; i++) {
+    levelingState.levels.push({
+      class: classKey,
+      classLevel: i,
+      hp: calculateHP(classKey, i),
+      required: CLASS_PROGRESSION[classKey]?.[i] || {},
+      choices: {},
+      imported: true
+    });
+  }
+
+  save();
+  normalizeLevels();
+  updateSummary();
+  renderHistory();
+
+  alert(`Character loaded: ${CLASSES[classKey].name} level ${level}`);
+}
+
+document.getElementById("loadCharacterFile").onclick = () =>
+  document.getElementById("loadCharacterInput").click();
+
+document.getElementById("loadCharacterInput").onchange = e => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+      importCharacterFile(data);
+    } catch {
+      alert("Failed to read character file.");
+    }
+  };
+  reader.readAsText(file);
+
+  // reset input so same file can be reloaded
+  e.target.value = "";
 };

@@ -39,6 +39,41 @@ document.addEventListener("DOMContentLoaded", () => {
   renderHistory();
 });
 
+function getDefaultCharacterData() {
+  return {
+    basic: {
+      firstName: "Unknown Name",
+      lastName: "Unknown Surname",
+      race: "Unknown Race",
+      alignment: "Unknown Alignment",
+      class: "",
+      level: 0
+    },
+    stats: {
+      str: 10,
+      dex: 10,
+      con: 10,
+      int: 10,
+      wis: 10,
+      cha: 10
+    },
+    extra: {
+      age: "Unbknown Age",
+      sex: "Unbknown Sex",
+      gender: "Unbknown",
+      height: "Unbknown Height",
+      weight: "Unbknown Weight",
+      notes: "No Notes"
+    }
+  };
+}
+
+let characterState = getDefaultCharacterData();
+
+function deepClone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
 /* ------------------------------
    HELPERS
 ------------------------------ */
@@ -1300,10 +1335,19 @@ function loadFromLocal() {
 ------------------------------ */
 
 document.getElementById("exportLeveling").onclick = () => {
-  const blob = new Blob([JSON.stringify(levelingState, null, 2)], { type: "application/json" });
+  const exportData = {
+    character: deepClone(characterState || getDefaultCharacterData()),
+    leveling: deepClone(levelingState)
+  };
+
+  const blob = new Blob(
+    [JSON.stringify(exportData, null, 2)],
+    { type: "application/json" }
+  );
+
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "leveling.json";
+  a.download = "character_with_leveling.json";
   a.click();
 };
 
@@ -1313,7 +1357,19 @@ document.getElementById("importLeveling").onclick = () =>
 document.getElementById("importLevelingFile").onchange = e => {
   const reader = new FileReader();
   reader.onload = () => {
-    levelingState = JSON.parse(reader.result);
+    const data = JSON.parse(reader.result);
+
+    // New combined format
+    if (data.character && data.leveling) {
+      characterState = deepClone(data.character);
+      levelingState = deepClone(data.leveling);
+    }
+    // Old leveling-only format
+    else {
+      characterState = getDefaultCharacterData();
+      levelingState = deepClone(data);
+    }
+
     save();
     normalizeLevels();
     updateSummary();
@@ -1321,6 +1377,7 @@ document.getElementById("importLevelingFile").onchange = e => {
   };
   reader.readAsText(e.target.files[0]);
 };
+
 
 document.getElementById("resetLeveling").onclick = () => {
   levelingState = { levels: [], pendingLevel: null };
@@ -1395,14 +1452,28 @@ document.getElementById("loadCharacterInput").onchange = e => {
   e.target.value = "";
 };
 
-function importCharacterNonLevelData(characterData) {
-  // Save raw character data if you want future use
-  localStorage.setItem("characterData", JSON.stringify(characterData));
+function importCharacterNonLevelData(data) {
+  // If file is the new combined format
+  if (data.character) {
+    characterState = deepClone(data.character);
+    return;
+  }
+
+  // If file is raw character data
+  if (data.basic) {
+    characterState = deepClone(data);
+    return;
+  }
+
+  // Fallback: reset to defaults
+  characterState = getDefaultCharacterData();
 }
 
-function importCharacterLevelData(characterData) {
-  const classKey = normalizeClassKey(characterData?.basic?.class);
-  const level = Number(characterData?.basic?.level) || 0;
+function importCharacterLevelData(data) {
+  const source = data.character ?? data;
+
+  const classKey = normalizeClassKey(source?.basic?.class);
+  const level = Number(source?.basic?.level) || 0;
 
   if (!classKey || level <= 0) return;
 
